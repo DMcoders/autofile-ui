@@ -104,19 +104,6 @@ export const constantRoutes = [
         meta: { title: '调度日志' }
       }
     ]
-  },
-  {
-    path: '/gen',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'edit',
-        component: () => import('@/views/tool/gen/editTable'),
-        name: 'GenEdit',
-        meta: { title: '修改生成配置' }
-      }
-    ]
   }
 ]
 

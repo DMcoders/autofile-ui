@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      title: 'xx管理系统',
+      title: '认证文件协同平台',
       logo: logoImg
     }
   }
