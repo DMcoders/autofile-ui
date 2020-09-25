@@ -73,3 +73,12 @@ export function exportRole(query) {
     params: query
   })
 }
+
+// 角色选项
+export function selectAllRoles() {
+  return request({
+    url: '/system/role/selectAllRoles',
+    method: 'get',
+    params:{}
+  })
+}
