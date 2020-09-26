@@ -45,7 +45,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:config:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -55,7 +56,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:config:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -64,18 +66,19 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['system:config:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
     </el-row>
 
     <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="目录序号" align="center" prop="sectionOrderName" />
-      <el-table-column label="章节" align="center" prop="firstOrder" :show-overflow-tooltip="true" />
-      <el-table-column label="标题" align="center" prop="sectionTitle" :show-overflow-tooltip="true" />
-      <el-table-column label="中文标题" align="center" prop="sectionTitleZh" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="目录序号" align="center" prop="sectionOrderName"/>
+      <el-table-column label="章节" align="center" prop="firstOrder" :show-overflow-tooltip="true"/>
+      <el-table-column label="标题" align="center" prop="sectionTitle" :show-overflow-tooltip="true"/>
+      <el-table-column label="中文标题" align="center" prop="sectionTitleZh"/>
       <el-table-column label="填写角色" align="center" prop="roleName"/>
-      <el-table-column label="模块" align="center" prop="moduleName" :show-overflow-tooltip="true" />
+      <el-table-column label="模块" align="center" prop="moduleName" :show-overflow-tooltip="true"/>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -89,14 +92,16 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:config:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:config:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -110,45 +115,105 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="目录序号" prop="sectionOrderName">
-          <el-input v-model="form.sectionOrderName" placeholder="请输入目录序号" />
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="目录序号" prop="sectionOrderName">
+              <el-input  style="width:100%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号" @keyup.native="changeFirstOrder" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="章节" prop="firstOrderName">
+              <el-input style="width:100%" v-model="form.firstOrderName" disabled/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="标题" prop="sectionTitle">
+              <el-input  style="width:100%" v-model="form.sectionTitle" clearable placeholder="请输入标题" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="中文标题" prop="sectionTitleZh">
+              <el-input style="width:100%" v-model="form.sectionTitleZh" clearable placeholder="请输入中文标题"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="类型" prop="inputType">
+              <el-select style="width:100%" clearable v-model="form.inputType" size="small" clearable placeholder="请选择类型">
+                <el-option
+                  v-for="inputType in inputTypes"
+                  :key="inputType.key"
+                  :label="inputType.value"
+                  :value="inputType.key"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="版本年号" prop="versionYear">
+              <el-date-picker
+                v-model="form.versionYear"
+                type="year"
+                format="yyyy"
+                value-format="yyyy"
+                placeholder="选择版本年号"
+                :picker-options="pickerOptions0">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="模块" prop="moduleName">
+              <el-select style="width:100%" clearable v-model="form.moduleName" size="small" clearable placeholder="请选择模块">
+                <el-option
+                  v-for="moduleName in moduleNames"
+                  :key="moduleName"
+                  :label="moduleName"
+                  :value="moduleName"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="选择角色" prop="roleName">
+              <el-select style="width:100%" clearable v-model="form.role" size="small" clearable placeholder="请选择角色">
+                <el-option
+                  v-for="role in roles"
+                  :key="role.roleId"
+                  :label="role.roleName"
+                  :value="role.roleId"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="关联附录" prop="isRelateAnnex">
+              <el-switch on-value="1" off-value="0" inactive-value=false v-model="form.isRelateAnnex"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="附录页数" prop="relateAnnexPage">
+              <el-input-number style="width:100%" v-model="form.relateAnnexPage" controls-position="right" :min="0"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item label="div预览" prop="divPreview">
+          <component v-bind:is="whichCatalogue"></component>
         </el-form-item>
-        <el-form-item label="章节" prop="firstOrder">
-          <el-input v-model="form.firstOrder" disabled/>
-        </el-form-item>
-        <el-form-item label="模块" prop="moduleName">
-          <el-select v-model="form.moduleName" size="small" clearable placeholder="请选择模块">
-            <el-option
-              v-for="moduleName in moduleNames"
-              :key="moduleName"
-              :label="moduleName"
-              :value="moduleName"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="选择角色" prop="roleName">
-          <el-select v-model="form.roleId" size="small" clearable placeholder="请选择角色">
-            <el-option
-              v-for="role in roles"
-              :key="role.roleId"
-              :label="role.roleName"
-              :value="role.roleId"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="关联附录" prop="remark">
-          <el-switch on-value="1" off-value="0" v-model="form.relateAnnex"></el-switch>
-        </el-form-item>
-        <el-form-item label="附录页数" prop="annexPage">
-          <el-input-number v-model="form.annexPage" controls-position="right" :min="0" />
-        </el-form-item>
-       <el-form-item label="div预览" prop="divPreview">
-         <component v-bind:is="whichCatalogue"></component>
-       </el-form-item>
       </el-form>
-      <component v-bind:is="whichCatalogue"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="subPreview">预览</el-button>
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -159,8 +224,10 @@
 </template>
 
 <script>
+  import {selectAllRoles} from "@/api/system/role";
 
-  import { selectAllRoles } from "@/api/system/role";
+  import {add} from "@/api/vertify/standardInput";
+
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
   import catalogue_01 from '../../../components/Vertify/Catalogue/0/catalogue_01'
@@ -172,9 +239,9 @@
       catalogue_0,
       catalogue_01
     },
-    props:{
-      tnom:{
-        type:String
+    props: {
+      tnom: {
+        type: String
       }
     },
 
@@ -198,32 +265,49 @@
         open: false,
         //
         moduleNames: [
-          "制动","安全带","操纵件","侧防护","车身总布置","挡泥板","导流罩","电磁兼容","风窗","后防护","后牌照板","后视镜","空调(乘员舱加热系统)","铭牌VIN","前防护","座椅","车轮","悬架","转向","发动机","供油","进气","排气","传动系","车桥","底盘","总布置"
+          "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
-        whichCatalogue:undefined,
-        roles:[],
+        catalogues:[{"key":"0","value":"第零章节"},{"key":"1","value":"第一章节"},{"key":"2","value":"第二章节"},{"key":"3","value":"第三章节"},{"key":"4","value":"第四章节"},{"key":"5","value":"第五章节"},{"key":"6","value":"第六章节"},{"key":"7","value":"第七章节"},{"key":"8","value":"第八章节"},{"key":"9","value":"第九章节"},{"key":"10","value":"第十章节"},{"key":"11","value":"第十一章节"},{"key":"12","value":"第十二章节"},{"key":"13","value":"第十三章节"}]
+        ,
+        specialCatalogueKeys:["0","1","2","3","4","5","6","7","8","9","10","11","12","13"],
+        inputTypes:[{"key":"title","value":"标题"},{"key":"input","value":"输入框"},{"key":"image","value":"图片"}],
+        whichCatalogue: undefined,
+        roles: [],
         // 日期范围
         dateRange: [],
+
+        pickerOptions0: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e6;
+          }
+        },
         // 查询参数
         queryParams: {
           pageNum: 1,
           pageSize: 10,
           firstOrder: undefined,
-          moduleName:undefined,
-          sectionOrderName:undefined,
+          moduleName: undefined,
+          sectionOrderName: undefined,
         },
         // 表单参数
         form: {},
         // 表单校验
         rules: {
-          configName: [
-            { required: true, message: "参数名称不能为空", trigger: "blur" }
+          sectionOrderName: [
+            {required: true, message: "目录序号不能为空", trigger: "blur"},
+            { validator: this.checkSectionOrderName, trigger: ['blur','keyup'] },
           ],
-          configKey: [
-            { required: true, message: "参数键名不能为空", trigger: "blur" }
+          inputType: [
+            {required: true, message: "类型不能为空", trigger: "blur"}
           ],
-          configValue: [
-            { required: true, message: "参数键值不能为空", trigger: "blur" }
+          versionYear: [
+            {required: true, message: "版本年号不能为空", trigger: "blur"}
+          ],
+          moduleName: [
+            {required: true, message: "模块不能为空", trigger: "blur"}
+          ],
+          roleName: [
+            {required: true, message: "角色不能为空", trigger: "blur"}
           ]
         }
       };
@@ -236,6 +320,17 @@
       });
     },
     methods: {
+      checkSectionOrderName(rule, value, callback) {
+        debugger
+        const re = /[0-9]+(?!.*?\.\.)([\.]{0,6})/;
+        const rsCheck = re.test(value);
+        if (!rsCheck) {
+          callback(new Error('目录序号不合法'));
+        }
+        if (undefined == this.form.firstOrderName || "" == this.form.firstOrderName) {
+          callback(new Error('目录序号不合法'));
+        }
+      },
 
       assignRoleValue(list) {
         for (let i = 0; i < list.length; i++) {
@@ -247,11 +342,35 @@
         }
       },
 
+      changeFirstOrder() {
+        let sectionOrderName = this.form.sectionOrderName;
+        if (this.specialCatalogueKeys.indexOf(sectionOrderName) > -1) {
+          this.catalogues.forEach(item => {
+            if (sectionOrderName == item.key) {
+              this.$set(this.form, "firstOrderName", item.value)
+              return;
+            }
+          })
+          return;
+        }
+
+        let first = sectionOrderName.substring(0, sectionOrderName.indexOf("."));
+        if (undefined == first || "" == first) {
+          this.$set(this.form, "firstOrderName", "")
+          return;
+        }
+        this.catalogues.forEach(item => {
+          if (first == item.key) {
+            this.$set(this.form, "firstOrderName", item.value)
+            return;
+          }
+        })
+      },
 
       /** 查询参数列表 */
       getList() {
         listConfig(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-            this.configList = response.rows;
+
             this.total = response.total;
             this.loading = false;
           }
@@ -265,12 +384,21 @@
       // 表单重置
       reset() {
         this.form = {
-          configId: undefined,
-          configName: undefined,
-          configKey: undefined,
-          configValue: undefined,
-          configType: "Y",
-          remark: undefined
+          sectionOrderName:undefined,
+          firstOrder:undefined,
+          secondOrder:undefined,
+          thirdOrder:undefined,
+          fourthOrder:undefined,
+          sixthOrder:undefined,
+          seventhOrder:undefined,
+          sectionTitle:undefined,
+          sectionTitleZh:undefined,
+          inputType:undefined,
+          versionYear:undefined,
+          moduleName:undefined,
+          role:undefined,
+          isRelateAnnex:undefined,
+          relateAnnexPage:undefined
         };
         this.resetForm("form");
       },
@@ -294,7 +422,7 @@
       // 多选框选中数据
       handleSelectionChange(selection) {
         this.ids = selection.map(item => item.configId)
-        this.single = selection.length!=1
+        this.single = selection.length != 1
         this.multiple = !selection.length
       },
       /** 修改按钮操作 */
@@ -308,14 +436,43 @@
         });
       },
 
-      subPreview:function()
-      {
+      subPreview: function () {
         debugger
         this.whichCatalogue = catalogue_01;
       },
 
+      assignOrderValue(sectionOrderName) {
+        if(undefined == sectionOrderName)
+        {
+          return;
+        }
+        if (this.specialCatalogueKeys.indexOf(sectionOrderName) > -1) {
+          this.form.firstOrder = sectionOrderName;
+          return;
+        }
+        let sectionOrderArray = sectionOrderName.split(".");
+        sectionOrderArray.forEach((item, index) => {
+          switch (index) {
+            case 0 : this.form.firstOrder = item;
+              break;
+            case 1 : this.form.secondOrder = item;
+              break;
+            case 2 : this.form.thirdOrder = item;
+              break;
+            case 3 : this.form.fourthOrder = item;
+              break;
+            case 4 : this.form.fifthOrder = item;
+              break;
+            case 5 : this.form.sixthOrder = item;
+              break;
+            case 6: this.form.seventhOrder = item;
+              break;
+          }
+        });
+      },
+
       /** 提交按钮 */
-      submitForm: function() {
+      submitForm: function () {
         this.$refs["form"].validate(valid => {
           if (valid) {
             if (this.form.configId != undefined) {
@@ -329,7 +486,12 @@
                 }
               });
             } else {
-              addConfig(this.form).then(response => {
+              debugger
+              this.assignOrderValue(this.form.sectionOrderName);
+              let requestParam = [];
+              requestParam.push(this.form);
+              let standardInputListJson = JSON.stringify(requestParam);
+              add(standardInputListJson).then(response => {
                 if (response.code === 200) {
                   this.msgSuccess("新增成功");
                   this.open = false;
@@ -349,12 +511,13 @@
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(function() {
+        }).then(function () {
           return delConfig(configIds);
         }).then(() => {
           this.getList();
           this.msgSuccess("删除成功");
-        }).catch(function() {});
+        }).catch(function () {
+        });
       },
       /** 导出按钮操作 */
       handleExport() {
@@ -363,11 +526,12 @@
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(function() {
+        }).then(function () {
           return exportConfig(queryParams);
         }).then(response => {
           this.download(response.msg);
-        }).catch(function() {});
+        }).catch(function () {
+        });
       }
     }
   };
