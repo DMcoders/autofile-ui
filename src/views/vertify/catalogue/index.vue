@@ -71,7 +71,7 @@
       </el-col>
     </el-row>
 
-    <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="catalogueList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="目录序号" align="center" prop="sectionOrderName"/>
       <el-table-column label="章节" align="center" prop="firstOrder" :show-overflow-tooltip="true"/>
@@ -120,7 +120,8 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="目录序号" prop="sectionOrderName">
-              <el-input  style="width:100%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号" @keyup.native="changeFirstOrder" />
+              <el-input style="width:100%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号"
+                        @keyup.native="changeFirstOrder"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -134,7 +135,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="标题" prop="sectionTitle">
-              <el-input  style="width:100%" v-model="form.sectionTitle" clearable placeholder="请输入标题" />
+              <el-input style="width:100%" v-model="form.sectionTitle" clearable placeholder="请输入标题"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -147,7 +148,8 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="类型" prop="inputType">
-              <el-select style="width:100%" clearable v-model="form.inputType" size="small" clearable placeholder="请选择类型">
+              <el-select style="width:100%" clearable v-model="form.inputType" size="small" clearable
+                         placeholder="请选择类型">
                 <el-option
                   v-for="inputType in inputTypes"
                   :key="inputType.key"
@@ -174,7 +176,8 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="模块" prop="moduleName">
-              <el-select style="width:100%" clearable v-model="form.moduleName" size="small" clearable placeholder="请选择模块">
+              <el-select style="width:100%" clearable v-model="form.moduleName" size="small" clearable
+                         placeholder="请选择模块">
                 <el-option
                   v-for="moduleName in moduleNames"
                   :key="moduleName"
@@ -185,7 +188,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="选择角色" prop="roleName">
+            <el-form-item label="选择角色" prop="role">
               <el-select style="width:100%" clearable v-model="form.role" size="small" clearable placeholder="请选择角色">
                 <el-option
                   v-for="role in roles"
@@ -226,7 +229,7 @@
 <script>
   import {selectAllRoles} from "@/api/system/role";
 
-  import {add} from "@/api/vertify/standardInput";
+  import {add, list, deleteBatch, getOne, update} from "@/api/vertify/standardInput";
 
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
@@ -267,10 +270,22 @@
         moduleNames: [
           "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
-        catalogues:[{"key":"0","value":"第零章节"},{"key":"1","value":"第一章节"},{"key":"2","value":"第二章节"},{"key":"3","value":"第三章节"},{"key":"4","value":"第四章节"},{"key":"5","value":"第五章节"},{"key":"6","value":"第六章节"},{"key":"7","value":"第七章节"},{"key":"8","value":"第八章节"},{"key":"9","value":"第九章节"},{"key":"10","value":"第十章节"},{"key":"11","value":"第十一章节"},{"key":"12","value":"第十二章节"},{"key":"13","value":"第十三章节"}]
+        catalogues: [{"key": "0", "value": "第零章节"}, {"key": "1", "value": "第一章节"}, {
+          "key": "2",
+          "value": "第二章节"
+        }, {"key": "3", "value": "第三章节"}, {"key": "4", "value": "第四章节"}, {"key": "5", "value": "第五章节"}, {
+          "key": "6",
+          "value": "第六章节"
+        }, {"key": "7", "value": "第七章节"}, {"key": "8", "value": "第八章节"}, {"key": "9", "value": "第九章节"}, {
+          "key": "10",
+          "value": "第十章节"
+        }, {"key": "11", "value": "第十一章节"}, {"key": "12", "value": "第十二章节"}, {"key": "13", "value": "第十三章节"}]
         ,
-        specialCatalogueKeys:["0","1","2","3","4","5","6","7","8","9","10","11","12","13"],
-        inputTypes:[{"key":"title","value":"标题"},{"key":"input","value":"输入框"},{"key":"image","value":"图片"}],
+        specialCatalogueKeys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"],
+        inputTypes: [{"key": "title", "value": "标题"}, {"key": "input", "value": "输入框"}, {
+          "key": "image",
+          "value": "图片"
+        }],
         whichCatalogue: undefined,
         roles: [],
         // 日期范围
@@ -295,7 +310,7 @@
         rules: {
           sectionOrderName: [
             {required: true, message: "目录序号不能为空", trigger: "blur"},
-            { validator: this.checkSectionOrderName, trigger: ['blur','keyup'] },
+            {validator: this.checkSectionOrderName, trigger: ['blur', 'keyup']},
           ],
           inputType: [
             {required: true, message: "类型不能为空", trigger: "blur"}
@@ -306,7 +321,7 @@
           moduleName: [
             {required: true, message: "模块不能为空", trigger: "blur"}
           ],
-          roleName: [
+          role: [
             {required: true, message: "角色不能为空", trigger: "blur"}
           ]
         }
@@ -321,7 +336,6 @@
     },
     methods: {
       checkSectionOrderName(rule, value, callback) {
-        debugger
         const re = /[0-9]+(?!.*?\.\.)([\.]{0,6})/;
         const rsCheck = re.test(value);
         if (!rsCheck) {
@@ -330,6 +344,7 @@
         if (undefined == this.form.firstOrderName || "" == this.form.firstOrderName) {
           callback(new Error('目录序号不合法'));
         }
+        callback();
       },
 
       assignRoleValue(list) {
@@ -369,13 +384,44 @@
 
       /** 查询参数列表 */
       getList() {
-        listConfig(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-
-            this.total = response.total;
+        list(this.queryParams).then(response => {
             this.loading = false;
+            if (200 == response.code) {
+              this.total = response.data.total;
+              this.dealQueryInfo(response.data.list);
+            } else {
+              this.$message.error(response.msg);
+            }
           }
         );
       },
+      dealQueryInfo(list) {
+        this.catalogueList = [];
+        for (let i = 0; i < list.length; i++) {
+          let item = list[i];
+          let obj = {};
+          obj.id = item.id;
+          obj.sectionOrderName = item.sectionOrderName;
+          this.catalogues.forEach(it => {
+            if (item.firstOrder == it.key) {
+              obj.firstOrder = it.value;
+              return;
+            }
+          });
+          obj.sectionTitle = item.sectionTitle;
+          obj.sectionTitleZh = item.sectionTitleZh;
+          this.roles.forEach((it) => {
+            if (item.role == it.roleId) {
+              obj.roleName = it.roleName;
+              return;
+            }
+          });
+          obj.moduleName = item.moduleName;
+          obj.createTime = item.gmtCreate;
+          this.catalogueList.push(obj);
+        }
+      },
+
       // 取消按钮
       cancel() {
         this.open = false;
@@ -384,21 +430,21 @@
       // 表单重置
       reset() {
         this.form = {
-          sectionOrderName:undefined,
-          firstOrder:undefined,
-          secondOrder:undefined,
-          thirdOrder:undefined,
-          fourthOrder:undefined,
-          sixthOrder:undefined,
-          seventhOrder:undefined,
-          sectionTitle:undefined,
-          sectionTitleZh:undefined,
-          inputType:undefined,
-          versionYear:undefined,
-          moduleName:undefined,
-          role:undefined,
-          isRelateAnnex:undefined,
-          relateAnnexPage:undefined
+          sectionOrderName: undefined,
+          firstOrder: undefined,
+          secondOrder: undefined,
+          thirdOrder: undefined,
+          fourthOrder: undefined,
+          sixthOrder: undefined,
+          seventhOrder: undefined,
+          sectionTitle: undefined,
+          sectionTitleZh: undefined,
+          inputType: undefined,
+          versionYear: undefined,
+          moduleName: undefined,
+          role: undefined,
+          isRelateAnnex: undefined,
+          relateAnnexPage: undefined
         };
         this.resetForm("form");
       },
@@ -417,33 +463,62 @@
       handleAdd() {
         this.reset();
         this.open = true;
-        this.title = "添加目录";
+        this.title = "添加";
       },
       // 多选框选中数据
       handleSelectionChange(selection) {
-        this.ids = selection.map(item => item.configId)
+        this.ids = selection.map(item => item.id)
         this.single = selection.length != 1
         this.multiple = !selection.length
       },
       /** 修改按钮操作 */
       handleUpdate(row) {
-        this.reset();
-        const configId = row.configId || this.ids
-        getConfig(configId).then(response => {
-          this.form = response.data;
-          this.open = true;
-          this.title = "修改参数";
+        let id = row.id;
+        getOne(id).then(response => {
+          if (200 == response.code) {
+            this.assignFormValue(response.data);
+            this.open = true;
+            this.title = "修改";
+          } else {
+            this.$message.error(response.msg);
+          }
         });
       },
-
+      assignFormValue(data) {
+        this.form.id = data.id;
+        this.form.sectionOrderName = data.sectionOrderName;
+        this.catalogues.forEach(it => {
+          if (data.firstOrder == it.key) {
+            this.form.firstOrderName = it.value;
+            return;
+          }
+        });
+        this.form.sectionTitle = data.sectionTitle;
+        this.form.sectionTitleZh = data.sectionTitleZh;
+        this.roles.forEach((it) => {
+          if (data.role == it.roleId) {
+            this.$set(this.form, "role", it.roleId);
+            return;
+          }
+        });
+        this.form.moduleName = data.moduleName;
+        this.form.versionYear = data.versionYear;
+        this.inputTypes.forEach((it) => {
+          if (data.inputType == it.key) {
+            this.$set(this.form, "inputType", it.key);
+            return;
+          }
+        });
+        this.form.isRelateAnnex = data.isRelateAnnex;
+        this.form.relateAnnexPage = data.relateAnnexPage;
+      },
       subPreview: function () {
         debugger
         this.whichCatalogue = catalogue_01;
       },
 
       assignOrderValue(sectionOrderName) {
-        if(undefined == sectionOrderName)
-        {
+        if (undefined == sectionOrderName) {
           return;
         }
         if (this.specialCatalogueKeys.indexOf(sectionOrderName) > -1) {
@@ -453,19 +528,26 @@
         let sectionOrderArray = sectionOrderName.split(".");
         sectionOrderArray.forEach((item, index) => {
           switch (index) {
-            case 0 : this.form.firstOrder = item;
+            case 0 :
+              this.form.firstOrder = item;
               break;
-            case 1 : this.form.secondOrder = item;
+            case 1 :
+              this.form.secondOrder = item;
               break;
-            case 2 : this.form.thirdOrder = item;
+            case 2 :
+              this.form.thirdOrder = item;
               break;
-            case 3 : this.form.fourthOrder = item;
+            case 3 :
+              this.form.fourthOrder = item;
               break;
-            case 4 : this.form.fifthOrder = item;
+            case 4 :
+              this.form.fifthOrder = item;
               break;
-            case 5 : this.form.sixthOrder = item;
+            case 5 :
+              this.form.sixthOrder = item;
               break;
-            case 6: this.form.seventhOrder = item;
+            case 6:
+              this.form.seventhOrder = item;
               break;
           }
         });
@@ -475,18 +557,18 @@
       submitForm: function () {
         this.$refs["form"].validate(valid => {
           if (valid) {
-            if (this.form.configId != undefined) {
-              updateConfig(this.form).then(response => {
+            if (this.form.id != undefined) {
+              update(this.form).then(response => {
                 if (response.code === 200) {
                   this.msgSuccess("修改成功");
                   this.open = false;
                   this.getList();
                 } else {
+                  debugger
                   this.msgError(response.msg);
                 }
               });
             } else {
-              debugger
               this.assignOrderValue(this.form.sectionOrderName);
               let requestParam = [];
               requestParam.push(this.form);
@@ -506,13 +588,19 @@
       },
       /** 删除按钮操作 */
       handleDelete(row) {
-        const configIds = row.configId || this.ids;
-        this.$confirm('是否确认删除参数编号为"' + configIds + '"的数据项?', "警告", {
+        debugger
+        let tempId;
+        if (undefined != row.id) {
+          tempId = [];
+          tempId[0] = row.id;
+        }
+        let id = tempId || this.ids
+        this.$confirm('是否确认删除编号为"' + id + '"的数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
         }).then(function () {
-          return delConfig(configIds);
+          return deleteBatch(id);
         }).then(() => {
           this.getList();
           this.msgSuccess("删除成功");
