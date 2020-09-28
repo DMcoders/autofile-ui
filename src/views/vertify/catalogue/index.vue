@@ -164,8 +164,7 @@
                 type="year"
                 format="yyyy"
                 value-format="yyyy"
-                placeholder="选择版本年号"
-                :picker-options="pickerOptions0">
+                placeholder="选择版本年号">
               </el-date-picker>
             </el-form-item>
           </el-col>
