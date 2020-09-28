@@ -9,13 +9,28 @@ export function add(standardInputListJson) {
   })
 }
 
-export function list(page, pageSize) {
+export function update(standardInput) {
+  return request({
+    url: '/vertify/input/update',
+    method: 'post',
+    data: standardInput
+  })
+}
+
+export function getOne(id) {
+  return request({
+    url: '/vertify/input/getOneResult',
+    method: 'get',
+    params:{id}
+  })
+}
+
+
+export function list(params) {
   return request({
     url: '/vertify/input/list',
-    method: 'get',
-    params: {
-      page, pageSize
-    }
+    method: 'post',
+    data:params
   })
 }
 
