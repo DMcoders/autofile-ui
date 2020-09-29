@@ -72,19 +72,19 @@
     </el-row>
 
     <el-table v-loading="loading" :data="catalogueList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center"/>
-      <el-table-column label="目录序号" align="center" prop="sectionOrderName"/>
-      <el-table-column label="章节" align="center" prop="firstOrder" :show-overflow-tooltip="true"/>
-      <el-table-column label="标题" align="center" prop="sectionTitle" :show-overflow-tooltip="true"/>
-      <el-table-column label="中文标题" align="center" prop="sectionTitleZh"/>
-      <el-table-column label="填写角色" align="center" prop="roleName"/>
-      <el-table-column label="模块" align="center" prop="moduleName" :show-overflow-tooltip="true"/>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column type="selection" min-width="6%" align="center"/>
+      <el-table-column label="目录" align="center" min-width="8%" prop="sectionOrderName"/>
+      <el-table-column label="章节" align="center" min-width="8%" prop="firstOrder" :show-overflow-tooltip="true"/>
+      <el-table-column label="标题" align="center" min-width="25%" prop="sectionTitle" :show-overflow-tooltip="true"/>
+      <el-table-column label="中文标题" align="center" min-width="17%" prop="sectionTitleZh"/>
+      <el-table-column label="填写角色" align="center" min-width="8%" prop="roleName"/>
+      <el-table-column label="模块" align="center" min-width="6%" prop="moduleName" :show-overflow-tooltip="true"/>
+      <el-table-column label="创建时间" align="center" min-width="12%" prop="createTime">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" min-width="10%" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -97,10 +97,10 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-postcard"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:config:remove']"
-          >删除
+          >查看
           </el-button>
         </template>
       </el-table-column>
