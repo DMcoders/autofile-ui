@@ -1,32 +1,34 @@
 <template>
   <div>
     <div>
-      Type and general commercial description(s)
-      <br>
+      <label>
+        Type and general commercial description(s)
+      </label>
+      <br/>
       <label for='input-one'>
         Type:
         <input id='input-one'
-               v-bind:value='value.tagcdType'
+               v-bind:value='value'
                v-on:input="$emit('input', {tagcdType: $event.target.value,
                tagcdVariant:value.tagcdVariant,tagcdVersion:value.tagcdVersion})">
       </label>
 
-      <br>
+      <br/>
       <label for='input-two'>
         Variant：
         <input id='input-two'
-               v-bind:value='value.tagcdVariant'
+               v-bind:value='value'
                v-on:input="$emit('input', {tagcdVariant: $event.target.value,
                tagcdType:value.tagcdType,tagcdVersion:value.tagcdVersion
                })">
         See annex A
       </label>
 
-      <br>
+      <br/>
       <label for='input-three'>
         Version：
         <input id='input-three'
-               v-bind:value='value.tagcdVersion'
+               v-bind:value='value'
                v-on:input="$emit('input', {tagcdVersion: $event.target.value,
                 tagcdType:value.tagcdType, tagcdVariant:value.tagcdVariant
                })">
@@ -35,7 +37,17 @@
     </div>
   </div>
 </template>
+<style>
 
+  input{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  label{
+    vertical-align: middle;
+  }
+</style>
 
 <script>
   export default {

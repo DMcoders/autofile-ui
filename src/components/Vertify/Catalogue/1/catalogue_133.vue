@@ -4,7 +4,7 @@
       <label for='input-one'>
         Powered axles (number, position, interconnection)：
         <input id='input-one'
-               v-bind:value='value.pa'
+               v-bind:value='value'
                v-on:input="$emit('input', {pa: $event.target.value})">
       </label>
     </div>

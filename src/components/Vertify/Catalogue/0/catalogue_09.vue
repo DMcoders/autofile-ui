@@ -4,7 +4,7 @@
       <label for='input-one'>
         Name and address of the manufacture’s representative(if any)：
         <input id='input-one'
-               v-bind:value='value.naaotmr'
+               v-bind:value='value'
                v-on:input="$emit('input', {naaotmr: $event.target.value})">
       </label>
     </div>

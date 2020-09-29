@@ -4,7 +4,7 @@
       <label for='input-one'>
         Bodywork/complete  vehicle：
         <input id='input-one'
-               v-bind:value='value.bcv'
+               v-bind:value='value'
                v-on:input="$emit('input', {bcv: $event.target.value})">
       </label>
     </div>

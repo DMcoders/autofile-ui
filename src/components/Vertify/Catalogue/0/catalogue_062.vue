@@ -4,7 +4,7 @@
       <label for='input-one'>
         On the body work：
         <input id='input-one'
-               v-bind:value='value.otbw'
+               v-bind:value='value'
                v-on:input="$emit('input', {otbw: $event.target.value})">
       </label>
     </div>

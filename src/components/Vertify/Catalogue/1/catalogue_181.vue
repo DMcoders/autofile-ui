@@ -4,7 +4,7 @@
       <label for='input-one'>
         Vehicle is equipped to be driven in right hand/ left hand traffic：
         <input id='input-one'
-               v-bind:value='value.vietbdirhlht'
+               v-bind:value='value'
                v-on:input="$emit('input', {vietbdirhlht: $event.target.value})">
       </label>
     </div>

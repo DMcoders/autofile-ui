@@ -97,10 +97,10 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-postcard"
+            icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:config:remove']"
-          >查看
+          >删除
           </el-button>
         </template>
       </el-table-column>
@@ -115,13 +115,13 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="600px" @close="closeDialog" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
             <el-form-item label="目录序号" prop="sectionOrderName">
               <el-input style="width:100%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号"
-                        @keyup.native="changeFirstOrder"/>
+                        @input = "changeFirstOrder"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -166,7 +166,8 @@
                 type="year"
                 format="yyyy"
                 value-format="yyyy"
-                placeholder="选择版本年号">
+                placeholder="选择版本年号"
+                :picker-options="pickerOptions0">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -211,8 +212,9 @@
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-form-item label="div预览" prop="divPreview">
+        </el-form-item>
+        <el-form-item  prop="divPreview">
           <component v-bind:is="whichCatalogue"></component>
         </el-form-item>
       </el-form>
@@ -233,18 +235,77 @@
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
   import catalogue_01 from '../../../components/Vertify/Catalogue/0/catalogue_01'
+  import catalogue_02 from '../../../components/Vertify/Catalogue/0/catalogue_02'
+  import catalogue_03 from '../../../components/Vertify/Catalogue/0/catalogue_03'
+  import catalogue_04 from '../../../components/Vertify/Catalogue/0/catalogue_04'
+  import catalogue_05 from '../../../components/Vertify/Catalogue/0/catalogue_05'
+  import catalogue_06 from '../../../components/Vertify/Catalogue/0/catalogue_06'
+  import catalogue_08 from '../../../components/Vertify/Catalogue/0/catalogue_08'
+  import catalogue_09 from '../../../components/Vertify/Catalogue/0/catalogue_09'
+  import catalogue_010 from '../../../components/Vertify/Catalogue/0/catalogue_010'
+  import catalogue_011 from '../../../components/Vertify/Catalogue/0/catalogue_011'
+  import catalogue_012 from '../../../components/Vertify/Catalogue/0/catalogue_012'
+  import catalogue_013 from '../../../components/Vertify/Catalogue/0/catalogue_013'
+  import catalogue_014 from '../../../components/Vertify/Catalogue/0/catalogue_014'
+  import catalogue_021 from '../../../components/Vertify/Catalogue/0/catalogue_021'
+  import catalogue_031 from '../../../components/Vertify/Catalogue/0/catalogue_031'
+  import catalogue_061 from '../../../components/Vertify/Catalogue/0/catalogue_061'
+  import catalogue_0311 from '../../../components/Vertify/Catalogue/0/catalogue_0311'
+  import catalogue_0312 from '../../../components/Vertify/Catalogue/0/catalogue_0312'
+
+  import catalogue_1 from '../../../components/Vertify/Catalogue/1/catalogue_1'
+  import catalogue_11 from '../../../components/Vertify/Catalogue/1/catalogue_11'
+  import catalogue_12 from '../../../components/Vertify/Catalogue/1/catalogue_12'
+  import catalogue_13 from '../../../components/Vertify/Catalogue/1/catalogue_13'
+  import catalogue_14 from '../../../components/Vertify/Catalogue/1/catalogue_14'
+  import catalogue_15 from '../../../components/Vertify/Catalogue/1/catalogue_15'
+  import catalogue_17 from '../../../components/Vertify/Catalogue/1/catalogue_17'
+  import catalogue_18 from '../../../components/Vertify/Catalogue/1/catalogue_18'
+  import catalogue_19 from '../../../components/Vertify/Catalogue/1/catalogue_19'
+  import catalogue_110 from '../../../components/Vertify/Catalogue/1/catalogue_110'
+  import catalogue_131 from '../../../components/Vertify/Catalogue/1/catalogue_131'
+  import catalogue_132 from '../../../components/Vertify/Catalogue/1/catalogue_132'
+  import catalogue_133 from '../../../components/Vertify/Catalogue/1/catalogue_133'
+  import catalogue_181 from '../../../components/Vertify/Catalogue/1/catalogue_181'
 
   export default {
-    name: "cate",
+    name: "catalogue",
 
     components: {
       catalogue_0,
-      catalogue_01
-    },
-    props: {
-      tnom: {
-        type: String
-      }
+      catalogue_01,
+      catalogue_02,
+      catalogue_03,
+      catalogue_04,
+      catalogue_05,
+      catalogue_06,
+      catalogue_08,
+      catalogue_09,
+      catalogue_010,
+      catalogue_011,
+      catalogue_012,
+      catalogue_013,
+      catalogue_014,
+      catalogue_021,
+      catalogue_031,
+      catalogue_061,
+      catalogue_0311,
+      catalogue_0312,
+
+      catalogue_1,
+      catalogue_11,
+      catalogue_12,
+      catalogue_13,
+      catalogue_14,
+      catalogue_15,
+      catalogue_17,
+      catalogue_18,
+      catalogue_19,
+      catalogue_110,
+      catalogue_131,
+      catalogue_132,
+      catalogue_133,
+      catalogue_181,
     },
 
     data() {
@@ -334,6 +395,10 @@
       });
     },
     methods: {
+      closeDialog() {
+        this.whichCatalogue = undefined;
+      },
+
       checkSectionOrderName(rule, value, callback) {
         const re = /[0-9]+(?!.*?\.\.)([\.]{0,6})/;
         const rsCheck = re.test(value);
@@ -357,6 +422,7 @@
       },
 
       changeFirstOrder() {
+        this.whichCatalogue = undefined;
         let sectionOrderName = this.form.sectionOrderName;
         if (this.specialCatalogueKeys.indexOf(sectionOrderName) > -1) {
           this.catalogues.forEach(item => {
@@ -423,6 +489,7 @@
 
       // 取消按钮
       cancel() {
+        this.whichCatalogue = undefined;
         this.open = false;
         this.reset();
       },
@@ -472,6 +539,7 @@
       },
       /** 修改按钮操作 */
       handleUpdate(row) {
+        this.reset();
         let id = row.id;
         getOne(id).then(response => {
           if (200 == response.code) {
@@ -512,8 +580,12 @@
         this.form.relateAnnexPage = data.relateAnnexPage;
       },
       subPreview: function () {
+        let sectionOrderName = this.form.sectionOrderName;
+        if (undefined == sectionOrderName || "" == sectionOrderName) {
+          return;
+        }
+        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(".","");
         debugger
-        this.whichCatalogue = catalogue_01;
       },
 
       assignOrderValue(sectionOrderName) {
@@ -582,6 +654,7 @@
                 }
               });
             }
+            this.whichCatalogue = undefined;
           }
         });
       },

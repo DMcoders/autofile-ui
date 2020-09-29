@@ -4,7 +4,7 @@
       <label for='input-one'>
         Photographs and/or drawings of a representative vehicle：
         <input id='input-one'
-               v-bind:value='value.padoarv'
+               v-bind:value='value'
                v-on:input="$emit('input', {padoarv: $event.target.value})">
       </label>
       See annex B

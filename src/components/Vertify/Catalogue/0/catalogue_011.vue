@@ -4,7 +4,7 @@
       <label for='input-one'>
         The approval number and issuing authority of audible warning device(s), audible warning system(s), multiple audible warning system(s):
         <input id='input-one'
-               v-bind:value='value.tanaiaoawd'
+               v-bind:value='value'
                v-on:input="$emit('input', {tanaiaoawd: $event.target.value})">
       </label>
     </div>

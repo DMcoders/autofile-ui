@@ -4,7 +4,7 @@
       <label for='input-one'>
         Driving cab (forward control or bonneted) (e):：
         <input id='input-one'
-               v-bind:value='value.dc'
+               v-bind:value='value'
                v-on:input="$emit('input', {dc: $event.target.value})">
       </label>
     </div>

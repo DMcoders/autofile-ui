@@ -3,8 +3,9 @@
     <div>
       <label for='input-one'>
         Dimensional drawing of the whole vehicle：
+        <br/>
         <input id='input-one'
-               v-bind:value='value.ddotwv'
+               v-bind:value='value'
                v-on:input="$emit('input', {ddotwv: $event.target.value})">
       </label>
       See annex B

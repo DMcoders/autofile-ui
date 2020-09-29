@@ -4,7 +4,7 @@
       <label for='input-one'>
         Rated voltage(s), V: 3/:
         <input id='input-one'
-               v-bind:value='value.rv'
+               v-bind:value='value'
                v-on:input="$emit('input', {rv: $event.target.value})">
       </label>
     </div>

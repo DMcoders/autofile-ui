@@ -4,7 +4,7 @@
       <label for='input-one'>
         Chassis：
         <input id='input-one'
-               v-bind:value='value.chassis'
+               v-bind:value='value'
                v-on:input="$emit('input', {chassis: $event.target.value})">
       </label>
     </div>

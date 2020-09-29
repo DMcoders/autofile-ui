@@ -4,7 +4,7 @@
       <label for='input-one'>
         Location of that marking ：
         <input id='input-one'
-               v-bind:value='value.lotm'
+               v-bind:value='value'
                v-on:input="$emit('input', {lotm: $event.target.value})">
       </label>
     </div>

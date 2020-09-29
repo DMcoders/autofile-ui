@@ -4,7 +4,7 @@
       <label for='input-one'>
         Type of electrical supply (direct or alternating current):
         <input id='input-one'
-               v-bind:value='value.toes'
+               v-bind:value='value'
                v-on:input="$emit('input', {toes: $event.target.value})">
       </label>
     </div>

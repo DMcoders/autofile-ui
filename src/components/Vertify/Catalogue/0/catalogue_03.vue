@@ -4,7 +4,7 @@
       <label for='input-one'>
         Means of identification of type, if marked on the vehicle ：
         <input id='input-one'
-               v-bind:value='value.moiot'
+               v-bind:value='value'
                v-on:input="$emit('input', {moiot: $event.target.value})">
       </label>
     </div>

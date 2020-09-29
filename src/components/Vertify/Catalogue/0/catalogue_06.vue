@@ -4,7 +4,7 @@
       <label for='input-one'>
         Location and method of attachment of statutory plates and location of vehicle identification number：
         <input id='input-one'
-               v-bind:value='value.lamoaospaalovin'
+               v-bind:value='value'
                v-on:input="$emit('input', {lamoaospaalovin: $event.target.value})">
       </label>
     </div>

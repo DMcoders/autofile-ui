@@ -4,7 +4,7 @@
       <label for='input-one'>
         Hand of drive：
         <input id='input-one'
-               v-bind:value='value.hod'
+               v-bind:value='value'
                v-on:input="$emit('input', {hod: $event.target.value})">
       </label>
     </div>

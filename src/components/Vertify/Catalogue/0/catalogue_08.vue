@@ -4,7 +4,7 @@
       <label for='input-one'>
         Name(s) and address(es) of assembly plant(s)：
         <input id='input-one'
-               v-bind:value='value.naaoap'
+               v-bind:value='value'
                v-on:input="$emit('input', {naaoap: $event.target.value})">
       </label>
     </div>

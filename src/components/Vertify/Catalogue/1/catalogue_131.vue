@@ -4,7 +4,7 @@
       <label for='input-one'>
         Number and position of axles with twin wheels：
         <input id='input-one'
-               v-bind:value='value.napoawtw'
+               v-bind:value='value'
                v-on:input="$emit('input', {napoawtw: $event.target.value})">
       </label>
     </div>
