@@ -234,39 +234,39 @@
 
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
-  import catalogue_01 from '../../../components/Vertify/Catalogue/0/catalogue_01'
-  import catalogue_02 from '../../../components/Vertify/Catalogue/0/catalogue_02'
-  import catalogue_03 from '../../../components/Vertify/Catalogue/0/catalogue_03'
-  import catalogue_04 from '../../../components/Vertify/Catalogue/0/catalogue_04'
-  import catalogue_05 from '../../../components/Vertify/Catalogue/0/catalogue_05'
-  import catalogue_06 from '../../../components/Vertify/Catalogue/0/catalogue_06'
-  import catalogue_08 from '../../../components/Vertify/Catalogue/0/catalogue_08'
-  import catalogue_09 from '../../../components/Vertify/Catalogue/0/catalogue_09'
-  import catalogue_010 from '../../../components/Vertify/Catalogue/0/catalogue_010'
-  import catalogue_011 from '../../../components/Vertify/Catalogue/0/catalogue_011'
-  import catalogue_012 from '../../../components/Vertify/Catalogue/0/catalogue_012'
-  import catalogue_013 from '../../../components/Vertify/Catalogue/0/catalogue_013'
-  import catalogue_014 from '../../../components/Vertify/Catalogue/0/catalogue_014'
-  import catalogue_021 from '../../../components/Vertify/Catalogue/0/catalogue_021'
-  import catalogue_031 from '../../../components/Vertify/Catalogue/0/catalogue_031'
-  import catalogue_061 from '../../../components/Vertify/Catalogue/0/catalogue_061'
-  import catalogue_0311 from '../../../components/Vertify/Catalogue/0/catalogue_0311'
-  import catalogue_0312 from '../../../components/Vertify/Catalogue/0/catalogue_0312'
+  import catalogue_01 from '../../../components/Vertify/Catalogue/0/catalogue_0.1'
+  import catalogue_02 from '../../../components/Vertify/Catalogue/0/catalogue_0.2'
+  import catalogue_03 from '../../../components/Vertify/Catalogue/0/catalogue_0.3'
+  import catalogue_04 from '../../../components/Vertify/Catalogue/0/catalogue_0.4'
+  import catalogue_05 from '../../../components/Vertify/Catalogue/0/catalogue_0.5'
+  import catalogue_06 from '../../../components/Vertify/Catalogue/0/catalogue_0.6'
+  import catalogue_08 from '../../../components/Vertify/Catalogue/0/catalogue_0.8'
+  import catalogue_09 from '../../../components/Vertify/Catalogue/0/catalogue_0.9'
+  import catalogue_010 from '../../../components/Vertify/Catalogue/0/catalogue_0.10'
+  import catalogue_011 from '../../../components/Vertify/Catalogue/0/catalogue_0.11'
+  import catalogue_012 from '../../../components/Vertify/Catalogue/0/catalogue_0.12'
+  import catalogue_013 from '../../../components/Vertify/Catalogue/0/catalogue_0.13'
+  import catalogue_014 from '../../../components/Vertify/Catalogue/0/catalogue_0.14'
+  import catalogue_021 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.1'
+  import catalogue_031 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1'
+  import catalogue_061 from '../../../components/Vertify/Catalogue/0/catalogue_0.6.1'
+  import catalogue_0311 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.1'
+  import catalogue_0312 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.2'
 
   import catalogue_1 from '../../../components/Vertify/Catalogue/1/catalogue_1'
-  import catalogue_11 from '../../../components/Vertify/Catalogue/1/catalogue_11'
-  import catalogue_12 from '../../../components/Vertify/Catalogue/1/catalogue_12'
-  import catalogue_13 from '../../../components/Vertify/Catalogue/1/catalogue_13'
-  import catalogue_14 from '../../../components/Vertify/Catalogue/1/catalogue_14'
-  import catalogue_15 from '../../../components/Vertify/Catalogue/1/catalogue_15'
-  import catalogue_17 from '../../../components/Vertify/Catalogue/1/catalogue_17'
-  import catalogue_18 from '../../../components/Vertify/Catalogue/1/catalogue_18'
-  import catalogue_19 from '../../../components/Vertify/Catalogue/1/catalogue_19'
-  import catalogue_110 from '../../../components/Vertify/Catalogue/1/catalogue_110'
-  import catalogue_131 from '../../../components/Vertify/Catalogue/1/catalogue_131'
-  import catalogue_132 from '../../../components/Vertify/Catalogue/1/catalogue_132'
-  import catalogue_133 from '../../../components/Vertify/Catalogue/1/catalogue_133'
-  import catalogue_181 from '../../../components/Vertify/Catalogue/1/catalogue_181'
+  import catalogue_11 from '../../../components/Vertify/Catalogue/1/catalogue_1.1'
+  import catalogue_12 from '../../../components/Vertify/Catalogue/1/catalogue_1.2'
+  import catalogue_13 from '../../../components/Vertify/Catalogue/1/catalogue_1.3'
+  import catalogue_14 from '../../../components/Vertify/Catalogue/1/catalogue_1.4'
+  import catalogue_15 from '../../../components/Vertify/Catalogue/1/catalogue_1.5'
+  import catalogue_17 from '../../../components/Vertify/Catalogue/1/catalogue_1.7'
+  import catalogue_18 from '../../../components/Vertify/Catalogue/1/catalogue_1.8'
+  import catalogue_19 from '../../../components/Vertify/Catalogue/1/catalogue_1.9'
+  import catalogue_110 from '../../../components/Vertify/Catalogue/1/catalogue_1.10'
+  import catalogue_131 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.1'
+  import catalogue_132 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.2'
+  import catalogue_133 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.3'
+  import catalogue_181 from '../../../components/Vertify/Catalogue/1/catalogue_1.8.1'
 
   export default {
     name: "catalogue",
@@ -346,6 +346,7 @@
           "key": "image",
           "value": "图片"
         }],
+        multiInput: [{"key": "catalogue_0.2", "value": 3}],
         whichCatalogue: undefined,
         roles: [],
         // 日期范围
@@ -510,7 +511,8 @@
           moduleName: undefined,
           role: undefined,
           isRelateAnnex: undefined,
-          relateAnnexPage: undefined
+          relateAnnexPage: undefined,
+          domId:undefined,
         };
         this.resetForm("form");
       },
@@ -584,7 +586,7 @@
         if (undefined == sectionOrderName || "" == sectionOrderName) {
           return;
         }
-        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(".","");
+        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g,"");
         debugger
       },
 
@@ -624,6 +626,24 @@
         });
       },
 
+      deepCopy(obj) {
+          obj.sectionOrderName = this.form.sectionOrderName,
+          obj.firstOrder = this.form.firstOrder,
+          obj.secondOrder = this.form.secondOrder,
+          obj.thirdOrder = this.form.thirdOrder,
+          obj.fourthOrder = this.form.fourthOrder,
+          obj.sixthOrder = this.form.sixthOrder,
+          obj.seventhOrder = this.form.seventhOrder,
+          obj.sectionTitle = this.form.sectionTitle,
+          obj.sectionTitleZh = this.form.sectionTitleZh,
+          obj.inputType = this.form.inputType,
+          obj.versionYear = this.form.versionYear,
+          obj.moduleName = this.form.moduleName,
+          obj.role = this.form.role,
+          obj.isRelateAnnex = this.form.isRelateAnnex,
+          obj.relateAnnexPage = this.form.relateAnnexPage
+      },
+
       /** 提交按钮 */
       submitForm: function () {
         this.$refs["form"].validate(valid => {
@@ -640,9 +660,22 @@
                 }
               });
             } else {
+              let sectionOrderName = "catalogue_" + this.form.sectionOrderName;
+              let num = 1;
+              this.multiInput.forEach(item => {
+                if (item.key == sectionOrderName) {
+                  num = item.value;
+                  return;
+                }
+              })
               this.assignOrderValue(this.form.sectionOrderName);
               let requestParam = [];
-              requestParam.push(this.form);
+              for (let i = 0;i < num;i++) {
+                let obj = new Object();
+                this.deepCopy(obj);
+                obj.domId = this.form.sectionOrderName + "_" + i;
+                requestParam.push(obj);
+              }
               let standardInputListJson = JSON.stringify(requestParam);
               add(standardInputListJson).then(response => {
                 if (response.code === 200) {
