@@ -12,14 +12,14 @@
         />
       </el-form-item>
       <el-form-item label="章节" prop="firstOrder">
-        <el-input
-          v-model="queryParams.firstOrder"
-          placeholder="请输入章节"
-          clearable
-          size="small"
-          style="width: 240px"
-          @keyup.enter.native="handleQuery"
-        />
+        <el-select v-model="queryParams.firstOrder" placeholder="模块" clearable size="small">
+          <el-option
+            v-for="catalogue in catalogues"
+            :key="catalogue.key"
+            :label="catalogue.value"
+            :value="catalogue.key"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="模块" prop="moduleName">
         <el-select v-model="queryParams.moduleName" placeholder="模块" clearable size="small">
@@ -209,6 +209,13 @@
           <el-col :span="12">
             <el-form-item label="附录页数" prop="relateAnnexPage">
               <el-input-number style="width:100%" v-model="form.relateAnnexPage" controls-position="right" :min="0"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="附录名称" prop="relateAnnex">
+              <el-input style="width:100%" v-model="form.relateAnnex" clearable placeholder="请输入附录名称"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -512,6 +519,7 @@
           role: undefined,
           isRelateAnnex: undefined,
           relateAnnexPage: undefined,
+          relateAnnex:undefined,
           domId:undefined,
         };
         this.resetForm("form");
@@ -580,6 +588,7 @@
         });
         this.form.isRelateAnnex = data.isRelateAnnex;
         this.form.relateAnnexPage = data.relateAnnexPage;
+        this.form.relateAnnex = data.relateAnnex;
       },
       subPreview: function () {
         let sectionOrderName = this.form.sectionOrderName;
@@ -641,7 +650,8 @@
           obj.moduleName = this.form.moduleName,
           obj.role = this.form.role,
           obj.isRelateAnnex = this.form.isRelateAnnex,
-          obj.relateAnnexPage = this.form.relateAnnexPage
+          obj.relateAnnexPage = this.form.relateAnnexPage,
+            obj.relateAnnex = this.form.relateAnnex
       },
 
       /** 提交按钮 */
