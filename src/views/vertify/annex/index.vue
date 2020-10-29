@@ -15,7 +15,7 @@
         <el-select style="width:100%" clearable v-model="queryParams.annexOrder" size="small" clearable
                    placeholder="请选择顺序">
           <el-option
-            v-for="annexOrder in annexOrders"
+            v-for="annexOrder in queryAnnexOrders"
             :key="annexOrder"
             :label="annexOrder"
             :value="annexOrder"
@@ -46,7 +46,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:dict:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -56,18 +57,21 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:dict:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
     </el-row>
 
     <el-table v-loading="loading" :data="annexList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="附录名称" align="center" prop="annexName" />
-      <el-table-column label="附录组合顺序" align="center" prop="annexOrder" :show-overflow-tooltip="true" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="章节" align="center" prop="chapter"/>
+      <el-table-column label="附录名称" align="center" prop="annexName"/>
+      <el-table-column label="附录组合顺序" align="center" prop="annexOrder"  :show-overflow-tooltip="true"/>
+      <el-table-column label="附录类型" align="center" prop="annexType" :show-overflow-tooltip="true"/>
       <el-table-column label="标题" align="center" prop="annexTitle"/>
-      <el-table-column label="页数" align="center" prop="annexPage" :show-overflow-tooltip="true" />
-      <el-table-column label="填写角色" align="center" prop="role" :show-overflow-tooltip="true" />
-      <el-table-column label="填写类别" align="center" prop="inputType" :show-overflow-tooltip="true" />
+      <el-table-column label="页数" align="center" prop="annexPage" :show-overflow-tooltip="true"/>
+      <el-table-column label="填写角色" align="center" prop="role" :show-overflow-tooltip="true"/>
+      <el-table-column label="填写类别" align="center" prop="inputType" :show-overflow-tooltip="true"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -76,14 +80,16 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:dict:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:dict:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,18 +103,26 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="800px"  @close="closePreview" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="附录名称" prop="annexName">
-              <el-input style="width:100%" v-model="form.annexName" clearable placeholder="附录名称"/>
+            <el-form-item label="章节" prop="annexOrder">
+            <el-select style="width:100%" clearable v-model="form.chapter" size="small" clearable
+                       placeholder="请选择章节" @change="changeAnnexOrder" v-bind:disabled="update">
+              <el-option
+                v-for="chapter in chapters"
+                :key="chapter.value"
+                :label="chapter.value"
+                :value="chapter.key"
+              />
+            </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="组合顺序" prop="annexOrder">
               <el-select style="width:100%" clearable v-model="form.annexOrder" size="small" clearable
-                         placeholder="请选择顺序">
+                         placeholder="请选择顺序"  @change="changeAnnexPage" v-bind:disabled="update">
                 <el-option
                   v-for="annexOrder in annexOrders"
                   :key="annexOrder"
@@ -120,16 +134,38 @@
           </el-col>
         </el-row>
 
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="附录页数" prop="annexPage">
+              <el-select style="width:100%" clearable v-model="form.annexPage" size="small" clearable
+                         placeholder="请选择顺序"  @change="changeTypeAndTitle" v-bind:disabled="update">
+                <el-option
+                  v-for="annexPage in annexPages"
+                  :key="annexPage"
+                  :label="annexPage"
+                  :value="annexPage"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="附录类型" prop="annexType">
+              <el-input style="width:100%" v-model="form.annexType" disabled/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
 
         <el-row>
           <el-col :span="12">
             <el-form-item label="附录标题" prop="annexTitle">
-              <el-input style="width:100%" v-model="form.annexTitle" clearable placeholder="请输入附录标题"/>
+              <el-input type="textarea" style="width:100%" v-model="form.annexTitle" disabled/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="附录页数" prop="annexPage">
-              <el-input-number style="width:100%" v-model="form.annexPage" controls-position="right" :min="1"/>
+            <el-form-item label="附录名称" prop="annexName">
+              <el-input style="width:100%" v-model="form.annexName" clearable placeholder="附录名称"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -177,8 +213,18 @@
             </el-form-item>
           </el-col>
         </el-row>
+
+        <el-form-item label="div预览" prop="divPreview">
+        </el-form-item>
+        <el-form-item  prop="divPreviewHead">
+          <component v-bind:is="whichAnnexHead"></component>
+        </el-form-item>
+        <el-form-item  prop="divPreview">
+          <component v-bind:is="whichAnnex"></component>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="subPreview">预览</el-button>
         <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -187,16 +233,36 @@
 </template>
 
 
-
 <script>
   import {selectAllRoles} from "@/api/system/role";
 
-  import {add,update,getOne,list,deleteBatch} from "@/api/vertify/standardAnnex";
+  import {add, update, getOne, list, deleteBatch} from "@/api/vertify/standardAnnex";
+
+
+
+  import annex_1_A_1_head from '../../../components/Vertify/Annex/1/annex_A_1_head'
+  import annex_1_B_1_head from '../../../components/Vertify/Annex/1/annex_B_1_head'
+  import annex_1_B_2_head from '../../../components/Vertify/Annex/1/annex_B_2_head'
+  import annex_1_C_1_head from '../../../components/Vertify/Annex/1/annex_C_1_head'
+
+  import common_annex_A from '../../../components/Vertify/Annex/common/annex_A'
+  import common_annex_B from '../../../components/Vertify/Annex/common/annex_B'
+  import common_annex_C from '../../../components/Vertify/Annex/common/annex_C'
 
   export default {
     name: "annex",
+    components: {
+      annex_1_A_1_head,
+      annex_1_B_1_head,
+      annex_1_B_2_head,
+      annex_1_C_1_head,
+      common_annex_A,
+      common_annex_B,
+      common_annex_C,
+    },
     data() {
       return {
+        update: false,
         // 遮罩层
         loading: false,
         // 选中数组
@@ -221,14 +287,40 @@
         // 日期范围
         dateRange: [],
         roles: [],
+        whichAnnexHead:undefined,
+        whichAnnex:undefined,
         moduleNames: [
           "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
-        annexOrders:["A","B","C","D"],
+        queryAnnexOrders:['A','B','C','D'],
+        annexOrders:[],
         inputTypes: [{"key": "title", "value": "标题"}, {"key": "input", "value": "输入框"}, {
           "key": "image",
           "value": "图片"
         }],
+        annexOrdersRelatePages: [],
+        selectAnnexOrdersRelatePages:[],
+        annexOrdersRelatePage:undefined,
+        annexPages:[],
+        chapters: [{"key": "1", "value": "第一章节","annexOrders":["A", "B", "C"],"annexOrdersRelatePages":[
+          {"annexOrder":"A","annexPage":"1","annexTitle":"Definition of the type, variant and version of the vehicle","annexType":"N721 1230/2012 E"},
+            {"annexOrder":"B","annexPage":"1","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
+            {"annexOrder":"B","annexPage":"2","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
+            {"annexOrder":"C","annexPage":"1","annexTitle":"Location of primary reference points and R-points","annexType":"N721 1230/2012 E"}
+          ]},
+          {"key": "2", "value": "第二章节"},
+          {"key": "3", "value": "第三章节"},
+          {"key": "4", "value": "第四章节"},
+          {"key": "5", "value": "第五章节"},
+          {"key": "6", "value": "第六章节"},
+          {"key": "7", "value": "第七章节"},
+          {"key": "8", "value": "第八章节"},
+          {"key": "9", "value": "第九章节"},
+          {"key": "10", "value": "第十章节"},
+          {"key": "11", "value": "第十一章节"},
+          {"key": "12", "value": "第十二章节"},
+          {"key": "13", "value": "第十三章节"}],
+
         // 查询参数
         queryParams: {
           pageNum: 1,
@@ -258,6 +350,82 @@
       });
     },
     methods: {
+      closePreview() {
+        this.whichAnnexHead = undefined;
+        this.whichAnnex = undefined;
+      },
+
+      subPreview: function () {
+        let chapter = this.form.chapter;
+        let annexOrder = this.form.annexOrder;
+        let annexPage = this.form.annexPage;
+        if (undefined == chapter || "" == chapter ||
+          undefined == annexOrder || "" == annexOrder ||
+          undefined == annexPage || "" == annexPage) {
+          return;
+        }
+        this.whichAnnexHead = "annex_" + chapter + "_" + annexOrder + "_" + annexPage + "_" + "head";
+        this.whichAnnex =  "common_annex_" + annexOrder;
+        debugger
+      },
+
+      changeAnnexOrder(data) {
+        this.closePreview();
+        this.form.annexOrder = undefined;
+        this.form.annexPage = undefined;
+        this.form.annexTitle = undefined;
+        this.form.annexType = undefined;
+        this.annexOrders = [];
+        this.annexOrdersRelatePage = [];
+        this.chapters.forEach(item => {
+          if (item.key == data) {
+            this.annexOrders = item.annexOrders;
+            this.annexOrdersRelatePages = item.annexOrdersRelatePages;
+            return;
+          }
+        })
+      },
+
+
+
+      changeAnnexPage(data) {
+        this.closePreview();
+        this.form.annexPage = undefined;
+        this.form.annexTitle = undefined;
+        this.form.annexType = undefined;
+        this.annexPages = [];
+        this.selectAnnexOrdersRelatePages = [];
+        let annexOrdersRelatePages = this.annexOrdersRelatePages;
+        if (undefined == data || undefined == this.annexOrdersRelatePages || 0 == annexOrdersRelatePages.length) {
+          return;
+        }
+
+        annexOrdersRelatePages.forEach(item => {
+          if (item.annexOrder == data) {
+            this.annexPages.push(item.annexPage);
+            this.selectAnnexOrdersRelatePages.push(item);
+          }
+        })
+      },
+
+      changeTypeAndTitle(data) {
+        this.closePreview();
+        this.form.annexTitle = undefined;
+        this.form.annexType = undefined;
+        let selectAnnexOrdersRelatePages = this.selectAnnexOrdersRelatePages;
+        if (undefined == data || undefined == this.selectAnnexOrdersRelatePages || 0 == selectAnnexOrdersRelatePages.length ) {
+          return
+        }
+        selectAnnexOrdersRelatePages.forEach(item => {
+          if (item.annexPage == data) {
+            this.form.annexTitle = item.annexTitle;
+            this.form.annexType = item.annexType;
+            return;
+          }
+        })
+      },
+
+
       assignRoleValue(list) {
         for (let i = 0; i < list.length; i++) {
           let item = {};
@@ -273,12 +441,12 @@
         list(this.queryParams).then(response => {
             debugger
             this.loading = false;
-          if (200 == response.code) {
-            this.total = response.data.total;
-            this.dealQueryInfo(response.data.list);
-          } else {
-            this.$message.error(response.msg);
-          }
+            if (200 == response.code) {
+              this.total = response.data.total;
+              this.dealQueryInfo(response.data.list);
+            } else {
+              this.$message.error(response.msg);
+            }
           }
         );
       },
@@ -306,13 +474,22 @@
           });
           obj.moduleName = item.moduleName;
           obj.annexPage = item.annexPage;
+          obj.annexType = item.annexType;
+          this.chapters.forEach((it) => {
+            if (item.chapter == it.key) {
+              obj.chapter = it.value;
+              return;
+            }
+          });
           this.annexList.push(obj);
         }
       },
 
       // 取消按钮
       cancel() {
+        this.closePreview();
         this.open = false;
+        this.update = false;
         this.reset();
       },
       // 表单重置
@@ -323,8 +500,10 @@
           annexTitle: undefined,
           annexPage: undefined,
           moduleName: undefined,
-          role:undefined,
-          inputType:undefined,
+          role: undefined,
+          inputType: undefined,
+          chapter: undefined,
+          annexType: undefined,
         };
         this.resetForm("form");
       },
@@ -348,11 +527,12 @@
       // 多选框选中数据
       handleSelectionChange(selection) {
         this.ids = selection.map(item => item.dictId)
-        this.single = selection.length!=1
+        this.single = selection.length != 1
         this.multiple = !selection.length
       },
       /** 修改按钮操作 */
       handleUpdate(row) {
+        this.update = true;
         this.reset();
         let id = row.id;
         getOne(id).then(response => {
@@ -385,9 +565,17 @@
           }
         });
         this.form.annexPage = data.annexPage;
+        this.form.annexType = data.annexType;
+
+        this.chapters.forEach((it) => {
+          if (data.chapter == it.key) {
+            this.$set(this.form, "chapter", it.key);
+            return;
+          }
+        });
       },
       /** 提交按钮 */
-      submitForm: function() {
+      submitForm: function () {
         this.$refs["form"].validate(valid => {
           if (valid) {
             if (this.form.id != undefined) {
@@ -396,6 +584,7 @@
                 if (response.code === 200) {
                   this.msgSuccess("修改成功");
                   this.open = false;
+                  this.update = false;
                   this.getList();
                 } else {
                   this.msgError(response.msg);
@@ -410,6 +599,7 @@
                 if (response.code === 200) {
                   this.msgSuccess("新增成功");
                   this.open = false;
+                  this.update = false;
                   this.getList();
                 } else {
                   this.msgError(response.msg);
@@ -447,11 +637,12 @@
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(function() {
+        }).then(function () {
           return exportType(queryParams);
         }).then(response => {
           this.download(response.msg);
-        }).catch(function() {});
+        }).catch(function () {
+        });
       }
     }
   };

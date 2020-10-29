@@ -1,5 +1,5 @@
 <template>
-  <table width="500" border="1">
+  <table width="500" border="1px solid #ccc" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
       <th>V-V</th>
@@ -12,7 +12,7 @@
     <tr>
       <td rowspan="10">Variant</td>
       <td rowspan="2">
-        <select v-model="selectedCabinType"
+        <select style="width:50px" v-model="selectedCabinType"
                 v-on:change="$emit('change', {cabinType: $event.target.value,buildStage:value.buildStage,
                         powerPlant:value.powerPlant,drivenAxles:value.drivenAxles,massGrade:value.massGrade,
                         trailerCoupling:value.trailerCoupling,engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
@@ -35,7 +35,7 @@
 
     <tr>
       <td rowspan="3">
-        <select v-model="selectedBuildStage"
+        <select style="width:50px" v-model="selectedBuildStage"
                 v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:$event.target.value,powerPlant:value.powerPlant,
                         drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
@@ -63,7 +63,7 @@
 
     <tr>
       <td rowspan="3">
-        <select v-model="selectedPowerPlant"
+        <select style="width:50px" v-model="selectedPowerPlant"
                 v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:$event.target.value,
                         drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
@@ -91,7 +91,7 @@
 
     <tr>
       <td rowspan="2">
-        <select v-model="selectedDrivenAxles"
+        <select style="width:50px" v-model="selectedDrivenAxles"
                 v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,drivenAxles:$event.target.value,
                         massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
@@ -115,7 +115,7 @@
     <tr>
       <td rowspan="28">Version</td>
       <td rowspan="8">
-        <select v-model="selectedMassGrade" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
+        <select style="width:50px" v-model="selectedMassGrade" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
                 drivenAxles:value.drivenAxles,massGrade:$event.target.value,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
           <option v-for="option in massGrades" v-bind:value="option.value">
@@ -166,7 +166,7 @@
 
     <tr>
       <td rowspan="2">
-        <select v-model="selectedTrailerCoupling" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
+        <select style="width:50px" v-model="selectedTrailerCoupling" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
                 drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:$event.target.value,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:value.wheelbase})">
           <option v-for="option in trailerCouplings" v-bind:value="option.value">
@@ -189,7 +189,7 @@
 
     <tr>
       <td rowspan="7">
-        <select v-model="selectedEngineCapacity" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
+        <select style="width:50px" v-model="selectedEngineCapacity" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
                 drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,engineCapacity:$event.target.value,
                 emission:value.emission,wheelbase:value.wheelbase})">
           <option v-for="option in engineCapacitys" v-bind:value="option.value">
@@ -238,7 +238,7 @@
 
     <tr>
       <td rowspan="6">
-        <select v-model="selectedEmission" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
+        <select style="width:50px" v-model="selectedEmission" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
                 drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:$event.target.value,wheelbase:value.wheelbase})">
           <option v-for="option in engineEmissions" v-bind:value="option.value">
@@ -280,7 +280,7 @@
 
     <tr>
       <td rowspan="5">
-        <select v-model="selectedWheelbase" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
+        <select style="width:50px" v-model="selectedWheelbase" v-on:change="$emit('change', {cabinType:value.cabinType,buildStage:value.buildStage,powerPlant:value.powerPlant,
                 drivenAxles:value.drivenAxles,massGrade:value.massGrade,trailerCoupling:value.trailerCoupling,
                 engineCapacity:value.engineCapacity,emission:value.emission,wheelbase:$event.target.value})">
           <option v-for="option in engineWheelbases" v-bind:value="option.value">

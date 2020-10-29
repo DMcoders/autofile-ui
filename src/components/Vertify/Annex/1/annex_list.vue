@@ -1,3 +1,4 @@
+<template>
 <table width="100%">
   <thead>
   <tr rowspan="3" style="margin:auto">ANNEX LIST</tr>
@@ -25,9 +26,10 @@
   </tr>
   </tbody>
 </table>
+</template>
 
 <script>
   export default {
-    name: "1_annex_list"
+    name: "annex_1_list"
   }
 </script>
