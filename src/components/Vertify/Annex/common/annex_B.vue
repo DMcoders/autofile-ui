@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: "annex_C",
+    name: "common_annex_B",
     methods: {
       uploadFun(event) {
         let formData = new FormData();
