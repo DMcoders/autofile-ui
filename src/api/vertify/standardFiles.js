@@ -44,4 +44,11 @@ export function deleteFile(id){
   })
 }
 
+export function getAllStandardInput() {
+  return request({
+    url: '/vertify/file/getAllStandardInput',
+    method: 'post'
+  })
+}
+
 

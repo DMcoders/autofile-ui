@@ -43,14 +43,16 @@
               <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
             </el-button>
           </div>
-          <div class="text item">
-            使用车型：{{item.autoType}}
-          </div>
-          <div class="text item">
-            版本年份：{{item.versionYear}}
-          </div>
-          <div class="text item">
-            创建日期：{{item.gmtCreate}}
+          <div @click="detail(item)" id="fileDetailLabel">
+            <div class="text item">
+              使用车型：{{item.autoType}}
+            </div>
+            <div class="text item">
+              版本年份：{{item.versionYear}}
+            </div>
+            <div class="text item">
+              创建日期：{{item.gmtCreate}}
+            </div>
           </div>
         </el-card>
       </el-col>
@@ -132,8 +134,7 @@
 </template>
 
 <script>
-  import {list,deleteFile,addOrUpdate,get} from "@/api/vertify/standardFiles";
-  import {list as standardInputList} from "@/api/vertify/standardInput";
+  import {list,deleteFile,addOrUpdate,get,getAllStandardInput} from "@/api/vertify/standardFiles";
   import { getUserProfile } from "@/api/system/user";
 
   export default {
@@ -242,14 +243,14 @@
       this.openLoading();
       this.getUser();
 
-      standardInputList({pageNum:0,pageSize:0}).then(response => {
+      getAllStandardInput().then(response => {
         var allStandardInputs = [];
-        response.data.list.forEach((item, index) => {
-          allStandardInputs.push({
-            key:item.id,
-            label:item.sectionOrderName+" "+item.sectionTitleZh
-          })
-        })
+        for(var key in response.data) {
+            allStandardInputs.push({
+              key:key,
+              label:response.data[key]
+            })
+        }
         this.allStandardInputs = allStandardInputs;
       });
     },
@@ -378,11 +379,9 @@
         autoTypeValue.push(data.standardFile.autoSpecies);
         autoTypeValue.push(data.standardFile.autoSeries);
         this.form.autoTypeValue = autoTypeValue;
-        let selStandardInputs = [];
-        data.standardInputList.forEach((item, index) => {
-          selStandardInputs.push(item.id)
-        })
-        this.selStandardInputs = selStandardInputs;
+        if(data.standardInputList) {
+          this.selStandardInputs = data.standardInputList;
+        }
       },
       /** 删除按钮操作 */
       handleDelete(item) {
@@ -397,13 +396,23 @@
           this.msgSuccess("删除成功");
         }).catch(function () {
         });
+      },
+      /**
+       * 文件详情信息
+       * @param item
+       */
+      detail(item) {
+        this.$message({
+          type: 'info',
+          message: "详细内容"+item.id
+        });
       }
     }
   };
 </script>
 
 <style lang="scss">
-  .el-icon-edit,.el-icon-delete:hover {
+  .el-icon-edit,.el-icon-delete,#fileDetailLabel:hover {
     cursor: pointer;
   }
 
