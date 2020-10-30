@@ -1,30 +1,32 @@
 import request from '@/utils/request'
 
 
-export function add(standardInputListJson) {
+export function addOrUpdate(data) {
   return request({
-    url: '/vertify/input/add',
+    url: '/vertify/file/addOrUpdate',
     method: 'post',
-    data: standardInputListJson
+    data: data
   })
 }
 
-export function update(standardInput) {
+export function update(standardFileJson,fileInputListJson) {
   return request({
     url: '/vertify/input/update',
     method: 'post',
-    data: standardInput
+    params: {
+      standardFileJson:standardFileJson,
+      fileInputListJson:fileInputListJson
+    }
   })
 }
 
-export function getOne(id) {
+export function get(id) {
   return request({
-    url: '/vertify/input/getOneResult',
-    method: 'get',
-    params:{id}
+    url: '/vertify/file/detail',
+    method: 'post',
+    params:{standardFileId:id}
   })
 }
-
 
 export function list(fileName) {
   return request({
