@@ -130,6 +130,10 @@
       </div>
     </el-dialog>
 
+    <el-dialog :title="detailTitle" :visible.sync="openDetail" width="65%" append-to-body>
+      11111
+    </el-dialog>
+
   </div>
 </template>
 
@@ -156,6 +160,9 @@
         title: "",
         // 是否显示弹出层
         open: false,
+        // 是否显示详情弹出层
+        openDetail: false,
+        detailTitle:"",
         // 标准组件穿梭框
         selStandardInputs: [],
         allStandardInputs: [],
@@ -402,9 +409,14 @@
        * @param item
        */
       detail(item) {
-        this.$message({
-          type: 'info',
-          message: "详细内容"+item.id
+        this.openDetail = true;
+        this.detailTitle = item.fileName;
+        get(item.id).then(response => {
+          if (200 == response.code) {
+            console.log(response.data)
+          } else {
+            this.$message.error(response.msg);
+          }
         });
       }
     }
