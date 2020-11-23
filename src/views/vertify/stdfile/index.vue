@@ -109,6 +109,27 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item label="首页标题" prop="coverTitle">
+              <el-input style="width:80%" v-model="form.coverTitle" clearable placeholder="请输入首页标题"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="首页副题" prop="coverSubTitle">
+              <el-input type="textarea" style="width:91%" v-model="form.coverSubTitle" clearable placeholder="请输入首页副标题"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="首页车型" prop="vehicleType">
+              <el-input style="width:80%" v-model="form.vehicleType" clearable placeholder="请输入首页车型"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
           </el-col>
         </el-row>
 
@@ -181,6 +202,9 @@
           versionYear:"",
           company:"",
           category:"",
+          coverTitle:"",
+          coverSubTitle:"",
+          vehicleType:"",
           autoTypeValue: []
         },
         // 表单校验
@@ -199,6 +223,15 @@
           ],
           autoTypeValue: [
             {required: true, message: "车型不能为空", trigger: "change"}
+          ],
+          coverTitle: [
+            {required: true, message: "首页标题不能为空", trigger: "blur"}
+          ],
+          coverSubTitle: [
+            {required: true, message: "首页副标题不能为空", trigger: "blur"}
+          ],
+          vehicleType: [
+            {required: true, message: "首页车型不能为空", trigger: "blur"}
           ]
         },
         autoTypeOptions: [{
@@ -346,6 +379,9 @@
           versionYear:"",
           company:"",
           category:"",
+          coverTitle:"",
+          coverSubTitle:"",
+          vehicleType:"",
           autoTypeValue: []
         };
         this.resetForm("form");
@@ -381,6 +417,9 @@
         this.form.category = data.standardFile.category;
         this.form.id = data.standardFile.id;
         this.form.company = data.standardFile.company;
+        this.form.coverTitle = data.standardFile.coverTitle;
+        this.form.coverSubTitle = data.standardFile.coverSubTitle;
+        this.form.vehicleType = data.standardFile.vehicleType;
         let autoTypeValue = [];
         autoTypeValue.push(data.standardFile.autoType);
         autoTypeValue.push(data.standardFile.autoSpecies);
