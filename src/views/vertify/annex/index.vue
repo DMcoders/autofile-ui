@@ -245,9 +245,46 @@
   import annex_1_B_2_head from '../../../components/Vertify/Annex/1/annex_B_2_head'
   import annex_1_C_1_head from '../../../components/Vertify/Annex/1/annex_C_1_head'
 
+  import annex_2_B_1_head from "../../../components/Vertify/Annex/2/annex_B_1_head";
+  import annex_2_B_2_head from "../../../components/Vertify/Annex/2/annex_B_2_head";
+  import annex_2_C_1_head from "../../../components/Vertify/Annex/2/annex_C_1_head";
+  import annex_2_C_2_head from "../../../components/Vertify/Annex/2/annex_C_2_head";
+
+  import annex_3_C1_1_head from "../../../components/Vertify/Annex/3/annex_C1_1_head";
+  import annex_3_C1_2_head from "../../../components/Vertify/Annex/3/annex_C1_2_head";
+  import annex_3_C1_3_head from "../../../components/Vertify/Annex/3/annex_C1_3_head";
+  import annex_3_C1_4_head from "../../../components/Vertify/Annex/3/annex_C1_4_head";
+  import annex_3_C1_5_head from "../../../components/Vertify/Annex/3/annex_C1_5_head";
+  import annex_3_C2_1_head from "../../../components/Vertify/Annex/3/annex_C2_1_head";
+  import annex_3_C2_3_head from "../../../components/Vertify/Annex/3/annex_C2_3_head";
+  import annex_3_C2_4_head from "../../../components/Vertify/Annex/3/annex_C2_4_head";
+  import annex_3_C2_5_head from "../../../components/Vertify/Annex/3/annex_C2_5_head";
+  import annex_3_C2_6_head from "../../../components/Vertify/Annex/3/annex_C2_6_head";
+
+  import annex_4_C_1_head from "../../../components/Vertify/Annex/4/annex_C_1_head";
+  import annex_4_C_2_head from "../../../components/Vertify/Annex/4/annex_C_2_head";
+  import annex_4_C_1_tail1 from "../../../components/Vertify/Annex/4/annex_C_1_tail1";
+  import annex_4_C_1_tail2 from "../../../components/Vertify/Annex/4/annex_C_1_tail2";
+
+  import annex_5_C_5_head from "../../../components/Vertify/Annex/5/annex_C_5_head";
+  import annex_5_C_6_head from "../../../components/Vertify/Annex/5/annex_C_6_head";
+  import annex_5_C_5_tail from "../../../components/Vertify/Annex/5/annex_C_5_tail";
+  import annex_5_C_6_tail from "../../../components/Vertify/Annex/5/annex_C_6_tail";
+
+  import annex_6_C_3_head from "../../../components/Vertify/Annex/6/annex_C_3_head";
+  import annex_6_C_4_head from "../../../components/Vertify/Annex/6/annex_C_4_head";
+  import annex_6_C_3_tail1 from "../../../components/Vertify/Annex/6/annex_C_3_tail1";
+  import annex_6_C_4_tail1 from "../../../components/Vertify/Annex/6/annex_C_4_tail1";
+  import annex_6_C_3_tail2 from "../../../components/Vertify/Annex/6/annex_C_3_tail2";
+  import annex_6_C_4_tail2 from "../../../components/Vertify/Annex/6/annex_C_4_tail2";
+
+
   import common_annex_A from '../../../components/Vertify/Annex/common/annex_A'
   import common_annex_B from '../../../components/Vertify/Annex/common/annex_B'
   import common_annex_C from '../../../components/Vertify/Annex/common/annex_C'
+
+  import special_2_annex_C from "../../../components/Vertify/Annex/special/special_2_annex_C";
+  import special_4_annex_C from "../../../components/Vertify/Annex/special/special_4_annex_C";
 
   export default {
     name: "annex",
@@ -256,9 +293,47 @@
       annex_1_B_1_head,
       annex_1_B_2_head,
       annex_1_C_1_head,
+
       common_annex_A,
       common_annex_B,
       common_annex_C,
+
+      special_2_annex_C,
+      special_4_annex_C,
+
+      annex_2_B_1_head,
+      annex_2_B_2_head,
+      annex_2_C_1_head,
+      annex_2_C_2_head,
+
+      annex_3_C1_1_head,
+      annex_3_C1_2_head,
+      annex_3_C1_3_head,
+      annex_3_C1_4_head,
+      annex_3_C1_5_head,
+      annex_3_C2_1_head,
+      annex_3_C2_3_head,
+      annex_3_C2_4_head,
+      annex_3_C2_5_head,
+      annex_3_C2_6_head,
+
+      annex_4_C_1_head,
+      annex_4_C_2_head,
+      annex_4_C_1_tail1,
+      annex_4_C_1_tail2,
+
+      annex_5_C_5_head,
+      annex_5_C_6_head,
+      annex_5_C_5_tail,
+      annex_5_C_6_tail,
+
+      annex_6_C_3_head,
+      annex_6_C_4_head,
+      annex_6_C_3_tail1,
+      annex_6_C_4_tail1,
+      annex_6_C_3_tail2,
+      annex_6_C_4_tail2,
+
     },
     data() {
       return {
@@ -302,24 +377,172 @@
         selectAnnexOrdersRelatePages:[],
         annexOrdersRelatePage:undefined,
         annexPages:[],
-        chapters: [{"key": "1", "value": "第一章节","annexOrders":["A", "B", "C"],"annexOrdersRelatePages":[
-          {"annexOrder":"A","annexPage":"1","annexTitle":"Definition of the type, variant and version of the vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"B","annexPage":"1","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"B","annexPage":"2","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"C","annexPage":"1","annexTitle":"Location of primary reference points and R-points","annexType":"N721 1230/2012 E"}
-          ]},
-          {"key": "2", "value": "第二章节"},
-          {"key": "3", "value": "第三章节"},
-          {"key": "4", "value": "第四章节"},
-          {"key": "5", "value": "第五章节"},
-          {"key": "6", "value": "第六章节"},
-          {"key": "7", "value": "第七章节"},
-          {"key": "8", "value": "第八章节"},
-          {"key": "9", "value": "第九章节"},
-          {"key": "10", "value": "第十章节"},
-          {"key": "11", "value": "第十一章节"},
-          {"key": "12", "value": "第十二章节"},
-          {"key": "13", "value": "第十三章节"}],
+        chapters: [
+          {
+            "key":"1",
+            "value":"第一章节",
+            "annexOrders":[
+              "A",
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"A",
+                "annexPage":"1",
+                "annexTitle":"Definition of the type, variant and version of the vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"1",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"2",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Location of primary reference points and R-points",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"2",
+            "value":"第二章节",
+            "annexOrders":[
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"B",
+                "annexPage":"1",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"2",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Location of primary reference points and R-points",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"2",
+                "annexTitle":"Table of vehicle weight",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"3",
+            "value":"第三章节"
+          },
+          {
+            "key":"4",
+            "value":"第四章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Speedometer (KPH)",
+                "annexType":"N721 R39 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"2",
+                "annexTitle":"Table for detail of engine and transmission",
+                "annexType":"N721 R39 E"
+              }
+            ]
+          },
+          {
+            "key":"5",
+            "value":"第五章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"5",
+                "annexTitle":"Front axle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"6",
+                "annexTitle":"rear axle",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"6",
+            "value":"第六章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"3",
+                "annexTitle":"Front Suspension",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"4",
+                "annexTitle":"Rear Suspension",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"7",
+            "value":"第七章节"
+          },
+          {
+            "key":"8",
+            "value":"第八章节"
+          },
+          {
+            "key":"9",
+            "value":"第九章节"
+          },
+          {
+            "key":"10",
+            "value":"第十章节"
+          },
+          {
+            "key":"11",
+            "value":"第十一章节"
+          },
+          {
+            "key":"12",
+            "value":"第十二章节"
+          },
+          {
+            "key":"13",
+            "value":"第十三章节"
+          }
+        ],
 
         // 查询参数
         queryParams: {

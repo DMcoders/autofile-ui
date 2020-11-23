@@ -20,9 +20,29 @@
     <td>1-2</td>
   </tr>
   <tr>
-    <td>C</td>
-    <td>Location of primary reference points and R-points</td>
-    <td>1</td>
+    <td rowspan="6">C</td>
+    <td rowspan="1">Location of primary reference points and R-points</td>
+    <td rowspan="1">1</td>
+  </tr>
+  <tr>
+    <td rowspan="1">Mass of the vehicle</td>
+    <td rowspan="1">2</td>
+  </tr>
+  <tr>
+    <td rowspan="1">Front Suspension</td>
+    <td rowspan="1">3</td>
+  </tr>
+  <tr>
+    <td rowspan="1">Rear Suspension</td>
+    <td rowspan="1">4</td>
+  </tr>
+  <tr>
+    <td rowspan="1">Front axle</td>
+    <td rowspan="1">5</td>
+  </tr>
+  <tr>
+    <td rowspan="1">Rear axle</td>
+    <td rowspan="1">6</td>
   </tr>
   </tbody>
 </table>
