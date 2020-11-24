@@ -46,6 +46,6 @@
 
 <script>
   export default {
-    name: "special_4_annex_C"
+    name: "special_annex_4_C_2"
   }
 </script>

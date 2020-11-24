@@ -17,6 +17,6 @@
 
 <script>
   export default {
-    name: "catalogue_6.6.1(458)"
+    name: "catalogue_6.6.1.(458)"
   }
 </script>

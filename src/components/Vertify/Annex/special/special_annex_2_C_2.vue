@@ -1,5 +1,5 @@
 <template>
-  <table width="900" border="1px solid #ccc" cellspacing="0" cellpadding="0" style="margin:auto">
+  <table width="100%" border="1px solid #ccc" cellspacing="0" cellpadding="0" style="margin:auto">
     <tbody>
     <tr>
       <td colspan="1"></td>
@@ -152,6 +152,6 @@
 
 <script>
   export default {
-    name: "special_2_annex_C"
+    name: "special_annex_2_C_2"
   }
 </script>
