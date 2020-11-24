@@ -241,78 +241,374 @@
 
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
-  import catalogue_01 from '../../../components/Vertify/Catalogue/0/catalogue_0.1'
-  import catalogue_02 from '../../../components/Vertify/Catalogue/0/catalogue_0.2'
-  import catalogue_03 from '../../../components/Vertify/Catalogue/0/catalogue_0.3'
-  import catalogue_04 from '../../../components/Vertify/Catalogue/0/catalogue_0.4'
-  import catalogue_05 from '../../../components/Vertify/Catalogue/0/catalogue_0.5'
-  import catalogue_06 from '../../../components/Vertify/Catalogue/0/catalogue_0.6'
-  import catalogue_08 from '../../../components/Vertify/Catalogue/0/catalogue_0.8'
-  import catalogue_09 from '../../../components/Vertify/Catalogue/0/catalogue_0.9'
-  import catalogue_010 from '../../../components/Vertify/Catalogue/0/catalogue_0.10'
-  import catalogue_011 from '../../../components/Vertify/Catalogue/0/catalogue_0.11'
-  import catalogue_012 from '../../../components/Vertify/Catalogue/0/catalogue_0.12'
-  import catalogue_013 from '../../../components/Vertify/Catalogue/0/catalogue_0.13'
-  import catalogue_014 from '../../../components/Vertify/Catalogue/0/catalogue_0.14'
-  import catalogue_021 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.1'
-  import catalogue_031 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1'
-  import catalogue_061 from '../../../components/Vertify/Catalogue/0/catalogue_0.6.1'
-  import catalogue_0311 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.1'
-  import catalogue_0312 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.2'
+  import catalogue_0_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.1'
+  import catalogue_0_2 from '../../../components/Vertify/Catalogue/0/catalogue_0.2'
+  import catalogue_0_3 from '../../../components/Vertify/Catalogue/0/catalogue_0.3'
+  import catalogue_0_4 from '../../../components/Vertify/Catalogue/0/catalogue_0.4'
+  import catalogue_0_5 from '../../../components/Vertify/Catalogue/0/catalogue_0.5'
+  import catalogue_0_6 from '../../../components/Vertify/Catalogue/0/catalogue_0.6'
+  import catalogue_0_8 from '../../../components/Vertify/Catalogue/0/catalogue_0.8'
+  import catalogue_0_9 from '../../../components/Vertify/Catalogue/0/catalogue_0.9'
+  import catalogue_0_10 from '../../../components/Vertify/Catalogue/0/catalogue_0.10'
+  import catalogue_0_11 from '../../../components/Vertify/Catalogue/0/catalogue_0.11'
+  import catalogue_0_12 from '../../../components/Vertify/Catalogue/0/catalogue_0.12'
+  import catalogue_0_13 from '../../../components/Vertify/Catalogue/0/catalogue_0.13'
+  import catalogue_0_14 from '../../../components/Vertify/Catalogue/0/catalogue_0.14'
+  import catalogue_0_2_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.1'
+  import catalogue_0_3_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1'
+  import catalogue_0_6_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.6.1'
+  import catalogue_0_3_1_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.1'
+  import catalogue_0_3_1_2 from '../../../components/Vertify/Catalogue/0/catalogue_0.3.1.2'
 
   import catalogue_1 from '../../../components/Vertify/Catalogue/1/catalogue_1'
-  import catalogue_11 from '../../../components/Vertify/Catalogue/1/catalogue_1.1'
-  import catalogue_12 from '../../../components/Vertify/Catalogue/1/catalogue_1.2'
-  import catalogue_13 from '../../../components/Vertify/Catalogue/1/catalogue_1.3'
-  import catalogue_14 from '../../../components/Vertify/Catalogue/1/catalogue_1.4'
-  import catalogue_15 from '../../../components/Vertify/Catalogue/1/catalogue_1.5'
-  import catalogue_17 from '../../../components/Vertify/Catalogue/1/catalogue_1.7'
-  import catalogue_18 from '../../../components/Vertify/Catalogue/1/catalogue_1.8'
-  import catalogue_19 from '../../../components/Vertify/Catalogue/1/catalogue_1.9'
-  import catalogue_110 from '../../../components/Vertify/Catalogue/1/catalogue_1.10'
-  import catalogue_131 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.1'
-  import catalogue_132 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.2'
-  import catalogue_133 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.3'
-  import catalogue_181 from '../../../components/Vertify/Catalogue/1/catalogue_1.8.1'
+  import catalogue_1_1 from '../../../components/Vertify/Catalogue/1/catalogue_1.1'
+  import catalogue_1_2 from '../../../components/Vertify/Catalogue/1/catalogue_1.2'
+  import catalogue_1_3 from '../../../components/Vertify/Catalogue/1/catalogue_1.3'
+  import catalogue_1_4 from '../../../components/Vertify/Catalogue/1/catalogue_1.4'
+  import catalogue_1_5 from '../../../components/Vertify/Catalogue/1/catalogue_1.5'
+  import catalogue_1_7 from '../../../components/Vertify/Catalogue/1/catalogue_1.7'
+  import catalogue_1_8 from '../../../components/Vertify/Catalogue/1/catalogue_1.8'
+  import catalogue_1_9 from '../../../components/Vertify/Catalogue/1/catalogue_1.9'
+  import catalogue_1_10 from '../../../components/Vertify/Catalogue/1/catalogue_1.10'
+  import catalogue_1_3_1 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.1'
+  import catalogue_1_3_2 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.2'
+  import catalogue_1_3_3 from '../../../components/Vertify/Catalogue/1/catalogue_1.3.3'
+  import catalogue_1_8_1 from '../../../components/Vertify/Catalogue/1/catalogue_1.8.1'
+
+  import catalogue_2 from "../../../components/Vertify/Catalogue/2/catalogue_2";
+  import catalogue_2_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.1";
+  import catalogue_2_1_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.1.1";
+  import catalogue_2_1_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.1.2";
+  import catalogue_2_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.2";
+  import catalogue_2_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3";
+  //S占位
+  import catalogue_2_3_SR51S from "../../../components/Vertify/Catalogue/2/catalogue_2.3.(R51)";
+  import catalogue_2_3_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.1";
+  import catalogue_2_3_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.2";
+  import catalogue_2_3_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.3";
+  import catalogue_2_3_4 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.4";
+  import catalogue_2_4 from "../../../components/Vertify/Catalogue/2/catalogue_2.4";
+  import catalogue_2_4_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1";
+  import catalogue_2_4_1_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.1";
+  import catalogue_2_4_1_1_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.1.1";
+  import catalogue_2_4_1_1_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.1.2";
+  import catalogue_2_4_1_1_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.1.3";
+  import catalogue_2_4_1_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.2";
+  import catalogue_2_4_1_2_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.2.1";
+  import catalogue_2_4_1_2_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.2.2";
+  import catalogue_2_4_1_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.3";
+  import catalogue_2_4_1_4 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.4";
+  import catalogue_2_4_1_4_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.4.1";
+  import catalogue_2_4_1_5 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.5";
+  import catalogue_2_4_1_5_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.5.1";
+  import catalogue_2_4_1_5_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.5.2";
+  import catalogue_2_4_1_6 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.6";
+  import catalogue_2_4_1_6_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.6.1";
+  import catalogue_2_4_1_6_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.6.2";
+  import catalogue_2_4_1_6_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.6.3";
+  import catalogue_2_4_1_8 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.1.8";
+  import catalogue_2_4_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2";
+  import catalogue_2_4_2_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.1";
+  import catalogue_2_4_2_1_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.1.1";
+  import catalogue_2_4_2_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.2";
+  import catalogue_2_4_2_2_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.2.1";
+  import catalogue_2_4_2_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.3";
+  import catalogue_2_4_2_4 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.4";
+  import catalogue_2_4_2_4_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.4.1";
+  import catalogue_2_4_2_5 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.5";
+  import catalogue_2_4_2_5_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.5.1";
+  import catalogue_2_4_2_5_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.5.2";
+  import catalogue_2_4_2_6 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.6";
+  import catalogue_2_4_2_6_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.6.1";
+  import catalogue_2_4_2_6_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.6.2";
+  import catalogue_2_4_2_6_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.6.3";
+  import catalogue_2_4_2_8 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.2.8";
+  import catalogue_2_4_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.4.3";
+  import catalogue_2_5 from "../../../components/Vertify/Catalogue/2/catalogue_2.5";
+  import catalogue_2_6 from "../../../components/Vertify/Catalogue/2/catalogue_2.6";
+  import catalogue_2_6_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.6.1";
+  import catalogue_2_6_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.6.2";
+  import catalogue_2_7_SR13S from "../../../components/Vertify/Catalogue/2/catalogue_2.7.(R13)";
+  import catalogue_2_8 from "../../../components/Vertify/Catalogue/2/catalogue_2.8";
+  import catalogue_2_8_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.8.1";
+  import catalogue_2_9 from "../../../components/Vertify/Catalogue/2/catalogue_2.9";
+  import catalogue_2_10 from "../../../components/Vertify/Catalogue/2/catalogue_2.10";
+  import catalogue_2_11 from "../../../components/Vertify/Catalogue/2/catalogue_2.11";
+  import catalogue_2_11_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.11.3";
+  import catalogue_2_11_3_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.11.3.1";
+  import catalogue_2_11_4 from "../../../components/Vertify/Catalogue/2/catalogue_2.11.4";
+  import catalogue_2_11_5 from "../../../components/Vertify/Catalogue/2/catalogue_2.11.5";
+  import catalogue_2_11_6 from "../../../components/Vertify/Catalogue/2/catalogue_2.11.6";
+  import catalogue_2_12 from "../../../components/Vertify/Catalogue/2/catalogue_2.12";
+  import catalogue_2_12_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.12.1";
+  import catalogue_2_16 from "../../../components/Vertify/Catalogue/2/catalogue_2.16";
+
+  import catalogue_3 from "../../../components/Vertify/Catalogue/3/catalogue_3";
+  import catalogue_3_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.1";
+  import catalogue_3_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.1.1";
+  import catalogue_3_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2";
+  import catalogue_3_2_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1";
+  import catalogue_3_2_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.1";
+  import catalogue_3_2_1_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.2";
+  import catalogue_3_2_1_2_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.2.1";
+  import catalogue_3_2_1_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.3";
+  import catalogue_3_2_1_9SR89S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.9(R89)";
+  import catalogue_3_2_1_10SR89S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.1.10(R89)";
+  import catalogue_3_2_3_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.1";
+  import catalogue_3_2_3_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.1.1";
+  import catalogue_3_2_3_1_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.1.2";
+  import catalogue_3_2_3_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2";
+  import catalogue_3_2_3_2_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2.1";
+  import catalogue_3_2_3_2_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2.2";
+  import catalogue_3_2_4_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.(R51)";
+  import catalogue_3_2_4_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.1";
+  import catalogue_3_2_4_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.2";
+  import catalogue_3_2_4_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.3";
+  import catalogue_3_2_4_4 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.4";
+  import catalogue_3_2_6_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.(R51)";
+  import catalogue_3_2_6_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.1";
+  import catalogue_3_2_6_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.2";
+  import catalogue_3_3_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.3.(R51)";
+  import catalogue_3_3_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1";
+  import catalogue_3_3_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1.1";
+  import catalogue_3_3_1_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1.2";
+  import catalogue_3_4_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.1";
+  import catalogue_3_4_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.2";
+  import catalogue_3_4_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.3";
+  import catalogue_3_4_3_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.3.1";
+  import catalogue_3_4_3_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.3.1.1";
+  import catalogue_3_4_3_1_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.3.1.2";
+  import catalogue_3_4_3_1_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.3.1.3";
+  import catalogue_3_4_4 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.4";
+  import catalogue_3_4_4_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.4.1";
+  import catalogue_3_4_4_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.4.2";
+  import catalogue_3_4_4_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.4.4.3";
+
+
+  import catalogue_4 from "../../../components/Vertify/Catalogue/4/catalogue_4";
+  import catalogue_4_2_SR39R89S from "../../../components/Vertify/Catalogue/4/catalogue_4.2.(R39R89)";
+  import catalogue_4_3 from "../../../components/Vertify/Catalogue/4/catalogue_4.3";
+  import catalogue_4_5 from "../../../components/Vertify/Catalogue/4/catalogue_4.5";
+  import catalogue_4_5_1 from "../../../components/Vertify/Catalogue/4/catalogue_4.5.1";
+  import catalogue_4_7SR89S from "../../../components/Vertify/Catalogue/4/catalogue_4.7(R89)";
+  import catalogue_4_7_SR39S from "../../../components/Vertify/Catalogue/4/catalogue_4.7.(R39)";
+  import catalogue_4_8 from "../../../components/Vertify/Catalogue/4/catalogue_4.8";
+  import catalogue_4_8_1 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.1";
+  import catalogue_4_8_2 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.2";
+  import catalogue_4_8_3 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.3";
+  import catalogue_4_8_4 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.4";
+  import catalogue_4_8_5 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.5";
+
+  import catalogue_5 from "../../../components/Vertify/Catalogue/5/catalogue_5";
+  import catalogue_5_1 from "../../../components/Vertify/Catalogue/5/catalogue_5.1";
+  import catalogue_5_2 from "../../../components/Vertify/Catalogue/5/catalogue_5.2";
+  import catalogue_5_3 from "../../../components/Vertify/Catalogue/5/catalogue_5.3";
+  import catalogue_5_4 from "../../../components/Vertify/Catalogue/5/catalogue_5.4";
+  import catalogue_5_5 from "../../../components/Vertify/Catalogue/5/catalogue_5.5";
+
+  import catalogue_6 from "../../../components/Vertify/Catalogue/6/catalogue_6";
+  import catalogue_6_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.1";
+  import catalogue_6_2 from "../../../components/Vertify/Catalogue/6/catalogue_6.2";
+  import catalogue_6_2_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.2.1";
+  import catalogue_6_2_3 from "../../../components/Vertify/Catalogue/6/catalogue_6.2.3";
+  import catalogue_6_2_4 from "../../../components/Vertify/Catalogue/6/catalogue_6.2.4";
+  import catalogue_6_6 from "../../../components/Vertify/Catalogue/6/catalogue_6.6";
+  import catalogue_6_6_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1";
+  import catalogue_6_6_1_S458S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.(458)";
+  import catalogue_6_6_1_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1";
+  import catalogue_6_6_1_1_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.1";
+  import catalogue_6_6_1_1_2 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.2";
+  import catalogue_6_6_1_1_3 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.3";
+  import catalogue_6_6_3_S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.3.(109)";
+  import catalogue_6_6_4_S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.4.(109)";
+  import catalogue_6_6_6S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.6(109)";
+
 
   export default {
     name: "catalogue",
 
     components: {
       catalogue_0,
-      catalogue_01,
-      catalogue_02,
-      catalogue_03,
-      catalogue_04,
-      catalogue_05,
-      catalogue_06,
-      catalogue_08,
-      catalogue_09,
-      catalogue_010,
-      catalogue_011,
-      catalogue_012,
-      catalogue_013,
-      catalogue_014,
-      catalogue_021,
-      catalogue_031,
-      catalogue_061,
-      catalogue_0311,
-      catalogue_0312,
+      catalogue_0_1,
+      catalogue_0_2,
+      catalogue_0_3,
+      catalogue_0_4,
+      catalogue_0_5,
+      catalogue_0_6,
+      catalogue_0_8,
+      catalogue_0_9,
+      catalogue_0_10,
+      catalogue_0_11,
+      catalogue_0_12,
+      catalogue_0_13,
+      catalogue_0_14,
+      catalogue_0_2_1,
+      catalogue_0_3_1,
+      catalogue_0_6_1,
+      catalogue_0_3_1_1,
+      catalogue_0_3_1_2,
 
       catalogue_1,
-      catalogue_11,
-      catalogue_12,
-      catalogue_13,
-      catalogue_14,
-      catalogue_15,
-      catalogue_17,
-      catalogue_18,
-      catalogue_19,
-      catalogue_110,
-      catalogue_131,
-      catalogue_132,
-      catalogue_133,
-      catalogue_181,
+      catalogue_1_1,
+      catalogue_1_2,
+      catalogue_1_3,
+      catalogue_1_4,
+      catalogue_1_5,
+      catalogue_1_7,
+      catalogue_1_8,
+      catalogue_1_9,
+      catalogue_1_10,
+      catalogue_1_3_1,
+      catalogue_1_3_2,
+      catalogue_1_3_3,
+      catalogue_1_8_1,
+
+      catalogue_2,
+      catalogue_2_1,
+      catalogue_2_1_1,
+      catalogue_2_1_2,
+      catalogue_2_2,
+      catalogue_2_3,
+      catalogue_2_3_SR51S,
+      catalogue_2_3_1,
+      catalogue_2_3_2,
+      catalogue_2_3_3,
+      catalogue_2_3_4,
+      catalogue_2_4,
+      catalogue_2_4_1,
+      catalogue_2_4_1_1,
+      catalogue_2_4_1_1_1,
+      catalogue_2_4_1_1_2,
+      catalogue_2_4_1_1_3,
+      catalogue_2_4_1_2,
+      catalogue_2_4_1_2_1,
+      catalogue_2_4_1_2_2,
+      catalogue_2_4_1_3,
+      catalogue_2_4_1_4,
+      catalogue_2_4_1_4_1,
+      catalogue_2_4_1_5,
+      catalogue_2_4_1_5_1,
+      catalogue_2_4_1_5_2,
+      catalogue_2_4_1_6,
+      catalogue_2_4_1_6_1,
+      catalogue_2_4_1_6_2,
+      catalogue_2_4_1_6_3,
+      catalogue_2_4_1_8,
+      catalogue_2_4_2,
+      catalogue_2_4_2_1,
+      catalogue_2_4_2_1_1,
+      catalogue_2_4_2_2,
+      catalogue_2_4_2_2_1,
+      catalogue_2_4_2_3,
+      catalogue_2_4_2_4,
+      catalogue_2_4_2_4_1,
+      catalogue_2_4_2_5,
+      catalogue_2_4_2_5_1,
+      catalogue_2_4_2_5_2,
+      catalogue_2_4_2_6,
+      catalogue_2_4_2_6_1,
+      catalogue_2_4_2_6_2,
+      catalogue_2_4_2_6_3,
+      catalogue_2_4_2_8,
+      catalogue_2_4_3,
+      catalogue_2_5,
+      catalogue_2_6,
+      catalogue_2_6_1,
+      catalogue_2_6_2,
+      catalogue_2_7_SR13S,
+      catalogue_2_8,
+      catalogue_2_8_1,
+      catalogue_2_9,
+      catalogue_2_10,
+      catalogue_2_11,
+      catalogue_2_11_3,
+      catalogue_2_11_3_1,
+      catalogue_2_11_4,
+      catalogue_2_11_5,
+      catalogue_2_11_6,
+      catalogue_2_12,
+      catalogue_2_12_1,
+      catalogue_2_16,
+
+      catalogue_3,
+      catalogue_3_1,
+      catalogue_3_1_1,
+      catalogue_3_2,
+      catalogue_3_2_1,
+      catalogue_3_2_1_1,
+      catalogue_3_2_1_2,
+      catalogue_3_2_1_2_1,
+      catalogue_3_2_1_3,
+      catalogue_3_2_1_9SR89S,
+      catalogue_3_2_1_10SR89S,
+      catalogue_3_2_3_1,
+      catalogue_3_2_3_1_1,
+      catalogue_3_2_3_1_2,
+      catalogue_3_2_3_2,
+      catalogue_3_2_3_2_1,
+      catalogue_3_2_3_2_2,
+      catalogue_3_2_4_SR51S,
+      catalogue_3_2_4_1,
+      catalogue_3_2_4_2,
+      catalogue_3_2_4_3,
+      catalogue_3_2_4_4,
+      catalogue_3_2_6_SR51S,
+      catalogue_3_2_6_1,
+      catalogue_3_2_6_2,
+      catalogue_3_3_SR51S,
+      catalogue_3_3_1,
+      catalogue_3_3_1_1,
+      catalogue_3_3_1_2,
+      catalogue_3_4_1,
+      catalogue_3_4_2,
+      catalogue_3_4_3,
+      catalogue_3_4_3_1,
+      catalogue_3_4_3_1_1,
+      catalogue_3_4_3_1_2,
+      catalogue_3_4_3_1_3,
+      catalogue_3_4_4,
+      catalogue_3_4_4_1,
+      catalogue_3_4_4_2,
+      catalogue_3_4_4_3,
+
+      catalogue_4,
+      catalogue_4_2_SR39R89S,
+      catalogue_4_3,
+      catalogue_4_5,
+      catalogue_4_5_1,
+      catalogue_4_7SR89S,
+      catalogue_4_7_SR39S,
+      catalogue_4_8,
+      catalogue_4_8_1,
+      catalogue_4_8_2,
+      catalogue_4_8_3,
+      catalogue_4_8_4,
+      catalogue_4_8_5,
+
+      catalogue_5,
+      catalogue_5_1,
+      catalogue_5_2,
+      catalogue_5_3,
+      catalogue_5_4,
+      catalogue_5_5,
+
+      catalogue_6,
+      catalogue_6_1,
+      catalogue_6_2,
+      catalogue_6_2_1,
+      catalogue_6_2_3,
+      catalogue_6_2_4,
+      catalogue_6_6,
+      catalogue_6_6_1,
+      catalogue_6_6_1_S458S,
+      catalogue_6_6_1_1,
+      catalogue_6_6_1_1_1,
+      catalogue_6_6_1_1_2,
+      catalogue_6_6_1_1_3,
+      catalogue_6_6_3_S109S,
+      catalogue_6_6_4_S109S,
+      catalogue_6_6_6S109S
+
     },
 
     data() {
@@ -401,6 +697,7 @@
           this.assignRoleValue(response.data);
         } else this.$message.error(response.data.msg);
       });
+      this.getList();
     },
     methods: {
       closeDialog() {
@@ -595,7 +892,8 @@
         if (undefined == sectionOrderName || "" == sectionOrderName) {
           return;
         }
-        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g,"");
+        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g,"_").
+        replace(/\//g,"").replace(/\(/g,"S").replace(/\)/g,"S");
         debugger
       },
 
@@ -607,7 +905,10 @@
           this.form.firstOrder = sectionOrderName;
           return;
         }
-        let sectionOrderArray = sectionOrderName.split(".");
+        //去掉括号
+        let tempSectionOrderName = sectionOrderName.replace(/\([^\)]*\)/g,"");
+        let sectionOrderArray = tempSectionOrderName.split(".");
+        debugger
         sectionOrderArray.forEach((item, index) => {
           switch (index) {
             case 0 :
@@ -633,6 +934,7 @@
               break;
           }
         });
+        debugger
       },
 
       deepCopy(obj) {

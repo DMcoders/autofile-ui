@@ -222,6 +222,9 @@
         <el-form-item  prop="divPreview">
           <component v-bind:is="whichAnnex"></component>
         </el-form-item>
+        <el-form-item  prop="divPreviewTail">
+          <component v-bind:is="whichAnnexTail"></component>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="subPreview">预览</el-button>
@@ -245,9 +248,43 @@
   import annex_1_B_2_head from '../../../components/Vertify/Annex/1/annex_B_2_head'
   import annex_1_C_1_head from '../../../components/Vertify/Annex/1/annex_C_1_head'
 
+  import annex_2_B_1_head from "../../../components/Vertify/Annex/2/annex_B_1_head";
+  import annex_2_B_2_head from "../../../components/Vertify/Annex/2/annex_B_2_head";
+  import annex_2_C_1_head from "../../../components/Vertify/Annex/2/annex_C_1_head";
+  import annex_2_C_2_head from "../../../components/Vertify/Annex/2/annex_C_2_head";
+
+  import annex_3_C1_1_head from "../../../components/Vertify/Annex/3/annex_C1_1_head";
+  import annex_3_C1_2_head from "../../../components/Vertify/Annex/3/annex_C1_2_head";
+  import annex_3_C1_3_head from "../../../components/Vertify/Annex/3/annex_C1_3_head";
+  import annex_3_C1_4_head from "../../../components/Vertify/Annex/3/annex_C1_4_head";
+  import annex_3_C1_5_head from "../../../components/Vertify/Annex/3/annex_C1_5_head";
+  import annex_3_C2_1_head from "../../../components/Vertify/Annex/3/annex_C2_1_head";
+  import annex_3_C2_3_head from "../../../components/Vertify/Annex/3/annex_C2_3_head";
+  import annex_3_C2_4_head from "../../../components/Vertify/Annex/3/annex_C2_4_head";
+  import annex_3_C2_5_head from "../../../components/Vertify/Annex/3/annex_C2_5_head";
+  import annex_3_C2_6_head from "../../../components/Vertify/Annex/3/annex_C2_6_head";
+
+  import annex_4_C_1_head from "../../../components/Vertify/Annex/4/annex_C_1_head";
+  import annex_4_C_2_head from "../../../components/Vertify/Annex/4/annex_C_2_head";
+  import annex_4_C_1_tail from "../../../components/Vertify/Annex/4/annex_C_1_tail";
+
+  import annex_5_C_5_head from "../../../components/Vertify/Annex/5/annex_C_5_head";
+  import annex_5_C_6_head from "../../../components/Vertify/Annex/5/annex_C_6_head";
+  import annex_5_C_5_tail from "../../../components/Vertify/Annex/5/annex_C_5_tail";
+  import annex_5_C_6_tail from "../../../components/Vertify/Annex/5/annex_C_6_tail";
+
+  import annex_6_C_3_head from "../../../components/Vertify/Annex/6/annex_C_3_head";
+  import annex_6_C_4_head from "../../../components/Vertify/Annex/6/annex_C_4_head";
+  import annex_6_C_3_tail from "../../../components/Vertify/Annex/6/annex_C_3_tail";
+  import annex_6_C_4_tail from "../../../components/Vertify/Annex/6/annex_C_4_tail";
+
+
   import common_annex_A from '../../../components/Vertify/Annex/common/annex_A'
   import common_annex_B from '../../../components/Vertify/Annex/common/annex_B'
   import common_annex_C from '../../../components/Vertify/Annex/common/annex_C'
+
+  import special_annex_2_C_2 from "../../../components/Vertify/Annex/special/special_annex_2_C_2";
+  import special_annex_4_C_2 from "../../../components/Vertify/Annex/special/special_annex_4_C_2";
 
   export default {
     name: "annex",
@@ -256,9 +293,44 @@
       annex_1_B_1_head,
       annex_1_B_2_head,
       annex_1_C_1_head,
+
       common_annex_A,
       common_annex_B,
       common_annex_C,
+
+      special_annex_2_C_2,
+      special_annex_4_C_2,
+
+      annex_2_B_1_head,
+      annex_2_B_2_head,
+      annex_2_C_1_head,
+      annex_2_C_2_head,
+
+      annex_3_C1_1_head,
+      annex_3_C1_2_head,
+      annex_3_C1_3_head,
+      annex_3_C1_4_head,
+      annex_3_C1_5_head,
+      annex_3_C2_1_head,
+      annex_3_C2_3_head,
+      annex_3_C2_4_head,
+      annex_3_C2_5_head,
+      annex_3_C2_6_head,
+
+      annex_4_C_1_head,
+      annex_4_C_2_head,
+      annex_4_C_1_tail,
+
+      annex_5_C_5_head,
+      annex_5_C_6_head,
+      annex_5_C_5_tail,
+      annex_5_C_6_tail,
+
+      annex_6_C_3_head,
+      annex_6_C_4_head,
+      annex_6_C_3_tail,
+      annex_6_C_4_tail,
+
     },
     data() {
       return {
@@ -289,6 +361,7 @@
         roles: [],
         whichAnnexHead:undefined,
         whichAnnex:undefined,
+        whichAnnexTail:undefined,
         moduleNames: [
           "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
@@ -298,28 +371,180 @@
           "key": "image",
           "value": "图片"
         }],
+        //含有annex tail的章节目录页
+        hasAnnexTail:['4_C_1','5_C_5','5_C_6','6_C_3','6_C_4'],
+        //特殊的章节目录页
+        isSpecialAnnex:['2_C_2','4_C_2'],
         annexOrdersRelatePages: [],
         selectAnnexOrdersRelatePages:[],
         annexOrdersRelatePage:undefined,
         annexPages:[],
-        chapters: [{"key": "1", "value": "第一章节","annexOrders":["A", "B", "C"],"annexOrdersRelatePages":[
-          {"annexOrder":"A","annexPage":"1","annexTitle":"Definition of the type, variant and version of the vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"B","annexPage":"1","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"B","annexPage":"2","annexTitle":"Drawing of a representative vehicle","annexType":"N721 1230/2012 E"},
-            {"annexOrder":"C","annexPage":"1","annexTitle":"Location of primary reference points and R-points","annexType":"N721 1230/2012 E"}
-          ]},
-          {"key": "2", "value": "第二章节"},
-          {"key": "3", "value": "第三章节"},
-          {"key": "4", "value": "第四章节"},
-          {"key": "5", "value": "第五章节"},
-          {"key": "6", "value": "第六章节"},
-          {"key": "7", "value": "第七章节"},
-          {"key": "8", "value": "第八章节"},
-          {"key": "9", "value": "第九章节"},
-          {"key": "10", "value": "第十章节"},
-          {"key": "11", "value": "第十一章节"},
-          {"key": "12", "value": "第十二章节"},
-          {"key": "13", "value": "第十三章节"}],
+        chapters: [
+          {
+            "key":"1",
+            "value":"第一章节",
+            "annexOrders":[
+              "A",
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"A",
+                "annexPage":"1",
+                "annexTitle":"Definition of the type, variant and version of the vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"1",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"2",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Location of primary reference points and R-points",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"2",
+            "value":"第二章节",
+            "annexOrders":[
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"B",
+                "annexPage":"1",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"B",
+                "annexPage":"2",
+                "annexTitle":"Drawing of a representative vehicle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Location of primary reference points and R-points",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"2",
+                "annexTitle":"Table of vehicle weight",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"3",
+            "value":"第三章节"
+          },
+          {
+            "key":"4",
+            "value":"第四章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"1",
+                "annexTitle":"Speedometer (KPH)",
+                "annexType":"N721 R39 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"2",
+                "annexTitle":"Table for detail of engine and transmission",
+                "annexType":"N721 R39 E"
+              }
+            ]
+          },
+          {
+            "key":"5",
+            "value":"第五章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"5",
+                "annexTitle":"Front axle",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"6",
+                "annexTitle":"rear axle",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"6",
+            "value":"第六章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPage":"3",
+                "annexTitle":"Front Suspension",
+                "annexType":"N721 1230/2012 E"
+              },
+              {
+                "annexOrder":"C",
+                "annexPage":"4",
+                "annexTitle":"Rear Suspension",
+                "annexType":"N721 1230/2012 E"
+              }
+            ]
+          },
+          {
+            "key":"7",
+            "value":"第七章节"
+          },
+          {
+            "key":"8",
+            "value":"第八章节"
+          },
+          {
+            "key":"9",
+            "value":"第九章节"
+          },
+          {
+            "key":"10",
+            "value":"第十章节"
+          },
+          {
+            "key":"11",
+            "value":"第十一章节"
+          },
+          {
+            "key":"12",
+            "value":"第十二章节"
+          },
+          {
+            "key":"13",
+            "value":"第十三章节"
+          }
+        ],
 
         // 查询参数
         queryParams: {
@@ -348,11 +573,13 @@
           this.assignRoleValue(response.data);
         } else this.$message.error(response.data.msg);
       });
+      this.getList();
     },
     methods: {
       closePreview() {
         this.whichAnnexHead = undefined;
         this.whichAnnex = undefined;
+        this.whichAnnexTail = undefined;
       },
 
       subPreview: function () {
@@ -364,10 +591,20 @@
           undefined == annexPage || "" == annexPage) {
           return;
         }
-        this.whichAnnexHead = "annex_" + chapter + "_" + annexOrder + "_" + annexPage + "_" + "head";
-        this.whichAnnex =  "common_annex_" + annexOrder;
+        let chapterAnnexOrderAnnexPage = chapter + "_" + annexOrder + "_" + annexPage;
+        this.whichAnnexHead = "annex_" + chapterAnnexOrderAnnexPage + "_" + "head";
+        if (this.isSpecialAnnex.indexOf(chapterAnnexOrderAnnexPage) > -1) {
+          this.whichAnnex = 'special_annex_' + chapterAnnexOrderAnnexPage;
+        } else {
+          this.whichAnnex = "common_annex_" + annexOrder;
+        }
+        if(this.hasAnnexTail.indexOf(chapterAnnexOrderAnnexPage) > -1) {
+          this.whichAnnexTail = "annex_" + chapterAnnexOrderAnnexPage + "_" + "tail";
+        }
         debugger
       },
+
+
 
       changeAnnexOrder(data) {
         this.closePreview();
@@ -439,7 +676,6 @@
       /** 查询字典类型列表 */
       getList() {
         list(this.queryParams).then(response => {
-            debugger
             this.loading = false;
             if (200 == response.code) {
               this.total = response.data.total;
