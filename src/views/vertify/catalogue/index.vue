@@ -692,12 +692,12 @@
       };
     },
     created() {
-      this.getList();
       selectAllRoles().then(response => {
         if (response.code == 200) {
           this.assignRoleValue(response.data);
         } else this.$message.error(response.data.msg);
       });
+      this.getList();
     },
     methods: {
       closeDialog() {
