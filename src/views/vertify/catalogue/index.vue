@@ -148,7 +148,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="类型" prop="inputType">
-              <el-select style="width:80%" clearable v-model="form.inputType" size="small" clearable
+              <el-select style="width:80%"  v-model="form.inputType" size="small" clearable
                          placeholder="请选择类型">
                 <el-option
                   v-for="inputType in inputTypes"
@@ -176,7 +176,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="模块" prop="moduleName">
-              <el-select style="width:80%" clearable v-model="form.moduleName" size="small" clearable
+              <el-select style="width:80%"  v-model="form.moduleName" size="small" clearable
                          placeholder="请选择模块">
                 <el-option
                   v-for="moduleName in moduleNames"
@@ -189,7 +189,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="选择角色" prop="role">
-              <el-select style="width:80%" clearable v-model="form.role" size="small" clearable placeholder="请选择角色">
+              <el-select style="width:80%"  v-model="form.role" size="small" clearable placeholder="请选择角色">
                 <el-option
                   v-for="role in roles"
                   :key="role.roleId"
@@ -203,19 +203,33 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="关联附录" prop="isRelateAnnex">
-              <el-switch on-value="1" off-value="0" inactive-value=false v-model="form.isRelateAnnex"></el-switch>
+              <el-switch on-value="1" off-value="0" inactive-value=false v-model="form.isRelateAnnex" @change="changeAnnex"></el-switch>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="附录页数" prop="relateAnnexPage">
-              <el-input-number style="width:80%" v-model="form.relateAnnexPage" controls-position="right" :min="0"/>
+            <el-form-item label="附录页数" prop="relateAnnexPages">
+              <el-select style="width:80%"  v-model="form.relateAnnexPages" size="small"  multiple placeholder="请选择附录页数">
+                <el-option
+                  v-for="annexPage in relateAnnexPages"
+                  :key="annexPage"
+                  :label="annexPage"
+                  :value="annexPage"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="附录名称" prop="relateAnnex">
-              <el-input style="width:80%" v-model="form.relateAnnex" clearable placeholder="请输入附录名称"/>
+              <el-select style="width:80%"  v-model="form.relateAnnex" size="small" clearable placeholder="请选择附录名称" @change="changeAnnexPage">
+                <el-option
+                  v-for="annex in relateAnnexs"
+                  :key="annex"
+                  :label="annex"
+                  :value="annex"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -654,6 +668,138 @@
         }],
         multiInput: [{"key": "catalogue_0.2", "value": 3}],
         whichCatalogue: undefined,
+        tempSectionOrder:undefined,
+        relateAnnexs:[],
+        relateAnnexPages:[],
+        annexOrdersRelatePages:[],
+        chapters: [
+          {
+            "key":"1",
+            "annexOrders":[
+              "A",
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"A",
+                "annexPages":[
+                  "1"
+                ]
+              },
+              {
+                "annexOrder":"B",
+                "annexPages":[
+                  "1",
+                  "2"
+                ]
+              },
+              {
+                "annexOrder":"C",
+                "annexPages":[
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "key":"2",
+            "value":"第二章节",
+            "annexOrders":[
+              "B",
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"B",
+                "annexPages":[
+                  "1",
+                  "2"
+                ]
+              },
+              {
+                "annexOrder":"C",
+                "annexPages":[
+                  "1",
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "key":"3",
+            "value":"第三章节"
+          },
+          {
+            "key":"4",
+            "value":"第四章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPages":[
+                  "1",
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "key":"5",
+            "value":"第五章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPages":[
+                  "5",
+                  "6"
+                ]
+              }
+            ]
+          },
+          {
+            "key":"6",
+            "value":"第六章节",
+            "annexOrders":[
+              "C"
+            ],
+            "annexOrdersRelatePages":[
+              {
+                "annexOrder":"C",
+                "annexPages":[
+                  "3",
+                  "4"
+                ]
+              }
+            ]
+          },
+          {
+            "key":"7"
+          },
+          {
+            "key":"8"
+          },
+          {
+            "key":"9"
+          },
+          {
+            "key":"10"
+          },
+          {
+            "key":"11"
+          },
+          {
+            "key":"12"
+          },
+          {
+            "key":"13"
+          }
+        ],
         roles: [],
         // 日期范围
         dateRange: [],
@@ -672,7 +818,9 @@
           sectionOrderName: undefined,
         },
         // 表单参数
-        form: {},
+        form: {
+          relateAnnexPages:[]
+        },
         // 表单校验
         rules: {
           sectionOrderName: [
@@ -703,6 +851,45 @@
       this.getList();
     },
     methods: {
+      changeAnnex() {
+        if (false === this.form.isRelateAnnex || 'false' === this.form.isRelateAnnex) {
+          this.form.relateAnnex = undefined;
+          this.form.relateAnnexPages = [];
+          return;
+        }
+        let sectionOrderName = this.form.sectionOrderName;
+        if (undefined === this.form.isRelateAnnex
+          || undefined === sectionOrderName) {
+          return;
+        }
+        let array = sectionOrderName.split(".");
+        let firstOrder = array[0];
+        if (true === this.form.isRelateAnnex) {
+          this.chapters.forEach(item => {
+            if (item.key === firstOrder) {
+              this.relateAnnexs = item.annexOrders;
+              this.annexOrdersRelatePages = item.annexOrdersRelatePages;
+              return;
+            }
+          })
+        }
+      },
+
+      changeAnnexPage() {
+        this.form.relateAnnexPages = [];
+        if (undefined === this.form.isRelateAnnex
+          || false === this.form.isRelateAnnex
+          || 0 === this.annexOrdersRelatePages.length) {
+          return;
+        }
+        this.annexOrdersRelatePages.forEach(item => {
+          if (item.annexOrder === this.form.relateAnnex) {
+            this.relateAnnexPages = item.annexPages;
+            return;
+          }
+        })
+      },
+
       closeDialog() {
         this.whichCatalogue = undefined;
       },
@@ -731,11 +918,18 @@
 
       changeFirstOrder() {
         this.whichCatalogue = undefined;
+        this.relateAnnexs = [];
+        this.form.isRelateAnnex = false;
+        this.form.relateAnnexPage = undefined;
+        this.form.relateAnnex = undefined;
+        this.annexOrdersRelatePages = [];
+        this.relateAnnexPages = [];
+
         let sectionOrderName = this.form.sectionOrderName;
         if (this.specialCatalogueKeys.indexOf(sectionOrderName) > -1) {
           this.catalogues.forEach(item => {
             if (sectionOrderName == item.key) {
-              this.$set(this.form, "firstOrderName", item.value)
+              this.$set(this.form, "firstOrderName", item.value);
               return;
             }
           })
@@ -889,6 +1083,8 @@
         this.form.isRelateAnnex = data.isRelateAnnex;
         this.form.relateAnnexPage = data.relateAnnexPage;
         this.form.relateAnnex = data.relateAnnex;
+        this.$set(this.form, "relateAnnexPages", null != this.form.relateAnnexPage ? this.form.relateAnnexPage.split(",") : []);
+        debugger
       },
       subPreview: function () {
         let sectionOrderName = this.form.sectionOrderName;
@@ -955,7 +1151,7 @@
           obj.moduleName = this.form.moduleName,
           obj.role = this.form.role,
           obj.isRelateAnnex = this.form.isRelateAnnex,
-          obj.relateAnnexPage = this.form.relateAnnexPage,
+          obj.relateAnnexPage = 0 === this.form.relateAnnexPages.length ? undefined : this.form.relateAnnexPages.join(","),
             obj.relateAnnex = this.form.relateAnnex
       },
 
@@ -964,7 +1160,8 @@
         this.$refs["form"].validate(valid => {
           if (valid) {
             if (this.form.id != undefined) {
-              update(this.form).then(response => {
+                this.form.relateAnnexPage = 0 === this.form.relateAnnexPages.length ? undefined : this.form.relateAnnexPages.join(","),
+                update(this.form).then(response => {
                 if (response.code === 200) {
                   this.msgSuccess("修改成功");
                   this.open = false;
