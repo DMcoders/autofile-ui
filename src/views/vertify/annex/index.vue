@@ -222,6 +222,9 @@
         <el-form-item  prop="divPreview">
           <component v-bind:is="whichAnnex"></component>
         </el-form-item>
+        <el-form-item  prop="divPreviewTail">
+          <component v-bind:is="whichAnnexTail"></component>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="subPreview">预览</el-button>
@@ -263,8 +266,7 @@
 
   import annex_4_C_1_head from "../../../components/Vertify/Annex/4/annex_C_1_head";
   import annex_4_C_2_head from "../../../components/Vertify/Annex/4/annex_C_2_head";
-  import annex_4_C_1_tail1 from "../../../components/Vertify/Annex/4/annex_C_1_tail1";
-  import annex_4_C_1_tail2 from "../../../components/Vertify/Annex/4/annex_C_1_tail2";
+  import annex_4_C_1_tail from "../../../components/Vertify/Annex/4/annex_C_1_tail";
 
   import annex_5_C_5_head from "../../../components/Vertify/Annex/5/annex_C_5_head";
   import annex_5_C_6_head from "../../../components/Vertify/Annex/5/annex_C_6_head";
@@ -273,18 +275,16 @@
 
   import annex_6_C_3_head from "../../../components/Vertify/Annex/6/annex_C_3_head";
   import annex_6_C_4_head from "../../../components/Vertify/Annex/6/annex_C_4_head";
-  import annex_6_C_3_tail1 from "../../../components/Vertify/Annex/6/annex_C_3_tail1";
-  import annex_6_C_4_tail1 from "../../../components/Vertify/Annex/6/annex_C_4_tail1";
-  import annex_6_C_3_tail2 from "../../../components/Vertify/Annex/6/annex_C_3_tail2";
-  import annex_6_C_4_tail2 from "../../../components/Vertify/Annex/6/annex_C_4_tail2";
+  import annex_6_C_3_tail from "../../../components/Vertify/Annex/6/annex_C_3_tail";
+  import annex_6_C_4_tail from "../../../components/Vertify/Annex/6/annex_C_4_tail";
 
 
   import common_annex_A from '../../../components/Vertify/Annex/common/annex_A'
   import common_annex_B from '../../../components/Vertify/Annex/common/annex_B'
   import common_annex_C from '../../../components/Vertify/Annex/common/annex_C'
 
-  import special_2_annex_C from "../../../components/Vertify/Annex/special/special_2_annex_C";
-  import special_4_annex_C from "../../../components/Vertify/Annex/special/special_4_annex_C";
+  import special_annex_2_C_2 from "../../../components/Vertify/Annex/special/special_annex_2_C_2";
+  import special_annex_4_C_2 from "../../../components/Vertify/Annex/special/special_annex_4_C_2";
 
   export default {
     name: "annex",
@@ -298,8 +298,8 @@
       common_annex_B,
       common_annex_C,
 
-      special_2_annex_C,
-      special_4_annex_C,
+      special_annex_2_C_2,
+      special_annex_4_C_2,
 
       annex_2_B_1_head,
       annex_2_B_2_head,
@@ -319,8 +319,7 @@
 
       annex_4_C_1_head,
       annex_4_C_2_head,
-      annex_4_C_1_tail1,
-      annex_4_C_1_tail2,
+      annex_4_C_1_tail,
 
       annex_5_C_5_head,
       annex_5_C_6_head,
@@ -329,10 +328,8 @@
 
       annex_6_C_3_head,
       annex_6_C_4_head,
-      annex_6_C_3_tail1,
-      annex_6_C_4_tail1,
-      annex_6_C_3_tail2,
-      annex_6_C_4_tail2,
+      annex_6_C_3_tail,
+      annex_6_C_4_tail,
 
     },
     data() {
@@ -364,6 +361,7 @@
         roles: [],
         whichAnnexHead:undefined,
         whichAnnex:undefined,
+        whichAnnexTail:undefined,
         moduleNames: [
           "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
@@ -373,6 +371,10 @@
           "key": "image",
           "value": "图片"
         }],
+        //含有annex tail的章节目录页
+        hasAnnexTail:['4_C_1','5_C_5','5_C_6','6_C_3','6_C_4'],
+        //特殊的章节目录页
+        isSpecialAnnex:['2_C_2','4_C_2'],
         annexOrdersRelatePages: [],
         selectAnnexOrdersRelatePages:[],
         annexOrdersRelatePage:undefined,
@@ -571,11 +573,13 @@
           this.assignRoleValue(response.data);
         } else this.$message.error(response.data.msg);
       });
+      this.getList();
     },
     methods: {
       closePreview() {
         this.whichAnnexHead = undefined;
         this.whichAnnex = undefined;
+        this.whichAnnexTail = undefined;
       },
 
       subPreview: function () {
@@ -587,10 +591,20 @@
           undefined == annexPage || "" == annexPage) {
           return;
         }
-        this.whichAnnexHead = "annex_" + chapter + "_" + annexOrder + "_" + annexPage + "_" + "head";
-        this.whichAnnex =  "common_annex_" + annexOrder;
+        let chapterAnnexOrderAnnexPage = chapter + "_" + annexOrder + "_" + annexPage;
+        this.whichAnnexHead = "annex_" + chapterAnnexOrderAnnexPage + "_" + "head";
+        if (this.isSpecialAnnex.indexOf(chapterAnnexOrderAnnexPage) > -1) {
+          this.whichAnnex = 'special_annex_' + chapterAnnexOrderAnnexPage;
+        } else {
+          this.whichAnnex = "common_annex_" + annexOrder;
+        }
+        if(this.hasAnnexTail.indexOf(chapterAnnexOrderAnnexPage) > -1) {
+          this.whichAnnexTail = "annex_" + chapterAnnexOrderAnnexPage + "_" + "tail";
+        }
         debugger
       },
+
+
 
       changeAnnexOrder(data) {
         this.closePreview();
@@ -662,7 +676,6 @@
       /** 查询字典类型列表 */
       getList() {
         list(this.queryParams).then(response => {
-            debugger
             this.loading = false;
             if (200 == response.code) {
               this.total = response.data.total;

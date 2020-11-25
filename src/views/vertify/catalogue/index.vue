@@ -283,7 +283,7 @@
   import catalogue_2_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.2";
   import catalogue_2_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3";
   //S占位
-  import catalogue_2_3SR51S from "../../../components/Vertify/Catalogue/2/catalogue_2.3.(R51)";
+  import catalogue_2_3_SR51S from "../../../components/Vertify/Catalogue/2/catalogue_2.3.(R51)";
   import catalogue_2_3_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.1";
   import catalogue_2_3_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.2";
   import catalogue_2_3_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.3";
@@ -329,7 +329,7 @@
   import catalogue_2_6 from "../../../components/Vertify/Catalogue/2/catalogue_2.6";
   import catalogue_2_6_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.6.1";
   import catalogue_2_6_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.6.2";
-  import catalogue_2_7SR13S from "../../../components/Vertify/Catalogue/2/catalogue_2.7.(R13)";
+  import catalogue_2_7_SR13S from "../../../components/Vertify/Catalogue/2/catalogue_2.7.(R13)";
   import catalogue_2_8 from "../../../components/Vertify/Catalogue/2/catalogue_2.8";
   import catalogue_2_8_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.8.1";
   import catalogue_2_9 from "../../../components/Vertify/Catalogue/2/catalogue_2.9";
@@ -361,15 +361,15 @@
   import catalogue_3_2_3_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2";
   import catalogue_3_2_3_2_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2.1";
   import catalogue_3_2_3_2_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.3.2.2";
-  import catalogue_3_2_4SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4(R51)";
+  import catalogue_3_2_4_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.(R51)";
   import catalogue_3_2_4_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.1";
   import catalogue_3_2_4_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.2";
   import catalogue_3_2_4_3 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.3";
   import catalogue_3_2_4_4 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.4.4";
-  import catalogue_3_2_6SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6(R51)";
+  import catalogue_3_2_6_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.(R51)";
   import catalogue_3_2_6_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.1";
   import catalogue_3_2_6_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.2.6.2";
-  import catalogue_3_3SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.3(R51)";
+  import catalogue_3_3_SR51S from "../../../components/Vertify/Catalogue/3/catalogue_3.3.(R51)";
   import catalogue_3_3_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1";
   import catalogue_3_3_1_1 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1.1";
   import catalogue_3_3_1_2 from "../../../components/Vertify/Catalogue/3/catalogue_3.3.1.2";
@@ -387,12 +387,12 @@
 
 
   import catalogue_4 from "../../../components/Vertify/Catalogue/4/catalogue_4";
-  import catalogue_4_2SR39R89S from "../../../components/Vertify/Catalogue/4/catalogue_4.2(R39R89)";
+  import catalogue_4_2_SR39R89S from "../../../components/Vertify/Catalogue/4/catalogue_4.2.(R39R89)";
   import catalogue_4_3 from "../../../components/Vertify/Catalogue/4/catalogue_4.3";
   import catalogue_4_5 from "../../../components/Vertify/Catalogue/4/catalogue_4.5";
   import catalogue_4_5_1 from "../../../components/Vertify/Catalogue/4/catalogue_4.5.1";
   import catalogue_4_7SR89S from "../../../components/Vertify/Catalogue/4/catalogue_4.7(R89)";
-  import catalogue_4_7SR39S from "../../../components/Vertify/Catalogue/4/catalogue_4.7(R39)";
+  import catalogue_4_7_SR39S from "../../../components/Vertify/Catalogue/4/catalogue_4.7.(R39)";
   import catalogue_4_8 from "../../../components/Vertify/Catalogue/4/catalogue_4.8";
   import catalogue_4_8_1 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.1";
   import catalogue_4_8_2 from "../../../components/Vertify/Catalogue/4/catalogue_4.8.2";
@@ -415,13 +415,13 @@
   import catalogue_6_2_4 from "../../../components/Vertify/Catalogue/6/catalogue_6.2.4";
   import catalogue_6_6 from "../../../components/Vertify/Catalogue/6/catalogue_6.6";
   import catalogue_6_6_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1";
-  import catalogue_6_6_1S458S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1(458)";
+  import catalogue_6_6_1_S458S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.(458)";
   import catalogue_6_6_1_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1";
   import catalogue_6_6_1_1_1 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.1";
   import catalogue_6_6_1_1_2 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.2";
   import catalogue_6_6_1_1_3 from "../../../components/Vertify/Catalogue/6/catalogue_6.6.1.1.3";
-  import catalogue_6_6_3S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.3(109)";
-  import catalogue_6_6_4S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.4(109)";
+  import catalogue_6_6_3_S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.3.(109)";
+  import catalogue_6_6_4_S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.4.(109)";
   import catalogue_6_6_6S109S from "../../../components/Vertify/Catalogue/6/catalogue_6.6.6(109)";
 
 
@@ -472,7 +472,7 @@
       catalogue_2_1_2,
       catalogue_2_2,
       catalogue_2_3,
-      catalogue_2_3SR51S,
+      catalogue_2_3_SR51S,
       catalogue_2_3_1,
       catalogue_2_3_2,
       catalogue_2_3_3,
@@ -518,7 +518,7 @@
       catalogue_2_6,
       catalogue_2_6_1,
       catalogue_2_6_2,
-      catalogue_2_7SR13S,
+      catalogue_2_7_SR13S,
       catalogue_2_8,
       catalogue_2_8_1,
       catalogue_2_9,
@@ -550,15 +550,15 @@
       catalogue_3_2_3_2,
       catalogue_3_2_3_2_1,
       catalogue_3_2_3_2_2,
-      catalogue_3_2_4SR51S,
+      catalogue_3_2_4_SR51S,
       catalogue_3_2_4_1,
       catalogue_3_2_4_2,
       catalogue_3_2_4_3,
       catalogue_3_2_4_4,
-      catalogue_3_2_6SR51S,
+      catalogue_3_2_6_SR51S,
       catalogue_3_2_6_1,
       catalogue_3_2_6_2,
-      catalogue_3_3SR51S,
+      catalogue_3_3_SR51S,
       catalogue_3_3_1,
       catalogue_3_3_1_1,
       catalogue_3_3_1_2,
@@ -575,12 +575,12 @@
       catalogue_3_4_4_3,
 
       catalogue_4,
-      catalogue_4_2SR39R89S,
+      catalogue_4_2_SR39R89S,
       catalogue_4_3,
       catalogue_4_5,
       catalogue_4_5_1,
       catalogue_4_7SR89S,
-      catalogue_4_7SR39S,
+      catalogue_4_7_SR39S,
       catalogue_4_8,
       catalogue_4_8_1,
       catalogue_4_8_2,
@@ -603,13 +603,13 @@
       catalogue_6_2_4,
       catalogue_6_6,
       catalogue_6_6_1,
-      catalogue_6_6_1S458S,
+      catalogue_6_6_1_S458S,
       catalogue_6_6_1_1,
       catalogue_6_6_1_1_1,
       catalogue_6_6_1_1_2,
       catalogue_6_6_1_1_3,
-      catalogue_6_6_3S109S,
-      catalogue_6_6_4S109S,
+      catalogue_6_6_3_S109S,
+      catalogue_6_6_4_S109S,
       catalogue_6_6_6S109S
 
     },
@@ -700,6 +700,7 @@
           this.assignRoleValue(response.data);
         } else this.$message.error(response.data.msg);
       });
+      this.getList();
     },
     methods: {
       closeDialog() {
@@ -895,7 +896,7 @@
           return;
         }
         this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g,"_").
-        replace(/\\/g,"").replace(/\(\)/g,"S");
+        replace(/\//g,"").replace(/\(/g,"S").replace(/\)/g,"S");
         debugger
       },
 
@@ -907,7 +908,10 @@
           this.form.firstOrder = sectionOrderName;
           return;
         }
-        let sectionOrderArray = sectionOrderName.split(".");
+        //去掉括号
+        let tempSectionOrderName = sectionOrderName.replace(/\([^\)]*\)/g,"");
+        let sectionOrderArray = tempSectionOrderName.split(".");
+        debugger
         sectionOrderArray.forEach((item, index) => {
           switch (index) {
             case 0 :
@@ -933,6 +937,7 @@
               break;
           }
         });
+        debugger
       },
 
       deepCopy(obj) {

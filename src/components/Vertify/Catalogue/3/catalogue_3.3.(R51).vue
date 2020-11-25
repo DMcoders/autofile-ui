@@ -1,11 +1,11 @@
 <template>
   <div>
     <label for='input-one'>
-      Pressure charger(s)：
+      Electric motor：
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {pressurecharger: $event.target.value})">
-      Yes
+             v-on:input="$emit('input', {electricmotor: $event.target.value})">
+      Not applicable
     </label>
   </div>
 </template>
@@ -13,6 +13,6 @@
 
 <script>
   export default {
-    name: "catalogue_3.2.6(R51)"
+    name: "catalogue_3.3.(R51)"
   }
 </script>

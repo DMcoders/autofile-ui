@@ -1,11 +1,11 @@
 <template>
   <div>
     <label for='input-one'>
-      Electric motor：
+      Type (mechanical, hydraulic, electric, etc.)：
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {electricmotor: $event.target.value})">
-      Not applicable
+             v-on:input="$emit('input', {type42: $event.target.value})">
+      Mechanical
     </label>
   </div>
 </template>
@@ -13,6 +13,6 @@
 
 <script>
   export default {
-    name: "catalogue_3.3(R51)"
+    name: "catalogue_4.2.(R39R89)"
   }
 </script>

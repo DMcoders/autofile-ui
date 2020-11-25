@@ -6,6 +6,7 @@
              v-bind:value='value'
              v-on:input="$emit('input', {tpmlm: $event.target.value})">
     </label>
+    <br/>
     <label for='input-two'>
       Technically permissible maximum mass on each axle：
       <input id='input-two'

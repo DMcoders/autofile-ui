@@ -59,15 +59,15 @@
     </el-row>
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="65%" @close="cancel" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="90%" @close="cancel" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="文件名" prop="fileName">
               <el-input style="width:80%" v-model="form.fileName" clearable placeholder="请输入文件名"/>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
               <el-form-item label="版本年号" prop="versionYear">
                 <el-date-picker
                   style="width:80%"
@@ -80,35 +80,32 @@
                 </el-date-picker>
               </el-form-item>
           </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="企业" prop="company">
               <el-input style="width:80%" v-model="form.company" clearable placeholder="请输入企业名"/>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+        </el-row>
+
+        <el-row>
+          <el-col :span="8">
             <el-form-item label="认证类别" prop="category">
               <el-input style="width:80%" v-model="form.category" clearable placeholder="请输入认证类别"/>
             </el-form-item>
           </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="车型" prop="autoTypeValue">
               <el-cascader style="width:80%"
-                ref="autoTypeCascader"
-                v-model="form.autoTypeValue"
-                :options="autoTypeOptions"
-                :props="{ expandTrigger: 'hover' }"
-                clearable
-                filterable
+                           ref="autoTypeCascader"
+                           v-model="form.autoTypeValue"
+                           :options="autoTypeOptions"
+                           :props="{ expandTrigger: 'hover' }"
+                           clearable
+                           filterable
               ></el-cascader>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="首页标题" prop="coverTitle">
               <el-input style="width:80%" v-model="form.coverTitle" clearable placeholder="请输入首页标题"/>
             </el-form-item>
@@ -116,31 +113,27 @@
         </el-row>
 
         <el-row>
-          <el-col :span="24">
+          <el-col :span="16">
             <el-form-item label="首页副题" prop="coverSubTitle">
               <el-input type="textarea" style="width:91%" v-model="form.coverSubTitle" clearable placeholder="请输入首页副标题"/>
             </el-form-item>
           </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="首页车型" prop="vehicleType">
               <el-input style="width:80%" v-model="form.vehicleType" clearable placeholder="请输入首页车型"/>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-          </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="22" :offset="2">
+          <el-col :span="24">
               <el-transfer
                  class="inputTransfer"
                  v-model="selStandardInputs"
                  :data="allStandardInputs"
                   filterable
                  :titles="['所有组件', '已选组件']"
+                 :render-content="renderFunc"
               ></el-transfer>
           </el-col>
         </el-row>
@@ -457,7 +450,10 @@
             this.$message.error(response.msg);
           }
         });
-      }
+      },
+      renderFunc(h, option) {
+        return <span title={option.label}>{option.label}</span>
+      },
     }
   };
 </script>
@@ -468,7 +464,7 @@
   }
 
   .inputTransfer .el-transfer-panel{
-    width: 280px;
+    width: 42%;
     height: 450px;
   }
   .inputTransfer .el-transfer-panel__list.is-filterable{
