@@ -115,18 +115,18 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" @close="closeDialog" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="800px" @close="closeDialog" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
             <el-form-item label="目录序号" prop="sectionOrderName">
-              <el-input style="width:100%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号"
+              <el-input style="width:80%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号"
                         @input = "changeFirstOrder"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="章节" prop="firstOrderName">
-              <el-input style="width:100%" v-model="form.firstOrderName" disabled/>
+              <el-input style="width:80%" v-model="form.firstOrderName" disabled/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -135,12 +135,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="标题" prop="sectionTitle">
-              <el-input style="width:100%" v-model="form.sectionTitle" clearable placeholder="请输入标题"/>
+              <el-input style="width:80%" v-model="form.sectionTitle" clearable placeholder="请输入标题"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="中文标题" prop="sectionTitleZh">
-              <el-input style="width:100%" v-model="form.sectionTitleZh" clearable placeholder="请输入中文标题"/>
+              <el-input style="width:80%" v-model="form.sectionTitleZh" clearable placeholder="请输入中文标题"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -148,7 +148,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="类型" prop="inputType">
-              <el-select style="width:100%" clearable v-model="form.inputType" size="small" clearable
+              <el-select style="width:80%" clearable v-model="form.inputType" size="small" clearable
                          placeholder="请选择类型">
                 <el-option
                   v-for="inputType in inputTypes"
@@ -161,7 +161,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="版本年号" prop="versionYear">
-              <el-date-picker
+              <el-date-picker style="width:80%"
                 v-model="form.versionYear"
                 type="year"
                 format="yyyy"
@@ -176,7 +176,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="模块" prop="moduleName">
-              <el-select style="width:100%" clearable v-model="form.moduleName" size="small" clearable
+              <el-select style="width:80%" clearable v-model="form.moduleName" size="small" clearable
                          placeholder="请选择模块">
                 <el-option
                   v-for="moduleName in moduleNames"
@@ -189,7 +189,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="选择角色" prop="role">
-              <el-select style="width:100%" clearable v-model="form.role" size="small" clearable placeholder="请选择角色">
+              <el-select style="width:80%" clearable v-model="form.role" size="small" clearable placeholder="请选择角色">
                 <el-option
                   v-for="role in roles"
                   :key="role.roleId"
@@ -208,14 +208,14 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="附录页数" prop="relateAnnexPage">
-              <el-input-number style="width:100%" v-model="form.relateAnnexPage" controls-position="right" :min="0"/>
+              <el-input-number style="width:80%" v-model="form.relateAnnexPage" controls-position="right" :min="0"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="附录名称" prop="relateAnnex">
-              <el-input style="width:100%" v-model="form.relateAnnex" clearable placeholder="请输入附录名称"/>
+              <el-input style="width:80%" v-model="form.relateAnnex" clearable placeholder="请输入附录名称"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -247,6 +247,7 @@
   import catalogue_0_4 from '../../../components/Vertify/Catalogue/0/catalogue_0.4'
   import catalogue_0_5 from '../../../components/Vertify/Catalogue/0/catalogue_0.5'
   import catalogue_0_6 from '../../../components/Vertify/Catalogue/0/catalogue_0.6'
+  import catalogue_0_6_2 from '../../../components/Vertify/Catalogue/0/catalogue_0.6.2'
   import catalogue_0_8 from '../../../components/Vertify/Catalogue/0/catalogue_0.8'
   import catalogue_0_9 from '../../../components/Vertify/Catalogue/0/catalogue_0.9'
   import catalogue_0_10 from '../../../components/Vertify/Catalogue/0/catalogue_0.10'
@@ -435,6 +436,8 @@
       catalogue_0_4,
       catalogue_0_5,
       catalogue_0_6,
+      catalogue_0_6_1,
+      catalogue_0_6_2,
       catalogue_0_8,
       catalogue_0_9,
       catalogue_0_10,
