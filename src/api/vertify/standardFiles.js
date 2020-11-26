@@ -28,6 +28,14 @@ export function get(id) {
   })
 }
 
+export function getDetailFile(id) {
+  return request({
+    url: '/vertify/file/detailFile',
+    method: 'post',
+    params:{standardFileId:id}
+  })
+}
+
 export function list(fileName) {
   return request({
     url: '/vertify/file/list',

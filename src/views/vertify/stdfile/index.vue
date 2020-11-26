@@ -144,19 +144,67 @@
       </div>
     </el-dialog>
 
-    <el-dialog :title="detailTitle" :visible.sync="openDetail" width="65%" append-to-body>
+    <el-dialog :title="detailTitle" :visible.sync="openDetail" width="80%" append-to-body>
       <el-container class="text-center">
         <el-header><h1>{{detailPage.coverTitle}}</h1></el-header>
         <el-main><h2>{{detailPage.coverSubTitle}}</h2></el-main>
-        <el-footer><h3>{{detailPage.vehicleType}}</h3></el-footer>
+        <el-footer><h3>Vehicle Type: {{detailPage.vehicleType}}</h3></el-footer>
       </el-container>
+
+      <el-table
+        :data="textTableData"
+        style="width: 100%"
+        :show-header=false>
+        <el-table-column
+          prop="orderName"
+          min-width="1">
+        </el-table-column>
+        <el-table-column
+          prop="title"
+          min-width="5">
+        </el-table-column>
+        <el-table-column
+          prop="inputType"
+          min-width="1">
+          <template slot-scope="scope">
+            {{scope.row.inputType==="input"?"：":""}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="inputType"
+          min-width="1">
+          <template slot-scope="scope">
+            <el-input v-if="scope.row.inputType==='input'"
+            :disabled="true">
+          </el-input>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="annex"
+          min-width="1">
+          <template slot-scope="scope">
+            {{scope.row.annex===undefined?"":"See annex"+scope.row.annex}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="role"
+          min-width="2"
+          align="center">
+          <template slot-scope="scope">
+            <el-tag
+              type="warning"
+              disable-transitions>{{scope.row.role}}</el-tag>
+          </template>
+        </el-table-column>
+      </el-table>
+
     </el-dialog>
 
   </div>
 </template>
 
 <script>
-  import {list,deleteFile,addOrUpdate,get,getAllStandardInput} from "@/api/vertify/standardFiles";
+  import {list,deleteFile,addOrUpdate,get,getAllStandardInput,getDetailFile} from "@/api/vertify/standardFiles";
   import { getUserProfile } from "@/api/system/user";
 
   export default {
@@ -278,7 +326,9 @@
               label: '帕萨特'
             }]
           }]
-        }]
+        }],
+        //正文全部组件
+        textTableData:[]
       };
     },
     created() {
@@ -453,13 +503,14 @@
       detail(item) {
         this.openDetail = true;
         this.detailTitle = item.fileName;
-        get(item.id).then(response => {
+        getDetailFile(item.id).then(response => {
           if (200 == response.code) {
             console.log(response.data)
             var standardFile = response.data.standardFile;
             this.detailPage.coverTitle = standardFile.coverTitle;
             this.detailPage.coverSubTitle = standardFile.coverSubTitle;
             this.detailPage.vehicleType = standardFile.vehicleType;
+            this.textTableData = response.data.fileTextComponents;
           } else {
             this.$message.error(response.msg);
           }
@@ -499,5 +550,9 @@
 
   .el-dialog.is-fullscreen {
     margin-top: 0vh !important;
+  }
+
+  .el-table__body tr:hover > td{
+    background-color:white !important;
   }
 </style>
