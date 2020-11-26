@@ -59,7 +59,7 @@
     </el-row>
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="90%" @close="cancel" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="90%" @close="cancel" append-to-body fullscreen>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="8">
@@ -145,7 +145,11 @@
     </el-dialog>
 
     <el-dialog :title="detailTitle" :visible.sync="openDetail" width="65%" append-to-body>
-      11111
+      <el-container class="text-center">
+        <el-header><h1>{{detailPage.coverTitle}}</h1></el-header>
+        <el-main><h2>{{detailPage.coverSubTitle}}</h2></el-main>
+        <el-footer><h3>{{detailPage.vehicleType}}</h3></el-footer>
+      </el-container>
     </el-dialog>
 
   </div>
@@ -199,6 +203,12 @@
           coverSubTitle:"",
           vehicleType:"",
           autoTypeValue: []
+        },
+        //详情页内容
+        detailPage: {
+          coverTitle:"",
+          coverSubTitle:"",
+          vehicleType:""
         },
         // 表单校验
         rules: {
@@ -352,7 +362,7 @@
               addOrUpdate(params).then(response => {
                 if (200 == response.code) {
                   this.cancel();
-                  this.msgSuccess("新增成功");
+                  this.msgSuccess("保存成功");
                   this.getList(this.keyWord);
                 } else {
                   this.$message.error(response.msg);
@@ -446,6 +456,10 @@
         get(item.id).then(response => {
           if (200 == response.code) {
             console.log(response.data)
+            var standardFile = response.data.standardFile;
+            this.detailPage.coverTitle = standardFile.coverTitle;
+            this.detailPage.coverSubTitle = standardFile.coverSubTitle;
+            this.detailPage.vehicleType = standardFile.vehicleType;
           } else {
             this.$message.error(response.msg);
           }
@@ -483,4 +497,7 @@
     margin-bottom: 18px;
   }
 
+  .el-dialog.is-fullscreen {
+    margin-top: 0vh !important;
+  }
 </style>
