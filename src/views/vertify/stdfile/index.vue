@@ -5,27 +5,25 @@
       <h1 class="text-center" style="font-size:40px;margin: 20px 0;">认证文件搜索</h1>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="center">
+    <el-row type="flex" justify="center" style="margin: 40px 0 80px 20px;">
       <el-col :span="12" class="text-center">
           <el-input
             id="keyWordInput"
             v-model="keyWord"
+            style="width: 600px;"
             placeholder="快速搜索"
             clearable
             size="medium"
-            style="width: 600px;"
             prefix-icon="el-icon-search"
             @keyup.enter.native="handleQuery"
           />
       </el-col>
-    </el-row>
-
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5" :offset="22">
+      <el-col :span="2">
         <el-button
+          style="height:42px"
           type="primary"
           icon="el-icon-plus"
-          size="mini"
+          size="medium"
           @click="handleAdd"
           v-hasPermi="['system:config:add']"
         >新增
