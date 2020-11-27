@@ -144,7 +144,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog :title="detailTitle" :visible.sync="openDetail" width="80%" append-to-body>
+    <el-dialog :title="detailTitle" :visible.sync="openDetail" width="80%" append-to-body fullscreen>
       <el-container class="text-center">
         <el-header><h1>{{detailPage.coverTitle}}</h1></el-header>
         <el-main><h2>{{detailPage.coverSubTitle}}</h2></el-main>
@@ -154,14 +154,23 @@
       <el-table
         :data="textTableData"
         style="width: 100%"
+        :span-method="arraySpanMethod"
         :show-header=false>
         <el-table-column
           prop="orderName"
           min-width="1">
+          <template slot-scope="scope">
+            <span v-if="scope.row.inputType==='title'" style="font-weight: bold">{{scope.row.orderName}}</span>
+            <span v-else style="font-weight: normal">{{scope.row.orderName}}</span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="title"
           min-width="5">
+          <template slot-scope="scope">
+            <span v-if="scope.row.inputType==='title'" style="font-weight: bold">{{scope.row.title}}</span>
+            <span v-else style="font-weight: normal">{{scope.row.title}}</span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="inputType"
@@ -519,6 +528,20 @@
       renderFunc(h, option) {
         return <span title={option.label}>{option.label}</span>
       },
+      arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+        console.log(row)
+        if (row.inputType === "title") {
+          if (columnIndex === 1) {
+            return [1, 4];
+          } else if (columnIndex === 2) {
+            return [0, 0];
+          } else if (columnIndex === 3) {
+            return [0, 0];
+          } else if (columnIndex === 4) {
+            return [0, 0];
+          }
+        }
+      }
     }
   };
 </script>
