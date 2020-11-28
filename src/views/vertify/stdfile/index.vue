@@ -256,7 +256,7 @@
           <el-row>
             {{item.orderName}}
           </el-row>
-          <el-row style="font-size:24px">
+          <el-row style="font-size:20px">
             <el-col :offset="5" :span="2" style="border:1px solid;border-color:black">
               Type:
             </el-col>
@@ -267,7 +267,7 @@
               Annex {{item.annex}} Page {{item.annexPage}}
             </el-col>
           </el-row>
-          <el-row style="font-size:24px">
+          <el-row style="font-size:20px">
             <el-col :offset="5" :span="2" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
               Title:
             </el-col>
@@ -279,9 +279,11 @@
             <i class="el-icon-picture-outline" style="font-size: 150px;"></i>
           </el-row>
           <el-row type="flex" justify="end">
+            <el-col :offset="20" :span="4">
             <el-tag
               type="warning"
               disable-transitions>{{item.role}}</el-tag>
+            </el-col>
           </el-row>
         </div>
         <el-divider></el-divider>
