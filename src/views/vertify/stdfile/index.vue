@@ -153,6 +153,7 @@
         :data="textTableData"
         style="width: 100%"
         :span-method="arraySpanMethod"
+        empty-text = "没有正文信息"
         :show-header=false>
         <el-table-column
           prop="orderName"
@@ -205,6 +206,86 @@
         </el-table-column>
       </el-table>
 
+      <div style="margin-top:75px"></div>
+      <div v-for="(item, i) in annexListData">
+        <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
+          <el-col :span="2">
+            {{item.orderName}}
+          </el-col>
+          <el-col :span="14">
+            {{item.title}}
+          </el-col>
+          <el-col :span="2">
+            {{item.annex}}
+          </el-col>
+          <el-col :span="2">
+            {{item.annexPage}}
+          </el-col>
+          <el-col :span="4">
+            <el-tag
+              type="warning"
+              disable-transitions>{{item.role}}</el-tag>
+          </el-col>
+        </el-row>
+        <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
+          <el-col :span="2">
+            {{item.orderName}}
+          </el-col>
+          <el-col :span="10">
+            {{item.title}}
+          </el-col>
+          <el-col :span="1">
+            ：
+          </el-col>
+          <el-col :span="3">
+            <el-input :disabled="true" size="small" style="width:80%"></el-input>
+          </el-col>
+          <el-col :span="2">
+            {{item.annex}}
+          </el-col>
+          <el-col :span="2">
+            {{item.annexPage}}
+          </el-col>
+          <el-col :span="4">
+            <el-tag
+              type="warning"
+              disable-transitions>{{item.role}}</el-tag>
+          </el-col>
+        </el-row>
+        <div v-else>
+          <el-row>
+            {{item.orderName}}
+          </el-row>
+          <el-row style="font-size:24px">
+            <el-col :offset="5" :span="2" style="border:1px solid;border-color:black">
+              Type:
+            </el-col>
+            <el-col :span="6" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">
+              {{item.type}}
+            </el-col>
+            <el-col :span="6" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">
+              Annex {{item.annex}} Page {{item.annexPage}}
+            </el-col>
+          </el-row>
+          <el-row style="font-size:24px">
+            <el-col :offset="5" :span="2" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
+              Title:
+            </el-col>
+            <el-col :span="12" style="border-right:1px solid;border-bottom:1px solid;border-color:black">
+              {{item.title}}
+            </el-col>
+          </el-row>
+          <el-row type="flex" justify="center">
+            <i class="el-icon-picture-outline" style="font-size: 150px;"></i>
+          </el-row>
+          <el-row type="flex" justify="end">
+            <el-tag
+              type="warning"
+              disable-transitions>{{item.role}}</el-tag>
+          </el-row>
+        </div>
+        <el-divider></el-divider>
+      </div>
     </el-dialog>
 
   </div>
@@ -335,7 +416,9 @@
           }]
         }],
         //正文全部组件
-        textTableData:[]
+        textTableData:[],
+        //附录全部组件
+        annexListData:[]
       };
     },
     created() {
@@ -518,6 +601,7 @@
             this.detailPage.coverSubTitle = standardFile.coverSubTitle;
             this.detailPage.vehicleType = standardFile.vehicleType;
             this.textTableData = response.data.fileTextComponents;
+            this.annexListData = response.data.fileAnnexComponents;
           } else {
             this.$message.error(response.msg);
           }
