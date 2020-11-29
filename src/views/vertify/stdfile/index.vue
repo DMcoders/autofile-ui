@@ -206,86 +206,40 @@
         </el-table-column>
       </el-table>
 
-      <div style="margin-top:75px"></div>
+      <div style="margin-top:24px"></div>
       <div v-for="(item, i) in annexListData">
-        <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
-          <el-col :span="2">
-            {{item.orderName}}
-          </el-col>
-          <el-col :span="14">
-            {{item.title}}
-          </el-col>
-          <el-col :span="2">
-            {{item.annex}}
-          </el-col>
-          <el-col :span="2">
-            {{item.annexPage}}
-          </el-col>
-          <el-col :span="4">
-            <el-tag
-              type="warning"
-              disable-transitions>{{item.role}}</el-tag>
-          </el-col>
-        </el-row>
-        <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
-          <el-col :span="2">
-            {{item.orderName}}
-          </el-col>
-          <el-col :span="10">
-            {{item.title}}
-          </el-col>
-          <el-col :span="1">
-            ：
-          </el-col>
+        <el-row style="font-size:18px">
           <el-col :span="3">
-            <el-input :disabled="true" size="small" style="width:80%"></el-input>
+            {{item.orderName}}
           </el-col>
-          <el-col :span="2">
-            {{item.annex}}
+          <el-col :span="17">
+            <el-row>
+              <el-col :span="4" style="border:1px solid;border-color:black">
+                Type:
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.type}}
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">
+                Annex {{item.annex}} Page {{item.annexPage}}
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="4" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
+                Title:
+              </el-col>
+              <el-col :span="20" style="border-right:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.title}}
+              </el-col>
+            </el-row>
           </el-col>
-          <el-col :span="2">
-            {{item.annexPage}}
-          </el-col>
-          <el-col :span="4">
+          <el-col :span="4" type="flex" align="middle">
             <el-tag
               type="warning"
               disable-transitions>{{item.role}}</el-tag>
           </el-col>
         </el-row>
-        <div v-else>
-          <el-row>
-            {{item.orderName}}
-          </el-row>
-          <el-row style="font-size:20px">
-            <el-col :offset="5" :span="2" style="border:1px solid;border-color:black">
-              Type:
-            </el-col>
-            <el-col :span="6" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">
-              {{item.type}}
-            </el-col>
-            <el-col :span="6" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">
-              Annex {{item.annex}} Page {{item.annexPage}}
-            </el-col>
-          </el-row>
-          <el-row style="font-size:20px">
-            <el-col :offset="5" :span="2" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
-              Title:
-            </el-col>
-            <el-col :span="12" style="border-right:1px solid;border-bottom:1px solid;border-color:black">
-              {{item.title}}
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="center">
-            <i class="el-icon-picture-outline" style="font-size: 150px;"></i>
-          </el-row>
-          <el-row type="flex" justify="end">
-            <el-col :offset="20" :span="4">
-            <el-tag
-              type="warning"
-              disable-transitions>{{item.role}}</el-tag>
-            </el-col>
-          </el-row>
-        </div>
+
         <el-divider></el-divider>
       </div>
     </el-dialog>
