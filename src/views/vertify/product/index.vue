@@ -1,139 +1,149 @@
 <template>
   <div class="app-container">
-    <el-row class="el-row">
-      <el-col :xs="{span:12,offset:0}" :sm="{span:8,offset:0}" :md="{span:6,offset:0}">
-        <el-tree :data="productMenu" :props="productMenu" @node-click="handleNodeClick" defaultExpandAll></el-tree>
-      </el-col>
-      <div>
-        <el-button
-          type="primary"
-          icon="el-icon"
-          size="mini"
-          @click="handleAdd"
-        >新增
-        </el-button>
-      </div>
-      <div>
-        <el-form :model="queryParams" ref="queryForm">
-          <div v-for="(item,index) in filters">
-            <el-col :xs="{span:18,offset:1}" :sm="{span:12,offset:1}" :md="{span:9,offset:1}">
-              <el-form-item :label="item.selectKey">
-                <el-radio-group v-model="radioArray[index]" v-for="ite in item.options" size="mini"
-                                @change="changeQueryParam">
-                  <el-radio-button :label="ite">
-                  </el-radio-button>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </div>
-        </el-form>
-      </div>
-
-
-      <div v-for="(item,index) in list">
-        <el-col :span="6" v-if="index != 0 && index % 2 === 0">
-        </el-col>
-        <el-col :span="9" class="card-box">
-          <el-card>
-            <div slot="header" class="clearfix">
-              <span style="font-weight: bold;">{{item.autoName}}</span>
-            </div>
+      <el-container>
+        <!--左侧-->
+        <el-aside width="18%" style="background-color: #FFFFFF">
+          <el-tree :data="productMenu" :props="productMenu" @node-click="handleNodeClick" defaultExpandAll></el-tree>
+        </el-aside>
+        <!--主题-->
+        <el-main>
+          <el-row>
             <div>
-              <img :src="item.autoImage" :onerror="defaultImg" class="image" height="200" width="200">
-            </div>
-            <div class="text item">
-              <el-row :gutter="1">
-                <el-col :span="4">
-                  <div>
-                    车系:{{item.autoSeries}}
-                  </div>
-                </el-col>
-
-                <el-col :span="4" :offset="8">
-                  <div>
-                    生命周期状态:
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-
-            <div class="text item">
-              <el-row :gutter="1">
-                <el-col :span="4">
-                  <div>
-                    动力总成:
-                  </div>
-                </el-col>
-
-                <el-col :span="4" :offset="8">
-                  <div>
-                    结构区别号:
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-
-            <div class="text item">
-              <el-row :gutter="1">
-                <el-col :span="4">
-                  <div>
-                    排放标准:
-                  </div>
-                </el-col>
-
-                <el-col :span="4" :offset="8">
-                  <div>
-                    适用海拔:
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-
-
-            <div class="text item">
-              <el-row :gutter="1">
-                <el-col :span="4">
-                  <div>
-                    适用温度:
-                  </div>
-                </el-col>
-
-                <el-col :span="4" :offset="8">
-                  <div>
-                    目标市场:
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-            <div class="text item">
-              <el-row :gutter="1">
-                <el-col :span="4">
-                  <div>
-                    已售市场:
-                  </div>
-                </el-col>
-
-                <el-col :span="4" :offset="8">
-                  <div>
-                    可售市场:
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-            <div>
-              <el-button style="float: right; padding: 3px 0" type="text">
-                <i class="el-icon-edit" style="color:green" @click="handleUpdate(item)"></i>&nbsp
-                <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
+              <el-button
+                type="primary"
+                icon="el-icon"
+                size="mini"
+                @click="handleAdd"
+              >新增
               </el-button>
             </div>
-          </el-card>
-        </el-col>
-      </div>
-    </el-row>
+          </el-row>
 
-    <el-row>
+          <el-row>
+            <div>
+              <el-form :model="queryParams" ref="queryForm">
+                <div v-for="(item,index) in filters">
+                  <el-col :xs="{span:18,offset:1}" :sm="{span:12,offset:1}" :md="{span:12,offset:0}">
+                    <el-form-item :label="item.selectKey">
+                      <el-radio-group v-model="radioArray[index]" v-for="ite in item.options" :key="item.autoSpecie + ite"
+                                      size="mini"
+                                      @change="changeQueryParam">
+                        <el-radio-button :label="ite">
+                        </el-radio-button>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                </div>
+              </el-form>
+            </div>
+          </el-row>
 
-    </el-row>
+          <el-row>
+            <div v-for="(item,index) in list">
+              <el-col :span="12" class="card-box">
+                <el-card  style="height:420px;overflow-y:auto;overflow-x:hidden;">
+                  <div slot="header" class="clearfix">
+                    <span style="font-weight: bold;">{{item.autoName}}</span>
+                  </div>
+                  <div>
+                    <img :src="item.autoImage" :onerror="defaultImg" class="image" height="200" width="200">
+                  </div>
+                  <div class="text item">
+                    <el-row :gutter="1">
+                      <el-col :span="6">
+                        <div>
+                          车系:{{item.autoSeries}}
+                        </div>
+                      </el-col>
+
+                      <el-col :span="6" :offset="6">
+                        <div>
+                          生命周期状态:
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+
+                  <div class="text item">
+                    <el-row :gutter="1">
+                      <el-col :span="6">
+                        <div>
+                          动力总成:{{item.gearbox}}
+                        </div>
+                      </el-col>
+
+                      <el-col :span="6" :offset="6">
+                        <div>
+                          结构区别号:{{item.structuralDistinctionNumber}}
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+
+                  <div class="text item">
+                    <el-row :gutter="1">
+                      <el-col :span="6">
+                        <div>
+                          排放标准:{{item.emissionStandards}}
+                        </div>
+                      </el-col>
+
+                      <el-col :span="6" :offset="6">
+                        <div>
+                          适用海拔:{{item.altitude}}
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+
+
+                  <div class="text item">
+                    <el-row :gutter="1">
+                      <el-col :span="6">
+                        <div>
+                          适用温度:{{item.temperature}}
+                        </div>
+                      </el-col>
+
+                      <el-col :span="6" :offset="6">
+                        <div>
+                          目标市场:{{item.targetMarket}}
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+                  <div class="text item">
+                    <el-row :gutter="1">
+                      <el-col :span="6">
+                        <div>
+                          已售市场:{{item.soldMarket}}
+                        </div>
+                      </el-col>
+
+                      <el-col :span="6" :offset="6">
+                        <div>
+                          可售市场:{{item.availableMarket}}
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+                  <div>
+                    <el-button style="float: right; padding: 3px 0" type="text">
+                      <i class="el-icon-edit" style="color:green" @click="handleUpdate(item)"></i>&nbsp
+                      <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
+                    </el-button>
+                  </div>
+                </el-card>
+              </el-col>
+            </div>
+
+          </el-row>
+        </el-main>
+      </el-container>
+
+
+
+
 
     <pagination
       v-show="total>0"
@@ -310,7 +320,7 @@
     name: "product",
 
     computed: {
-      defaultImg () {
+      defaultImg() {
         return 'this.src="' + require('../../../assets/image/profile.jpg') + '"';
       }
     },
@@ -1767,16 +1777,6 @@
 </script>
 
 <style>
-  .el-col {
-    border: 1px solid transparent;
-  }
-  .el-card-define {
-    min-height: 100%;
-    height: 100%;
-  }
-  .el-card-define >>> .el-card__body {
-    height: 100%;
-  }
 
   .text {
     font-size: 3px;
@@ -1790,4 +1790,6 @@
     width: 100%;
     display: block;
   }
+
+
 </style>
