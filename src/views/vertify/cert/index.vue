@@ -35,29 +35,203 @@
         <el-row>
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="未分发" name="noHand">
-              <el-col :span="12" class="card-box" v-for="(item,index) in filters">
+              <el-col :span="18" class="card-box" v-for="(item,index) in filterNoDispatchList">
                 <el-card>
-                  <div>
-                    <img :src="item.autoImage" :onerror="defaultImg" class="image" height="200" width="200">
-
-                    <div class="text item">
-                      使用车型：{{item.autoType}}
-                    </div>
-                    <div class="text item">
-                      版本年份：{{item.versionYear}}
-                    </div>
-                    <div class="text item">
-                      创建日期：{{item.gmtCreate}}
-                    </div>
-                  </div>
+                  <el-container>
+                    <el-aside width="40%" style="padding:0;margin-bottom: 0;background-color: #FFFFFF">
+                      <el-row>
+                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%">
+                      </el-row>
+                      <el-row style="font-size: 16px;">
+                        <el-col :span="12">
+                          {{item.certificationName}}
+                        </el-col>
+                        <el-col :span="12">
+                          <el-button style="float: right;" type="text">
+                            <i class="el-icon-share" style="color:#1890ff" @click="handleDispatch(item)"></i>&nbsp
+                            <i class="el-icon-edit" style="color:#42b983" @click="handleUpdate(item)"></i>&nbsp
+                            <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
+                          </el-button>
+                        </el-col>
+                      </el-row>
+                    </el-aside>
+                    <el-main>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          创建：
+                        </el-col>
+                        <el-col :span="7">
+                          {{item.createEmployeeName}}
+                        </el-col>
+                        <el-col :span="7">
+                          {{parseTime(item.certificationDate,'{y}-{m}-{d}')}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          出口洲/国家：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.exportContinent}}/{{item.exportCountry}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          文件数量：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.fileNum}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          填写进度：
+                        </el-col>
+                        <el-col :span="14">
+                          <el-progress v-if="item.process==100" :text-inside="true" :stroke-width="22" :percentage="item.process" status="success"></el-progress>
+                          <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="item.process" status="warning"></el-progress>
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          状态：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.status}}
+                        </el-col>
+                      </el-row>
+                    </el-main>
+                  </el-container>
                 </el-card>
               </el-col>
             </el-tab-pane>
             <el-tab-pane label="填写中" name="write">
-              填写中
+              <el-col :span="18" class="card-box" v-for="(item,index) in filterWriteList">
+                <el-card>
+                  <el-container>
+                    <el-aside width="40%" style="padding:0;margin-bottom: 0;background-color: #FFFFFF">
+                      <el-row>
+                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%">
+                      </el-row>
+                      <el-row style="font-size: 16px;">
+                        <el-col :span="12">
+                          {{item.certificationName}}
+                        </el-col>
+                      </el-row>
+                    </el-aside>
+                    <el-main>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          创建：
+                        </el-col>
+                        <el-col :span="7">
+                          {{item.createEmployeeName}}
+                        </el-col>
+                        <el-col :span="7">
+                          {{parseTime(item.certificationDate,'{y}-{m}-{d}')}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          出口洲/国家：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.exportContinent}}/{{item.exportCountry}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          文件数量：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.fileNum}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          填写进度：
+                        </el-col>
+                        <el-col :span="14">
+                          <el-progress v-if="item.process==100" :text-inside="true" :stroke-width="22" :percentage="item.process" status="success"></el-progress>
+                          <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="item.process" status="warning"></el-progress>
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          状态：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.status}}
+                        </el-col>
+                      </el-row>
+                    </el-main>
+                  </el-container>
+                </el-card>
+              </el-col>
             </el-tab-pane>
             <el-tab-pane label="已完成" name="finish">
-              已完成
+              <el-col :span="18" class="card-box" v-for="(item,index) in filterFinishList">
+                <el-card>
+                  <el-container>
+                    <el-aside width="40%" style="padding:0;margin-bottom: 0;background-color: #FFFFFF">
+                      <el-row>
+                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%">
+                      </el-row>
+                      <el-row style="font-size: 16px;">
+                        <el-col :span="12">
+                          {{item.certificationName}}
+                        </el-col>
+                      </el-row>
+                    </el-aside>
+                    <el-main>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          创建：
+                        </el-col>
+                        <el-col :span="7">
+                          {{item.createEmployeeName}}
+                        </el-col>
+                        <el-col :span="7">
+                          {{parseTime(item.certificationDate,'{y}-{m}-{d}')}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          出口洲/国家：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.exportContinent}}/{{item.exportCountry}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          文件数量：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.fileNum}}
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          填写进度：
+                        </el-col>
+                        <el-col :span="14">
+                          <el-progress v-if="item.process==100" :text-inside="true" :stroke-width="22" :percentage="item.process" status="success"></el-progress>
+                          <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="item.process" status="warning"></el-progress>
+                        </el-col>
+                      </el-row>
+                      <el-row class="row-space">
+                        <el-col :span="10">
+                          状态：
+                        </el-col>
+                        <el-col :span="14">
+                          {{item.status}}
+                        </el-col>
+                      </el-row>
+                    </el-main>
+                  </el-container>
+                </el-card>
+              </el-col>
             </el-tab-pane>
           </el-tabs>
         </el-row>
@@ -132,7 +306,7 @@
   import { getUserProfile } from "@/api/system/user";
   import {getAutoCascader} from "@/api/vertify/autoManage";
   import {list as getAllFileList} from "@/api/vertify/standardFiles";
-  import {addOrUpdate} from "@/api/vertify/certification";
+  import {addOrUpdate,getCertificationList,getOne,deleteCertification} from "@/api/vertify/certification";
 
 
   export default {
@@ -145,6 +319,8 @@
     },
 
     created() {
+      this.getList();
+      this.openLoading();
       this.getUser();
     },
 
@@ -242,17 +418,12 @@
         keyWord: "",
         activeName: 'noHand',
         productMenu: [],
-        filters: [
-          {
-          "name":"QQ",
-          },
-          {
-            "name":"瑞虎"
-          },
-          {
-            "name":"瑞虎"
-          }
-        ],
+        noDispatchList: [],
+        writeList: [],
+        finishList: [],
+        filterNoDispatchList: [],
+        filterWriteList: [],
+        filterFinishList: [],
         countryOptions: [{
           value:'亚洲',
           label:'亚洲',
@@ -328,6 +499,8 @@
           value: '认证类型三',
           label: '认证类型三'
         }],
+        // 加载层信息
+        loading: [],
         // 弹出层标题
         title: "",
         // 是否显示弹出层
@@ -361,14 +534,27 @@
         }
         if (val && val.length > 0) {
           this.timer = setTimeout(() => {
-            //此处为接口函数
-            // var tmpList = [];
-            // for(var i=0;i<this.allFiles.length;i++) {
-            //   if(this.allFiles[i].fileName.indexOf(val)!=-1) {
-            //     tmpList.push(this.allFiles[i]);
-            //   }
-            // }
-            // this.filterFiles = tmpList;
+            var tmpNoDispatchList = [];
+            this.noDispatchList.forEach(item => {
+              if (item.certificationName.indexOf(val) != -1) {
+                tmpNoDispatchList.push(item);
+              }
+            });
+            this.filterNoDispatchList = tmpNoDispatchList;
+            var tmpWriteList = [];
+            this.writeList.forEach(item => {
+              if (item.certificationName.indexOf(val) != -1) {
+                tmpWriteList.push(item);
+              }
+            });
+            this.filterWriteList = tmpWriteList;
+            var tmpFinishList = [];
+            this.finishList.forEach(item => {
+              if (item.certificationName.indexOf(val) != -1) {
+                tmpFinishList.push(item);
+              }
+            });
+            this.filterFinishList = tmpFinishList;
           }, 100)
         } else {
           this.getList();
@@ -388,13 +574,34 @@
       /** 修改按钮操作 */
       handleUpdate(row) {
         this.reset();
-        let id = row.id;
-        getOne(id).then(response => {
-          if (200 == response.code) {
+        //全部全部文件
+        getAllFileList().then(response => {
+          var allFiles = [];
+          response.data.standardFileList.forEach(item => {
+              allFiles.push({
+                key:item.id,
+                label:item.fileName
+              })
+            }
+          )
+          this.allFiles = allFiles;
+        });
+
+        //获取车型
+        getAutoCascader().then(response => {
             debugger
+            if (200 == response.code) {
+              this.autoTypeOptions = response.data;
+            } else {
+              this.$message.error(response.msg);
+            }
+          }
+        );
+        getOne(row.id).then(response => {
+          if (200 == response.code) {
             this.assignFormValue(response.data);
             this.open = true;
-            this.title = "修改";
+            this.title = "修改认证";
           } else {
             this.$message.error(response.msg);
           }
@@ -402,36 +609,74 @@
       },
 
       assignFormValue(data) {
-        this.form.id = data.id;
+        if(data.standardFileIds) {
+          this.selFiles = data.standardFileIds;
+        }
+        this.form.id = data.certification.id;
+        let autoTypeValue = [];
+        autoTypeValue.push(data.certification.certificationAutoType);
+        autoTypeValue.push(data.certification.certificationAutoSpecies);
+        autoTypeValue.push(data.certification.certificationAutoSeries);
+        this.form.autoTypeValue = autoTypeValue;
+        let countryValue = [];
+        countryValue.push(data.certification.exportContinent);
+        countryValue.push(data.certification.exportCountry);
+        this.form.countryValue = countryValue;
+        this.form.certificationCategory = data.certification.certificationCategory;
       },
 
       handleDelete(item) {
-        this.$confirm('确认删除车型"' + item.autoName + '"吗?', "警告", {
+        this.$confirm('确认删除车型"' + item.certificationName + '"的认证吗?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
         }).then(function () {
-          debugger
-          return deleteSingle(item.id);
-        }).then(() => {
-          this.getList();
-          this.msgSuccess("删除成功");
+          return deleteCertification(item.id);
+        }).then(reponse => {
+          if(reponse.data.success) {
+            this.getList(this.keyWord);
+            this.msgSuccess("删除成功");
+          }else {
+            this.msgError("删除失败");
+          }
         }).catch(function () {
         });
       },
 
-
-      getList() {
-        debugger
-        list(this.queryParams).then(response => {
+      handleDispatch(item) {
+        this.$confirm('是否分发车型"' + item.certificationName + '"的认证，进行填写?', "警告", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          this.getList(this.keyWord);
+          this.msgSuccess("分发成功");
+        }).catch(function () {
+        });
+      },
+      getList(keyWord) {
+        this.noDispatchList=[];
+        this.writeList= [];
+        this.finishList= [];
+        this.filterNoDispatchList= [];
+        this.filterWriteList= [];
+        this.filterFinishList= [];
+        getCertificationList(keyWord).then(response => {
             if (200 == response.code) {
-              this.total = response.data.total;
-              this.list = response.data.list;
+              this.noDispatchList = response.data.noDispatchList;
+              this.filterNoDispatchList = response.data.noDispatchList;
+              this.writeList = response.data.writeList;
+              this.filterWriteList = response.data.writeList;
+              this.finishList = response.data.finishList;
+              this.filterFinishList = response.data.finishList;
             } else {
               this.$message.error(response.msg);
             }
+            this.loading.close();
           }
-        );
+        ).catch(function () {
+          this.loading.close();
+        });
       },
 
       submitForm() {
@@ -456,6 +701,7 @@
                 if (200 == response.code) {
                   this.cancel();
                   this.msgSuccess("保存成功");
+                  this.getList(this.keyWord);
                 } else {
                   this.$message.error(response.msg);
                 }
@@ -466,13 +712,30 @@
       },
 
       handleNodeClick(data) {
-        console.log(data);
-
-      },
-
-      changeQueryParam() {
-        console.log(this.radioArray);
         debugger
+        if(data.menuType=='menu') {
+          var tmpNoDispatchList = [];
+          this.noDispatchList.forEach(item => {
+            if (item.certificationAutoSpecies.indexOf(data.label) != -1) {
+              tmpNoDispatchList.push(item);
+            }
+          });
+          this.filterNoDispatchList = tmpNoDispatchList;
+          var tmpWriteList = [];
+          this.writeList.forEach(item => {
+            if (item.certificationAutoSpecies.indexOf(data.label) != -1) {
+              tmpWriteList.push(item);
+            }
+          });
+          this.filterWriteList = tmpWriteList;
+          var tmpFinishList = [];
+          this.finishList.forEach(item => {
+            if (item.certificationAutoSpecies.indexOf(data.label) != -1) {
+              tmpFinishList.push(item);
+            }
+          });
+          this.filterFinishList = tmpFinishList;
+        }
       },
 
       handleAdd() {
@@ -520,21 +783,23 @@
           autoTypeValue:[],
           countryValue:[]
         }
+        this.selFiles = [];
         this.resetForm("form");
-      }
+      },
+      // 打开加载层
+      openLoading() {
+        this.loading = this.$loading({
+          lock: true,
+          text: "拼命读取中",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
+      },
     }
   }
 </script>
 
 <style>
-
-  .text {
-    font-size: 3px;
-  }
-
-  .item {
-    margin-bottom: 4px;
-  }
 
   .inputTransfer .el-transfer-panel{
     width: 40%;
@@ -548,5 +813,9 @@
     margin-top: 0vh !important;
   }
 
+  .row-space {
+    margin-bottom: 15px;
+    font-size:16px
+  }
 
 </style>
