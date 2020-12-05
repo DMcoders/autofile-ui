@@ -33,3 +33,13 @@ export function deleteCertification(data) {
   })
 }
 
+export function certificationDispatch(data) {
+  return request({
+    url: '/vertify/certFileInput/certificationDispatch',
+    method: 'get',
+    params:{certificationId:data}
+  })
+}
+
+
+

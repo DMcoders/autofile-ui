@@ -13,7 +13,7 @@
           >新增
           </el-button>
         </div>
-        <el-tree :data="productMenu" :props="productMenu" @node-click="handleNodeClick" defaultExpandAll></el-tree>
+        <el-tree :data="productMenu" :props="productMenu" @node-click="handleNodeClick" defaultExpandAll highlight-current></el-tree>
       </el-aside>
       <!--主题-->
       <el-main>
@@ -306,7 +306,7 @@
   import { getUserProfile } from "@/api/system/user";
   import {getAutoCascader} from "@/api/vertify/autoManage";
   import {list as getAllFileList} from "@/api/vertify/standardFiles";
-  import {addOrUpdate,getCertificationList,getOne,deleteCertification} from "@/api/vertify/certification";
+  import {addOrUpdate,getCertificationList,getOne,deleteCertification,certificationDispatch} from "@/api/vertify/certification";
 
 
   export default {
@@ -648,7 +648,9 @@
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(() => {
+        }).then(function () {
+          return certificationDispatch(item.id);
+        }).then(reponse => {
           this.getList(this.keyWord);
           this.msgSuccess("分发成功");
         }).catch(function () {
