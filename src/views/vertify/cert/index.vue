@@ -737,6 +737,28 @@
             }
           });
           this.filterFinishList = tmpFinishList;
+        }else if(data.menuType=='category') {
+          var tmpNoDispatchList = [];
+          this.noDispatchList.forEach(item => {
+            if (item.certificationAutoType.indexOf(data.label) != -1) {
+              tmpNoDispatchList.push(item);
+            }
+          });
+          this.filterNoDispatchList = tmpNoDispatchList;
+          var tmpWriteList = [];
+          this.writeList.forEach(item => {
+            if (item.certificationAutoType.indexOf(data.label) != -1) {
+              tmpWriteList.push(item);
+            }
+          });
+          this.filterWriteList = tmpWriteList;
+          var tmpFinishList = [];
+          this.finishList.forEach(item => {
+            if (item.certificationAutoType.indexOf(data.label) != -1) {
+              tmpFinishList.push(item);
+            }
+          });
+          this.filterFinishList = tmpFinishList;
         }
       },
 
