@@ -249,6 +249,8 @@
 
 <script>
   import {list,deleteFile,addOrUpdate,get,getAllStandardInput,getDetailFile} from "@/api/vertify/standardFiles";
+  import {getAutoCascader} from "@/api/vertify/autoManage";
+
   import { getUserProfile } from "@/api/system/user";
 
   export default {
@@ -329,48 +331,7 @@
             {required: true, message: "首页车型不能为空", trigger: "blur"}
           ]
         },
-        autoTypeOptions: [{
-          value: 'A级车',
-          label: 'A级车',
-          children: [{
-            value: '奇瑞',
-            label: '奇瑞',
-            children: [{
-              value: '艾瑞泽',
-              label: '艾瑞泽'
-            }, {
-              value: '瑞虎',
-              label: '瑞虎'
-            }]
-          }, {
-            value: '大众',
-            label: '大众',
-            children: [{
-              value: '宝来',
-              label: '宝来'
-            }, {
-              value: '朗逸',
-              label: '朗逸'
-            }]
-          }]
-        }, {
-          value: 'B级车',
-          label: 'B级车',
-          children: [{
-            value: '大众',
-            label: '大众',
-            children: [{
-              value: '速腾',
-              label: '速腾'
-            }, {
-              value: '凌度',
-              label: '凌度'
-            }, {
-              value: '帕萨特',
-              label: '帕萨特'
-            }]
-          }]
-        }],
+        autoTypeOptions: [],
         //正文全部组件
         textTableData:[],
         //附录全部组件
@@ -494,12 +455,32 @@
       /** 新增按钮操作 */
       handleAdd() {
         this.open = true;
+        //获取车型
+        getAutoCascader().then(response => {
+            debugger
+            if (200 == response.code) {
+              this.autoTypeOptions = response.data;
+            } else {
+              this.$message.error(response.msg);
+            }
+          }
+        );
         this.title = "新增";
       },
 
       /** 修改按钮操作 */
       handleUpdate(item) {
         this.open = true;
+        //获取车型
+        getAutoCascader().then(response => {
+            debugger
+            if (200 == response.code) {
+              this.autoTypeOptions = response.data;
+            } else {
+              this.$message.error(response.msg);
+            }
+          }
+        );
         this.title = "修改";
         get(item.id).then(response => {
           if (200 == response.code) {

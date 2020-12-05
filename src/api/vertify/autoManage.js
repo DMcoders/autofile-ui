@@ -17,6 +17,13 @@ export function list(params) {
   })
 }
 
+export function getAutoCascader() {
+  return request({
+    url: '/vertify/auto/getAutoCascader',
+    method: 'post'
+  })
+}
+
 export function getOne(id) {
   return request({
     url: '/vertify/auto/getOne',
