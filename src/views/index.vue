@@ -5,7 +5,7 @@
 
     <el-row style="background:#fff;margin-bottom:32px;">
       <el-table
-        v-if="type==='write'"
+        v-show="type==='write'"
         :data="writeData"
         style="width: 100%">
         <el-table-column
@@ -62,7 +62,7 @@
       </el-table>
 
       <el-table
-        v-if="type==='audit'"
+        v-show="type==='audit'"
         :data="auditData"
         style="width: 100%">
         <el-table-column
@@ -120,7 +120,7 @@
       </el-table>
 
       <el-table
-        v-if="type==='noPass'"
+        v-show="type==='noPass'"
         :data="noPassData"
         style="width: 100%">
         <el-table-column
@@ -174,7 +174,7 @@
       </el-table>
 
       <el-table
-        v-if="type==='pass'"
+        v-show="type==='pass'"
         :data="passData"
         style="width: 100%">
         <el-table-column
