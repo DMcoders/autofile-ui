@@ -41,5 +41,35 @@ export function certificationDispatch(data) {
   })
 }
 
+export function homePageWrite(data) {
+  return request({
+    url: '/vertify/certFileInput/homePageWrite',
+    method: 'get',
+    data: data
+  })
+}
+
+export function homePageReview() {
+  return request({
+    url: '/vertify/certFileInput/homePageReview',
+    method: 'get'
+  })
+}
+
+export function homePageModify(data) {
+  return request({
+    url: '/vertify/certFileInput/homePageModify',
+    method: 'get',
+    data: data
+  })
+}
+
+export function homePageFinish() {
+  return request({
+    url: '/vertify/certFileInput/homePageFinish',
+    method: 'get'
+  })
+}
+
 
 

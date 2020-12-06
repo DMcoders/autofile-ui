@@ -29,10 +29,10 @@
         <el-table-column
           label="出口地"
           align="center"
-          prop="exprotCoutry"
+          prop="exportCountry"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#36a3f7">{{ scope.row.exprotCoutry }}</span>
+            <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -44,10 +44,10 @@
         <el-table-column
           label="创建日期"
           align="center"
-          prop="createDate"
+          prop="certificationDate"
           min-width="15%">
           <template slot-scope="scope">
-            {{parseTime(scope.row.createDate,'{y}-{m}-{d}')}}
+            {{parseTime(scope.row.certificationDate,'{y}-{m}-{d}')}}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,10 +86,10 @@
         <el-table-column
           label="出口地"
           align="center"
-          prop="exprotCoutry"
+          prop="exportCountry"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#36a3f7">{{ scope.row.exprotCoutry }}</span>
+            <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -144,10 +144,10 @@
         <el-table-column
           label="出口地"
           align="center"
-          prop="exprotCoutry"
+          prop="exportCountry"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#36a3f7">{{ scope.row.exprotCoutry }}</span>
+            <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -159,7 +159,7 @@
         <el-table-column
           label="审核意见"
           align="center"
-          prop="suggest"
+          prop="auditOpinion"
           min-width="15%">
         </el-table-column>
         <el-table-column
@@ -198,10 +198,10 @@
         <el-table-column
           label="出口地"
           align="center"
-          prop="exprotCoutry"
+          prop="exportCountry"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#36a3f7">{{ scope.row.exprotCoutry }}</span>
+            <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -275,7 +275,9 @@
 </template>
 
 <script>
-import PanelGroup from './dashboard/PanelGroup'
+import PanelGroup from './dashboard/PanelGroup';
+import { getUserProfile } from "@/api/system/user";
+import {homePageWrite,homePageReview,homePageModify,homePageFinish} from "@/api/vertify/certification";
 
 
 export default {
@@ -283,44 +285,82 @@ export default {
   components: {
     PanelGroup,
   },
+  created() {
+    this.getUser();
+  },
   data() {
     return {
       openWin:false,
+      roles:[],
       type:"write",
-      writeData: [{
-        certificationName: 'U7342',
-        autoSeries: 'J7',
-        exprotCoutry: '秘鲁',
-        fileName: 'N7211',
-        createDate: '2016-05-04 12:32:12',
-      }],
-      auditData: [{
-        certificationName: 'U7342',
-        autoSeries: 'J72',
-        exprotCoutry: '秘鲁2',
-        fileName: 'N7212',
-        createDate: '2016-05-04 12:32:12',
-        process:80
-      }],
-      noPassData: [{
-        certificationName: 'U7342',
-        autoSeries: 'J73',
-        exprotCoutry: '秘鲁3',
-        fileName: 'N7213',
-        suggest:"参数错误"
-      }],
-      passData: [{
-        certificationName: 'U7342',
-        autoSeries: 'J74',
-        exprotCoutry: '秘鲁4',
-        fileName: 'N7214',
-        finishDate: '2020-05-04 12:32:12',
-      }],
+      writeData: [],
+      auditData: [],
+      noPassData: [],
+      passData: [],
     }
   },
   methods: {
+    getUser() {
+      getUserProfile().then(response => {
+        this.user = response.data;
+        let roles = [];
+        response.data.roles.forEach(item => {
+          roles.push(item.roleId)
+        })
+        this.roles = roles;
+      });
+    },
     handleSetTableData(type) {
       this.type = type;
+      if(type == 'write') {
+        this.homePageWrite();
+      }else if(type == 'audit') {
+        this.homePageReview();
+      }else if(type == 'noPass') {
+        this.homePageModify();
+      }else if(type == 'pass') {
+        this.homePageFinish();
+      }
+    },
+    homePageWrite() {
+      homePageWrite(this.roles).then(response => {
+        if (200 == response.code) {
+            this.writeData = response.data.certificationFileInfoList;
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
+    },
+    homePageReview() {
+      homePageReview().then(response => {
+        if (200 == response.code) {
+          let auditData = response.data.certificationFileInfoList;
+          auditData.forEach(item => {
+            item.process = item.finishInput*100/item.totoalInput;
+          })
+          this.auditData = auditData;
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
+    },
+    homePageModify() {
+      homePageModify(this.roles).then(response => {
+        if (200 == response.code) {
+          this.noPassData = response.data.certificationFileInfoList;
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
+    },
+    homePageFinish() {
+      homePageFinish().then(response => {
+        if (200 == response.code) {
+          this.passData = response.data.certificationFileInfoList;
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
     },
 
     handleWin(type,item) {
