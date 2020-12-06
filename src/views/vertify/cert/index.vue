@@ -699,6 +699,17 @@
               let params = {};
               params.certification = this.form;
               params.standardFileId = this.selFiles;
+              let selFileNames = [];
+              debugger
+              this.selFiles.forEach(selId => {
+                this.allFiles.forEach(item => {
+                  if(selId === item.key) {
+                    selFileNames.push(item.label)
+                    return false;
+                  }
+                })
+              })
+              params.standardFileName = selFileNames;
               addOrUpdate(params).then(response => {
                 if (200 == response.code) {
                   this.cancel();
