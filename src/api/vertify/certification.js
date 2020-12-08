@@ -13,7 +13,7 @@ export function getCertificationList(data) {
   return request({
     url: '/vertify/cert/getCertificationList',
     method: 'post',
-    params:{certification:data}
+    data:data
   })
 }
 
@@ -44,7 +44,7 @@ export function certificationDispatch(data) {
 export function homePageWrite(data) {
   return request({
     url: '/vertify/certFileInput/homePageWrite',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }
@@ -59,7 +59,7 @@ export function homePageReview() {
 export function homePageModify(data) {
   return request({
     url: '/vertify/certFileInput/homePageModify',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }

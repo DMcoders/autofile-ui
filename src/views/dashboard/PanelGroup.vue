@@ -9,7 +9,7 @@
           <div class="card-panel-text">
             待填写
           </div>
-          <count-to :start-val="0" :end-val="20" :duration="1" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="writeNum" :duration="1" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
           <div class="card-panel-text">
             待审核
           </div>
-          <count-to :start-val="0" :end-val="10" :duration="1" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="auditNum" :duration="1" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -33,9 +33,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            待修改
+            待修改{{noPassNum}}
           </div>
-          <count-to :start-val="0" :end-val="2" :duration="1" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="noPassNum" :duration="1" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             已通过
           </div>
-          <count-to :start-val="0" :end-val="40" :duration="1" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="passNum" :duration="1" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -61,6 +61,12 @@ import CountTo from 'vue-count-to'
 export default {
   components: {
     CountTo
+  },
+  props: {
+    writeNum: {type:Number,default:0},
+    auditNum: {type:Number,default:0},
+    noPassNum: {type:Number,default:0},
+    passNum: {type:Number,default:0}
   },
   methods: {
     handleSetTableData(type) {

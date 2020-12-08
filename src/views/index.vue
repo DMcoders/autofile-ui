@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
 
-    <panel-group @handleSetTableData="handleSetTableData" />
+    <panel-group @handleSetTableData="handleSetTableData" :writeNum="writeData.length" :auditNum="auditData.length" :noPassNum="noPassData.length" :passNum="passData.length"/>
 
     <el-row style="background:#fff;margin-bottom:32px;">
       <el-table
@@ -23,7 +23,7 @@
           prop="autoSeries"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#ffba00">{{ scope.row.autoSeries }}</span>
+            <span style="color:#ffba00">{{ scope.row.certificationAutoSeries }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -80,7 +80,7 @@
           align="center"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#ffba00">{{ scope.row.autoSeries }}</span>
+            <span style="color:#ffba00">{{ scope.row.certificationAutoSeries }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -104,8 +104,8 @@
           prop="process"
           min-width="15%">
           <template slot-scope="scope">
-            <el-progress v-if="scope.row.process==100" :text-inside="true" :stroke-width="22" :percentage="scope.row.process" status="success"></el-progress>
-            <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="scope.row.process" status="warning"></el-progress>
+            <el-progress v-if="scope.row.totalInput==scope.row.finishInput" :text-inside="true" :stroke-width="22" :percentage="100" status="success"></el-progress>
+            <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="scope.row.finishInput*100/scope.row.totalInput" status="warning"></el-progress>
           </template>
         </el-table-column>
         <el-table-column
@@ -138,7 +138,7 @@
           prop="autoSeries"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#ffba00">{{ scope.row.autoSeries }}</span>
+            <span style="color:#ffba00">{{ scope.row.certificationAutoSeries }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -192,7 +192,7 @@
           prop="autoSeries"
           min-width="15%">
           <template slot-scope="scope">
-            <span style="color:#ffba00">{{ scope.row.autoSeries }}</span>
+            <span style="color:#ffba00">{{ scope.row.certificationAutoSeries }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -308,7 +308,13 @@ export default {
           roles.push(item.roleId)
         })
         this.roles = roles;
-      });
+      }).then(response => {
+          this.homePageWrite();
+          this.homePageReview();
+          this.homePageModify();
+          this.homePageReview();
+        }
+      )
     },
     handleSetTableData(type) {
       this.type = type;
