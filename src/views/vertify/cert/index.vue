@@ -617,6 +617,7 @@
         autoTypeValue.push(data.certification.certificationAutoType);
         autoTypeValue.push(data.certification.certificationAutoSpecies);
         autoTypeValue.push(data.certification.certificationAutoSeries);
+        autoTypeValue.push(data.certification.certificationAutoName);
         this.form.autoTypeValue = autoTypeValue;
         let countryValue = [];
         countryValue.push(data.certification.exportContinent);
@@ -692,6 +693,7 @@
               this.form.certificationAutoType = this.form.autoTypeValue[0];
               this.form.certificationAutoSpecies = this.form.autoTypeValue[1];
               this.form.certificationAutoSeries = this.form.autoTypeValue[2];
+              this.form.certificationAutoName = this.form.autoTypeValue[3];
               this.form.exportContinent = this.form.countryValue[0];
               this.form.exportCountry = this.form.countryValue[1];
               delete this.form['autoTypeValue'];
