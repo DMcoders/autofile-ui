@@ -548,7 +548,15 @@ export default {
         })
       }else if(this.type === 'pass') {
         this.winTitle = '已通过';
-
+        homePageFinish(params).then(response => {
+          if (200 == response.code) {
+            this.writeMainDetail = response.data.certificationFileInfos;
+            this.writeAnnexDetail = response.data.certificationAnnexInputs;
+            this.openWin = true;
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
       }
 
     },
