@@ -104,7 +104,7 @@
           prop="process"
           min-width="15%">
           <template slot-scope="scope">
-            <el-progress v-if="scope.row.process==100" :text-inside="true" :stroke-width="22" :percentage="100" status="success"></el-progress>
+            <el-progress v-if="scope.row.process===100" :text-inside="true" :stroke-width="22" :percentage="100" status="success"></el-progress>
             <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="scope.row.process" status="warning"></el-progress>
           </template>
         </el-table-column>
@@ -312,7 +312,8 @@
 <script>
 import PanelGroup from './dashboard/PanelGroup';
 import { getUserProfile } from "@/api/system/user";
-import {homePageWrite,homePageReview,homePageModify,homePageFinish,getWriteDetail,sumbitWriteTextDetail,sumbitWriteAnnexDetail} from "@/api/vertify/certification";
+import {homePageWrite,homePageReview,homePageModify,homePageFinish,
+  getReviewDetail,getModifyDetail,getWriteDetail,sumbitWriteTextDetail,sumbitWriteAnnexDetail} from "@/api/vertify/certification";
 
 
 export default {
@@ -395,11 +396,7 @@ export default {
     homePageReview() {
       homePageReview().then(response => {
         if (200 == response.code) {
-          let auditData = response.data.certificationFileInfoList;
-          auditData.forEach(item => {
-            item.process = item.finishInput*100/item.totoalInput;
-          })
-          this.auditData = auditData;
+          this.auditData = response.data.certificationFileInfoList;;
         } else {
           this.$message.error(response.msg);
         }
@@ -426,11 +423,11 @@ export default {
 
     handleWin(item) {
       var params = {};
+      params.roles = this.roles;
+      params.certificationId =item.certificationId;
+      params.standardFileId =item.standardFileId;
       if(this.type === 'write') {
         this.winTitle = '待填写';
-        params.roles = this.roles;
-        params.certificationId =item.certificationId;
-        params.standardFileId =item.standardFileId;
           getWriteDetail(params).then(response => {
             if (200 == response.code) {
               this.writeMainDetail = response.data.certificationFileInfos;
@@ -439,6 +436,28 @@ export default {
               this.$message.error(response.msg);
             }
           })
+      }else if(this.type === 'audit') {
+        this.winTitle = '待审核';
+        getReviewDetail(params).then(response => {
+          if (200 == response.code) {
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
+
+      }else if(this.type === 'noPass') {
+        this.winTitle = '待修改';
+        getModifyDetail(params).then(response => {
+          if (200 == response.code) {
+            this.writeMainDetail = response.data.certificationFileInfos;
+            this.writeAnnexDetail = response.data.certificationAnnexInputs;
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
+      }else if(this.type === 'pass') {
+        this.winTitle = '已通过';
+
       }
       this.openWin = true;
 

@@ -82,9 +82,25 @@ export function homePageReview() {
   })
 }
 
+export function getReviewDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/getReviewDetail',
+    method: 'post',
+    data:data
+  })
+}
+
 export function homePageModify(data) {
   return request({
     url: '/vertify/certFileInput/homePageModify',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getModifyDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/getModifyDetail',
     method: 'post',
     data: data
   })
