@@ -56,7 +56,7 @@
             <el-button
               size="mini"
               type="success"
-              @click="handleWin('write',scope.row)">填写</el-button>
+              @click="handleWin(scope.row)">填写</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -104,8 +104,8 @@
           prop="process"
           min-width="15%">
           <template slot-scope="scope">
-            <el-progress v-if="scope.row.totalInput==scope.row.finishInput" :text-inside="true" :stroke-width="22" :percentage="100" status="success"></el-progress>
-            <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="scope.row.finishInput*100/scope.row.totalInput" status="warning"></el-progress>
+            <el-progress v-if="scope.row.process==100" :text-inside="true" :stroke-width="22" :percentage="100" status="success"></el-progress>
+            <el-progress v-else :text-inside="true" :stroke-width="22" :percentage="scope.row.process" status="warning"></el-progress>
           </template>
         </el-table-column>
         <el-table-column
@@ -114,7 +114,7 @@
             <el-button
               size="mini"
               type="success"
-              @click="handleWin('audit',scope.row)">审核</el-button>
+              @click="handleWin(scope.row)">审核</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -168,7 +168,7 @@
             <el-button
               size="mini"
               type="success"
-              @click="handleWin('update',scope.row)">修改</el-button>
+              @click="handleWin(scope.row)">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -225,50 +225,85 @@
             <el-button
               size="mini"
               type="success"
-              @click="handleWin('detail',scope.row)">详情</el-button>
+              @click="handleWin(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
 
 
-    <el-dialog :visible.sync="openWin" width="80%" append-to-body fullscreen>
-      <div style="margin-top:24px"></div>
-      <!--<div v-for="(item, i) in annexListData">-->
-        <!--<el-row style="font-size:18px">-->
-          <!--<el-col :span="3">-->
-            <!--{{item.orderName}}-->
-          <!--</el-col>-->
-          <!--<el-col :span="17">-->
-            <!--<el-row>-->
-              <!--<el-col :span="4" style="border:1px solid;border-color:black">-->
-                <!--Type:-->
-              <!--</el-col>-->
-              <!--<el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">-->
-                <!--{{item.type}}-->
-              <!--</el-col>-->
-              <!--<el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">-->
-                <!--Annex {{item.annex}} Page {{item.annexPage}}-->
-              <!--</el-col>-->
-            <!--</el-row>-->
-            <!--<el-row>-->
-              <!--<el-col :span="4" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">-->
-                <!--Title:-->
-              <!--</el-col>-->
-              <!--<el-col :span="20" style="border-right:1px solid;border-bottom:1px solid;border-color:black">-->
-                <!--{{item.title}}-->
-              <!--</el-col>-->
-            <!--</el-row>-->
-          <!--</el-col>-->
-          <!--<el-col :span="4" type="flex" align="middle">-->
-            <!--<el-tag-->
-              <!--type="warning"-->
-              <!--disable-transitions>{{item.role}}</el-tag>-->
-          <!--</el-col>-->
-        <!--</el-row>-->
-
-        <!--<el-divider></el-divider>-->
-      <!--</div>-->
+    <el-dialog :title="winTitle" :visible.sync="openWin" width="80%" fullscreen>
+      <div v-for="(item, i) in writeMainDetail">
+        <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
+          <el-col :span="4">
+            {{item.sectionOrderName}}
+          </el-col>
+          <el-col :span="20">
+            {{item.sectionTitle}}
+          </el-col>
+        </el-row>
+        <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
+          <el-col :span="4">
+            {{item.sectionOrderName}}
+          </el-col>
+          <el-col :span="10">
+            {{item.sectionTitle}}
+          </el-col>
+          <el-col :span="10">
+            <el-input  size="small" style="width:80%" v-model="item.inputContent"></el-input>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+      </div>
+      <div v-for="(item, i) in writeAnnexDetail">
+        <el-row style="font-size:18px">
+          <el-col :span="24">
+            <el-row>
+              <el-col :span="4" style="border:1px solid;border-color:black">
+                Type:
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.annexType}}
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">
+                Annex {{item.annexOrder}} Page {{item.annexPage}}
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="4" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
+                Title:
+              </el-col>
+              <el-col :span="20" style="border-right:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.annexTitle}}
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px">
+          <el-col :span="24">
+              <el-upload
+                action=""
+                list-type="picture-card"
+                :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
+                multiple
+                :auto-upload="false"
+                :file-list="item.fileList"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
+              >
+                <i class="el-icon-plus"></i>
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisible" append-to-body>
+                <img width="100%" :src="dialogImageUrl" alt="">
+              </el-dialog>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
     </el-dialog>
 
   </div>
@@ -277,7 +312,7 @@
 <script>
 import PanelGroup from './dashboard/PanelGroup';
 import { getUserProfile } from "@/api/system/user";
-import {homePageWrite,homePageReview,homePageModify,homePageFinish} from "@/api/vertify/certification";
+import {homePageWrite,homePageReview,homePageModify,homePageFinish,getWriteDetail,sumbitWriteTextDetail,sumbitWriteAnnexDetail} from "@/api/vertify/certification";
 
 
 export default {
@@ -287,19 +322,37 @@ export default {
   },
   created() {
     this.getUser();
+    this.openLoading();
   },
   data() {
     return {
+      // 加载层信息
+      loading: [],
       openWin:false,
-      roles:[],
+      roles:[103],
+      winTitle:'',
       type:"write",
       writeData: [],
+      writeMainDetail: [],
+      writeAnnexDetail: [],
       auditData: [],
       noPassData: [],
       passData: [],
+      dialogImageUrl: '',
+      dialogVisible: false,
     }
   },
   methods: {
+    // 打开加载层
+    openLoading() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "拼命读取中",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+    },
+
     getUser() {
       getUserProfile().then(response => {
         this.user = response.data;
@@ -307,14 +360,16 @@ export default {
         response.data.roles.forEach(item => {
           roles.push(item.roleId)
         })
-        this.roles = roles;
+        // this.roles = roles;
       }).then(response => {
           this.homePageWrite();
           this.homePageReview();
           this.homePageModify();
           this.homePageReview();
         }
-      )
+      ).then(response => {
+          this.loading.close();
+      })
     },
     handleSetTableData(type) {
       this.type = type;
@@ -369,14 +424,170 @@ export default {
       })
     },
 
-    handleWin(type,item) {
+    handleWin(item) {
+      var params = {};
+      if(this.type === 'write') {
+        this.winTitle = '待填写';
+        params.roles = this.roles;
+        params.certificationId =item.certificationId;
+        params.standardFileId =item.standardFileId;
+          getWriteDetail(params).then(response => {
+            if (200 == response.code) {
+              this.writeMainDetail = response.data.certificationFileInfos;
+              this.writeAnnexDetail = response.data.certificationAnnexInputs;
+            } else {
+              this.$message.error(response.msg);
+            }
+          })
+      }
       this.openWin = true;
-    }
+
+    },
+    cancel() {
+      this.openWin = false;
+      this.writeMainDetail= [];
+      this.writeAnnexDetail= [];
+      this.dialogImageUrl= '';
+      this.dialogVisible= false;
+    },
+    submit() {
+      if(this.type == "write") {
+        debugger
+        console.log(this.writeMainDetail);
+        console.log(this.writeAnnexDetail);
+        let data1 = new FormData();
+        let flag = false;
+        this.writeMainDetail.forEach(item => {
+          if(item.inputContent==undefined || item.inputContent=="") {
+            flag = true;
+          }
+          item.employeeName = this.user.userName;
+          item.employeeNumber = this.user.userId;
+          item.reviewState = '提交';
+          item.isLink = 0;
+        })
+        if(flag) {
+          this.$message.error("请填写完全部内容再提交！");
+          return false;
+        }
+        data1.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
+
+        debugger
+        this.writeAnnexDetail.forEach(item => {
+          if(item.fileList==undefined || item.fileList.length==0) {
+            flag = true;
+          }else {
+            let data3 = new FormData();
+            item.fileList.forEach(file => {
+              data3.append("files",file.raw);
+            })
+            item.files = data3;
+            item.employeeName = this.user.userName;
+            item.employeeNumber = this.user.userId;
+            item.reviewState = '提交';
+            item.isLink = 0;
+            delete item['fileList'];
+          }
+        })
+        if(flag) {
+          this.$message.error("请上传全部图片再提交！");
+          return false;
+        }
+
+        sumbitWriteTextDetail(data1).then(response => {
+          if (200 == response.code) {
+            for(var i=0;i<this.writeAnnexDetail.length;i++) {
+              let tmp = this.writeAnnexDetail[i].files;
+              tmp.append("certificationAnnexInputJson",JSON.stringify(this.writeAnnexDetail[i]));
+              sumbitWriteAnnexDetail(tmp).then(response => {
+                if (200 == response.code) {
+                } else {
+                  this.$message.error(response.msg);
+                }
+              })
+            }
+            this.cancel();
+            this.msgSuccess("提交成功");
+            this.homePageWrite();
+            this.homePageReview();
+            this.homePageModify();
+            this.homePageReview();
+          }else {
+
+            this.$message.error(response.msg);
+          }
+        })
+
+
+
+
+      }
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    beforeAvatarUpload(file,fileList,id) {
+      const isLt2M = file.size < 1024 * 1024 * 2;
+      debugger
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+        this.writeAnnexDetail.forEach(item => {
+          if(item.id==id) {
+            if(item.fileList) {
+              item.fileList.forEach((fileItem, index) => {
+                if (fileItem.uid == file.uid) {
+                  item.fileList.splice(index, 1)
+                }
+              })
+            }else {
+              item.fileList = fileList;
+              item.fileList.splice(0,1)
+            }
+          }
+        })
+        return false;
+      }
+      let ff = file.raw;
+      const isImage = ff.type == 'image/png' || ff.type == 'image/jpg' || ff.type == 'image/jpeg' || ff.type == 'image/bmp' || ff.type == 'image/gif' || ff.type == 'image/webp';
+      if (!isImage) {
+        this.$message.error('上传只能是png,jpg,jpeg,bmp,gif,webp格式!');
+        this.writeAnnexDetail.forEach(item => {
+          if(item.id==id) {
+            if(item.fileList) {
+              item.fileList.forEach((fileItem, index) => {
+                if (fileItem.uid == file.uid) {
+                  item.fileList.splice(index, 1)
+                }
+              })
+            }else {
+              item.fileList = fileList;
+              item.fileList.splice(0,1)
+            }
+          }
+        })
+        return false;
+      }
+
+      this.writeAnnexDetail.forEach(item => {
+        if(item.id === id) {
+          item.fileList = fileList;
+        }
+      })
+    },
+    handleRemovePicture(file, fileList ,id) {
+      debugger
+      this.writeAnnexDetail.forEach(item => {
+        if(item.id === id) {
+          item.fileList = fileList;
+        }
+      })
+    },
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .dashboard-editor-container {
   padding: 32px;
   background-color: rgb(240, 242, 245);
@@ -387,10 +598,10 @@ export default {
     padding: 16px 16px 0;
     margin-bottom: 32px;
   }
+}
 
-  .el-dialog.is-fullscreen {
-    margin-top: 0vh !important;
-  }
+.el-dialog.is-fullscreen {
+  margin-top: 0vh !important;
 }
 
 @media (max-width:1024px) {

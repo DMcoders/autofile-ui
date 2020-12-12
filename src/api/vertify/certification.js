@@ -49,6 +49,32 @@ export function homePageWrite(data) {
   })
 }
 
+export function getWriteDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/getWriteDetail',
+    method: 'post',
+    data: data,
+  })
+}
+
+export function sumbitWriteTextDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/sumbitWriteTextDetail',
+    method: 'post',
+    data: data
+  })
+}
+
+export function sumbitWriteAnnexDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/sumbitWriteAnnexDetail',
+    method: 'post',
+    data: data,
+    headers: {'Content-Type': 'multipart/form-data'},
+    timeout: 20000
+  })
+}
+
 export function homePageReview() {
   return request({
     url: '/vertify/certFileInput/homePageReview',
