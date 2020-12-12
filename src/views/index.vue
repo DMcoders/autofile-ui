@@ -365,7 +365,7 @@ export default {
           this.homePageWrite();
           this.homePageReview();
           this.homePageModify();
-          this.homePageReview();
+          this.homePageFinish();
         }
       ).then(response => {
           this.loading.close();
