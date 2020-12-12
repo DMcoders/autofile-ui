@@ -575,7 +575,7 @@ export default {
       this.dialogVisible= false;
     },
     submit() {
-      if(this.type == "write") {
+      if(this.type == "write" || this.type == "noPass") {
         debugger
         console.log(this.writeMainDetail);
         console.log(this.writeAnnexDetail);
