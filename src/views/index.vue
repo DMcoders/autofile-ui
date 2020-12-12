@@ -306,6 +306,89 @@
       </div>
     </el-dialog>
 
+    <el-dialog :title="winTitle" :visible.sync="openReviewWin" width="80%" fullscreen>
+      <div v-for="(item, i) in reviewMainDetail">
+        <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
+          <el-col :span="1">
+            <el-checkbox v-model="checked"></el-checkbox>
+          </el-col>
+          <el-col :span="3">
+            {{item.sectionOrderName}}
+          </el-col>
+          <el-col :span="20">
+            {{item.sectionTitle}}
+          </el-col>
+        </el-row>
+        <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
+          <el-col :span="1">
+            <el-checkbox v-model="checked"></el-checkbox>
+          </el-col>
+          <el-col :span="3">
+            {{item.sectionOrderName}}
+          </el-col>
+          <el-col :span="10">
+            {{item.sectionTitle}}
+          </el-col>
+          <el-col :span="10">
+            <el-input  size="small" style="width:80%" v-model="item.inputContent"></el-input>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+      </div>
+      <div v-for="(item, i) in reviewAnnexDetail">
+        <el-row style="font-size:18px">
+          <el-col :span="1">
+            <el-checkbox v-model="checked"></el-checkbox>
+          </el-col>
+          <el-col :span="23">
+            <el-row>
+              <el-col :span="4" style="border:1px solid;border-color:black">
+                Type:
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.annexType}}
+              </el-col>
+              <el-col :span="10" style="border-right:1px solid;border-top:1px solid;border-bottom:1px solid;border-color:black" align="middle">
+                Annex {{item.annexOrder}} Page {{item.annexPage}}
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="4" style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:black">
+                Title:
+              </el-col>
+              <el-col :span="20" style="border-right:1px solid;border-bottom:1px solid;border-color:black">
+                {{item.annexTitle}}
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px">
+          <el-col :span="24">
+            <el-upload
+              action=""
+              list-type="picture-card"
+              :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
+              multiple
+              :auto-upload="false"
+              :file-list="item.fileList"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
+            >
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible" append-to-body>
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button @click="reviewCancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -330,6 +413,7 @@ export default {
       // 加载层信息
       loading: [],
       openWin:false,
+      openReviewWin:false,
       roles:[103],
       winTitle:'',
       type:"write",
@@ -337,6 +421,8 @@ export default {
       writeMainDetail: [],
       writeAnnexDetail: [],
       auditData: [],
+      reviewMainDetail:[],
+      reviewAnnexDetail:[],
       noPassData: [],
       passData: [],
       dialogImageUrl: '',
@@ -432,6 +518,7 @@ export default {
             if (200 == response.code) {
               this.writeMainDetail = response.data.certificationFileInfos;
               this.writeAnnexDetail = response.data.certificationAnnexInputs;
+              this.openWin = true;
             } else {
               this.$message.error(response.msg);
             }
@@ -440,6 +527,9 @@ export default {
         this.winTitle = '待审核';
         getReviewDetail(params).then(response => {
           if (200 == response.code) {
+            this.reviewMainDetail = response.data.certificationFileInfos;
+            this.reviewAnnexDetail = response.data.certificationAnnexInputs;
+            this.openReviewWin = true;
           } else {
             this.$message.error(response.msg);
           }
@@ -451,6 +541,7 @@ export default {
           if (200 == response.code) {
             this.writeMainDetail = response.data.certificationFileInfos;
             this.writeAnnexDetail = response.data.certificationAnnexInputs;
+            this.openWin = true;
           } else {
             this.$message.error(response.msg);
           }
@@ -459,13 +550,19 @@ export default {
         this.winTitle = '已通过';
 
       }
-      this.openWin = true;
 
     },
     cancel() {
       this.openWin = false;
       this.writeMainDetail= [];
       this.writeAnnexDetail= [];
+      this.dialogImageUrl= '';
+      this.dialogVisible= false;
+    },
+    reviewCancel() {
+      this.openReviewWin = false;
+      this.reviewMainDetail= [];
+      this.reviewAnnexDetail= [];
       this.dialogImageUrl= '';
       this.dialogVisible= false;
     },
