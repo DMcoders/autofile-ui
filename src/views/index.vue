@@ -414,7 +414,7 @@ export default {
       loading: [],
       openWin:false,
       openReviewWin:false,
-      roles:[103],
+      roles:[],
       winTitle:'',
       type:"write",
       writeData: [],
@@ -447,7 +447,7 @@ export default {
         response.data.roles.forEach(item => {
           roles.push(item.roleId)
         })
-        // this.roles = roles;
+        this.roles = roles;
       }).then(response => {
           this.homePageWrite();
           this.homePageReview();
