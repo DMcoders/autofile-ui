@@ -90,6 +90,14 @@ export function getReviewDetail(data) {
   })
 }
 
+export function submitReviewDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/submitReviewDetail',
+    method: 'post',
+    data: data
+  })
+}
+
 export function homePageModify(data) {
   return request({
     url: '/vertify/certFileInput/homePageModify',
@@ -110,6 +118,14 @@ export function homePageFinish() {
   return request({
     url: '/vertify/certFileInput/homePageFinish',
     method: 'get'
+  })
+}
+
+export function getFinishDetail(data) {
+  return request({
+    url: '/vertify/certFileInput/getFinishDetail',
+    method: 'post',
+    data: data
   })
 }
 

@@ -250,7 +250,7 @@
             {{item.sectionTitle}}
           </el-col>
           <el-col :span="10">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent"></el-input>
+            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -282,12 +282,13 @@
         <el-row style="margin-top:10px">
           <el-col :span="24">
               <el-upload
+                :disabled="isOnlyRead"
                 action=""
                 list-type="picture-card"
                 :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
                 multiple
                 :auto-upload="false"
-                :file-list="item.fileList"
+                :file-list="item.files"
                 :on-preview="handlePictureCardPreview"
                 :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
               >
@@ -300,7 +301,7 @@
         </el-row>
         <el-divider></el-divider>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div v-if="!isOnlyRead" slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -309,38 +310,68 @@
     <el-dialog :title="winTitle" :visible.sync="openReviewWin" width="80%" fullscreen>
       <div v-for="(item, i) in reviewMainDetail">
         <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
-          <el-col :span="1">
-            <el-checkbox v-model="checked"></el-checkbox>
+          <el-col :span="2">
+            <el-switch
+              class="switchStyle"
+              :width="70"
+              v-model="item.reviewState"
+              active-color="#00A854"
+              active-text="通过"
+              active-value="通过"
+              inactive-color="#F04134"
+              inactive-text="未通过"
+              inactive-value="未通过">
+            </el-switch>
           </el-col>
           <el-col :span="3">
             {{item.sectionOrderName}}
           </el-col>
-          <el-col :span="20">
+          <el-col :span="19">
             {{item.sectionTitle}}
           </el-col>
         </el-row>
         <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
-          <el-col :span="1">
-            <el-checkbox v-model="checked"></el-checkbox>
-          </el-col>
           <el-col :span="3">
+            <el-switch
+              class="switchStyle"
+              :width="70"
+              v-model="item.reviewState"
+              active-color="#00A854"
+              active-text="通过"
+              active-value="通过"
+              inactive-color="#F04134"
+              inactive-text="未通过"
+              inactive-value="未通过">
+            </el-switch>
+          </el-col>
+          <el-col :span="2">
             {{item.sectionOrderName}}
           </el-col>
-          <el-col :span="10">
+          <el-col :span="9">
             {{item.sectionTitle}}
           </el-col>
           <el-col :span="10">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent"></el-input>
+            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
       </div>
       <div v-for="(item, i) in reviewAnnexDetail">
         <el-row style="font-size:18px">
-          <el-col :span="1">
-            <el-checkbox v-model="checked"></el-checkbox>
+          <el-col :span="3">
+            <el-switch
+              class="switchStyle"
+              v-model="item.reviewState"
+              :width="70"
+              active-color="#00A854"
+              active-text="通过"
+              active-value="通过"
+              inactive-color="#F04134"
+              inactive-text="未通过"
+              inactive-value="未通过">
+            </el-switch>
           </el-col>
-          <el-col :span="23">
+          <el-col :span="21">
             <el-row>
               <el-col :span="4" style="border:1px solid;border-color:black">
                 Type:
@@ -366,11 +397,12 @@
           <el-col :span="24">
             <el-upload
               action=""
+              :disabled="true"
               list-type="picture-card"
               :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
               multiple
               :auto-upload="false"
-              :file-list="item.fileList"
+              :file-list="item.files"
               :on-preview="handlePictureCardPreview"
               :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
             >
@@ -384,7 +416,7 @@
         <el-divider></el-divider>
       </div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button type="primary" @click="reviewSubmit">确 定</el-button>
         <el-button @click="reviewCancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -396,7 +428,8 @@
 import PanelGroup from './dashboard/PanelGroup';
 import { getUserProfile } from "@/api/system/user";
 import {homePageWrite,homePageReview,homePageModify,homePageFinish,
-  getReviewDetail,getModifyDetail,getWriteDetail,sumbitWriteTextDetail,sumbitWriteAnnexDetail} from "@/api/vertify/certification";
+  getReviewDetail,getModifyDetail,getWriteDetail,getFinishDetail,
+  sumbitWriteTextDetail,sumbitWriteAnnexDetail,submitReviewDetail} from "@/api/vertify/certification";
 
 
 export default {
@@ -414,7 +447,7 @@ export default {
       loading: [],
       openWin:false,
       openReviewWin:false,
-      roles:[],
+      roles:[103],
       winTitle:'',
       type:"write",
       writeData: [],
@@ -427,6 +460,7 @@ export default {
       passData: [],
       dialogImageUrl: '',
       dialogVisible: false,
+      isOnlyRead:false
     }
   },
   methods: {
@@ -447,7 +481,7 @@ export default {
         response.data.roles.forEach(item => {
           roles.push(item.roleId)
         })
-        this.roles = roles;
+        // this.roles = roles;
       }).then(response => {
           this.homePageWrite();
           this.homePageReview();
@@ -548,7 +582,8 @@ export default {
         })
       }else if(this.type === 'pass') {
         this.winTitle = '已通过';
-        homePageFinish(params).then(response => {
+        this.isOnlyRead = true;
+        getFinishDetail(params).then(response => {
           if (200 == response.code) {
             this.writeMainDetail = response.data.certificationFileInfos;
             this.writeAnnexDetail = response.data.certificationAnnexInputs;
@@ -576,9 +611,6 @@ export default {
     },
     submit() {
       if(this.type == "write" || this.type == "noPass") {
-        debugger
-        console.log(this.writeMainDetail);
-        console.log(this.writeAnnexDetail);
         let data1 = new FormData();
         let flag = false;
         this.writeMainDetail.forEach(item => {
@@ -596,7 +628,6 @@ export default {
         }
         data1.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
 
-        debugger
         this.writeAnnexDetail.forEach(item => {
           if(item.fileList==undefined || item.fileList.length==0) {
             flag = true;
@@ -641,11 +672,35 @@ export default {
             this.$message.error(response.msg);
           }
         })
-
-
-
-
       }
+    },
+    reviewSubmit() {
+      let data = new FormData();
+      this.reviewMainDetail.forEach(item => {
+        item.auditEmployeeName = this.user.userName;
+        item.auditEmployeeNumber = this.user.userId;
+      })
+      this.reviewAnnexDetail.forEach(item => {
+        item.auditEmployeeName = this.user.userName;
+        item.auditEmployeeNumber = this.user.userId;
+      })
+      data.append("certificationFileInputListJson",JSON.stringify(this.reviewMainDetail));
+      data.append("certificationAnnexInputListJson",JSON.stringify(this.reviewAnnexDetail));
+
+      submitReviewDetail(data).then(response => {
+        if (200 == response.code) {
+          this.reviewCancel();
+          this.msgSuccess("提交成功");
+          this.homePageWrite();
+          this.homePageReview();
+          this.homePageModify();
+          this.homePageReview();
+        }else {
+
+          this.$message.error(response.msg);
+        }
+      })
+
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -726,6 +781,48 @@ export default {
 
 .el-dialog.is-fullscreen {
   margin-top: 0vh !important;
+}
+.switchStyle{
+  .el-switch__label {
+    position: absolute;
+    display: none;
+    font-weight:normal;
+  }
+  .el-switch__label *{
+    font-size:12px;
+  }
+  .el-switch__label--left {
+    z-index: 9;
+    left:24px;
+    color: #000;
+  }
+  .el-switch__label--right {
+    z-index: 9;
+    color: #fff;
+  }
+  .el-switch__label.is-active {
+    display: block;
+    height:30px;
+    line-height:30px;
+  }
+}
+
+.el-switch,.el-switch__core{
+  height:30px;
+  line-height:30px;
+}
+.el-switch__core{
+  border-radius:15px;
+  &:after{
+    width:20px;
+    height:20px;
+    top:4px;
+    left:3px;
+    z-index:10;
+  }
+}
+.el-switch.is-checked .el-switch__core::after{
+  margin-left:-23px;
 }
 
 @media (max-width:1024px) {

@@ -33,7 +33,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            待修改{{noPassNum}}
+            待修改
           </div>
           <count-to :start-val="0" :end-val="noPassNum" :duration="1" class="card-panel-num" />
         </div>
