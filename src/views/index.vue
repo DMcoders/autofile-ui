@@ -357,6 +357,16 @@
             <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
           </el-col>
         </el-row>
+        <el-row style="margin-top:10px;">
+          <el-col :span="24">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="审核意见"
+              v-model="item.auditOpinion">
+            </el-input>
+          </el-col>
+        </el-row>
         <el-divider></el-divider>
       </div>
       <div v-for="(item, i) in reviewAnnexDetail">
@@ -417,6 +427,16 @@
           </el-col>
           <el-col :span="24" v-else-if="item.inputType==='input'">
             <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px;">
+          <el-col :span="24">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="审核意见"
+              v-model="item.auditOpinion">
+            </el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
