@@ -280,7 +280,7 @@
           </el-col>
         </el-row>
         <el-row style="margin-top:10px">
-          <el-col :span="24">
+          <el-col :span="24" v-if="item.inputType==='image'">
               <el-upload
                 :disabled="isOnlyRead"
                 action=""
@@ -288,7 +288,7 @@
                 :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
                 multiple
                 :auto-upload="false"
-                :file-list="item.files"
+                :file-list="item.fileList"
                 :on-preview="handlePictureCardPreview"
                 :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
               >
@@ -297,6 +297,9 @@
               <el-dialog :visible.sync="dialogVisible" append-to-body>
                 <img width="100%" :src="dialogImageUrl" alt="">
               </el-dialog>
+          </el-col>
+          <el-col :span="24" v-else-if="item.inputType==='input'">
+            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -394,7 +397,7 @@
           </el-col>
         </el-row>
         <el-row style="margin-top:10px">
-          <el-col :span="24">
+          <el-col :span="24" v-if="item.inputType==='image'">
             <el-upload
               action=""
               :disabled="true"
@@ -402,7 +405,7 @@
               :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
               multiple
               :auto-upload="false"
-              :file-list="item.files"
+              :file-list="item.fileList"
               :on-preview="handlePictureCardPreview"
               :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
             >
@@ -411,6 +414,9 @@
             <el-dialog :visible.sync="dialogVisible" append-to-body>
               <img width="100%" :src="dialogImageUrl" alt="">
             </el-dialog>
+          </el-col>
+          <el-col :span="24" v-else-if="item.inputType==='input'">
+            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -546,6 +552,7 @@ export default {
       params.roles = this.roles;
       params.certificationId =item.certificationId;
       params.standardFileId =item.standardFileId;
+      this.isOnlyRead = false;
       if(this.type === 'write') {
         this.winTitle = '待填写';
           getWriteDetail(params).then(response => {
@@ -629,19 +636,40 @@ export default {
         data1.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
 
         this.writeAnnexDetail.forEach(item => {
-          if(item.fileList==undefined || item.fileList.length==0) {
-            flag = true;
-          }else {
-            let data3 = new FormData();
-            item.fileList.forEach(file => {
-              data3.append("files",file.raw);
-            })
-            item.files = data3;
-            item.employeeName = this.user.userName;
-            item.employeeNumber = this.user.userId;
-            item.reviewState = '提交';
-            item.isLink = 0;
-            delete item['fileList'];
+          if(item.inputType==='input') {
+            if(item.inputContent==undefined || item.inputContent=="") {
+              flag = true;
+            }else {
+              item.employeeName = this.user.userName;
+              item.employeeNumber = this.user.userId;
+              item.reviewState = '提交';
+              item.isLink = 0;
+            }
+          }else if(item.inputType==='image') {
+            debugger
+            if(item.fileList==undefined || item.fileList.length==0) {
+              flag = true;
+            }else {
+              let data3 = new FormData();
+              let fileList = new Array();
+              item.fileList.forEach(file => {
+                if(file.raw) {
+                  data3.append("files", file.raw);
+                }else {
+                  fileList.push({
+                    name:file.name,
+                    url:file.url
+                  });
+                }
+              })
+              item.files = data3;
+              item.employeeName = this.user.userName;
+              item.employeeNumber = this.user.userId;
+              item.reviewState = '提交';
+              item.isLink = 0;
+              item.fileList = fileList;
+            }
+
           }
         })
         if(flag) {
@@ -651,8 +679,12 @@ export default {
 
         sumbitWriteTextDetail(data1).then(response => {
           if (200 == response.code) {
+            debugger
             for(var i=0;i<this.writeAnnexDetail.length;i++) {
-              let tmp = this.writeAnnexDetail[i].files;
+              let tmp = new FormData();
+              if(this.writeAnnexDetail[i].inputType==='image' && this.writeAnnexDetail[i].files!=undefined) {
+                tmp = this.writeAnnexDetail[i].files;
+              }
               tmp.append("certificationAnnexInputJson",JSON.stringify(this.writeAnnexDetail[i]));
               sumbitWriteAnnexDetail(tmp).then(response => {
                 if (200 == response.code) {
