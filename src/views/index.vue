@@ -35,12 +35,12 @@
             <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="fileName"
-          label="文件名"
-          align="center"
-          min-width="20%">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="fileName"-->
+          <!--label="文件名"-->
+          <!--align="center"-->
+          <!--min-width="20%">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="创建日期"
           align="center"
@@ -92,12 +92,12 @@
             <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="fileName"
-          label="文件名"
-          align="center"
-          min-width="20%">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="fileName"-->
+          <!--label="文件名"-->
+          <!--align="center"-->
+          <!--min-width="20%">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="填写进度"
           align="center"
@@ -150,12 +150,12 @@
             <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="fileName"
-          label="文件名"
-          align="center"
-          min-width="20%">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="fileName"-->
+          <!--label="文件名"-->
+          <!--align="center"-->
+          <!--min-width="20%">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="审核意见"
           align="center"
@@ -204,12 +204,12 @@
             <span style="color:#36a3f7">{{ scope.row.exportCountry }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="fileName"
-          label="文件名"
-          align="center"
-          min-width="20%">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="fileName"-->
+          <!--label="文件名"-->
+          <!--align="center"-->
+          <!--min-width="20%">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="完成时间"
           prop="finishDate"
@@ -285,12 +285,12 @@
                 :disabled="isOnlyRead"
                 action=""
                 list-type="picture-card"
-                :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
+                :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.annexOrder+item.annexPage)}"
                 multiple
                 :auto-upload="false"
                 :file-list="item.fileList"
                 :on-preview="handlePictureCardPreview"
-                :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
+                :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.annexOrder+item.annexPage)}"
               >
                 <i class="el-icon-plus"></i>
               </el-upload>
@@ -412,12 +412,12 @@
               action=""
               :disabled="true"
               list-type="picture-card"
-              :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.id)}"
+              :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.annexOrder+item.annexPage)}"
               multiple
               :auto-upload="false"
               :file-list="item.fileList"
               :on-preview="handlePictureCardPreview"
-              :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.id)}"
+              :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.annexOrder+item.annexPage)}"
             >
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -503,10 +503,10 @@ export default {
     getUser() {
       getUserProfile().then(response => {
         this.user = response.data;
-        let roles = [];
-        response.data.roles.forEach(item => {
-          roles.push(item.roleId)
-        })
+        let roles = [103];
+        // response.data.roles.forEach(item => {
+        //   roles.push(item.roleId)
+        // })
         this.roles = roles;
       }).then(response => {
           this.homePageWrite();
@@ -764,7 +764,7 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传图片大小不能超过 2MB!');
         this.writeAnnexDetail.forEach(item => {
-          if(item.id==id) {
+          if((item.annexOrder+item.annexPage)==id) {
             if(item.fileList) {
               item.fileList.forEach((fileItem, index) => {
                 if (fileItem.uid == file.uid) {
@@ -784,7 +784,7 @@ export default {
       if (!isImage) {
         this.$message.error('上传只能是png,jpg,jpeg,bmp,gif,webp格式!');
         this.writeAnnexDetail.forEach(item => {
-          if(item.id==id) {
+          if((item.annexOrder+item.annexPage)==id) {
             if(item.fileList) {
               item.fileList.forEach((fileItem, index) => {
                 if (fileItem.uid == file.uid) {
@@ -801,7 +801,7 @@ export default {
       }
 
       this.writeAnnexDetail.forEach(item => {
-        if(item.id === id) {
+        if((item.annexOrder+item.annexPage) === id) {
           item.fileList = fileList;
         }
       })
@@ -809,7 +809,7 @@ export default {
     handleRemovePicture(file, fileList ,id) {
       debugger
       this.writeAnnexDetail.forEach(item => {
-        if(item.id === id) {
+        if((item.annexOrder+item.annexPage) === id) {
           item.fileList = fileList;
         }
       })
