@@ -236,7 +236,7 @@
       <div v-for="(item, i) in writeMainDetail">
         <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
           <el-col :span="4">
-            {{item.sectionOrderName}}
+            {{item.sectionTitleZh}}
           </el-col>
           <el-col :span="20">
             {{item.sectionTitle}}
@@ -244,7 +244,7 @@
         </el-row>
         <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
           <el-col :span="4">
-            {{item.sectionOrderName}}
+            {{item.sectionTitleZh}}
           </el-col>
           <el-col :span="10">
             {{item.sectionTitle}}
@@ -326,10 +326,10 @@
               inactive-value="未通过">
             </el-switch>
           </el-col>
-          <el-col :span="3">
-            {{item.sectionOrderName}}
+          <el-col :span="8">
+            {{item.sectionTitleZh}}
           </el-col>
-          <el-col :span="19">
+          <el-col :span="14">
             {{item.sectionTitle}}
           </el-col>
         </el-row>
@@ -347,13 +347,13 @@
               inactive-value="未通过">
             </el-switch>
           </el-col>
-          <el-col :span="2">
-            {{item.sectionOrderName}}
+          <el-col :span="4">
+            {{item.sectionTitleZh}}
           </el-col>
-          <el-col :span="9">
+          <el-col :span="8">
             {{item.sectionTitle}}
           </el-col>
-          <el-col :span="10">
+          <el-col :span="9">
             <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
           </el-col>
         </el-row>
@@ -507,7 +507,7 @@ export default {
         response.data.roles.forEach(item => {
           roles.push(item.roleId)
         })
-        // this.roles = roles;
+        this.roles = roles;
       }).then(response => {
           this.homePageWrite();
           this.homePageReview();
