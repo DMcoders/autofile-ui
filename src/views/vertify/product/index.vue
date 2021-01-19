@@ -59,7 +59,7 @@
                         <el-row :gutter="1">
                           <el-col :span="10">
                             <div>
-                              车系:{{item.autoSeries}}
+                              产品平台:{{item.autoSeries}}
                             </div>
                           </el-col>
 
@@ -174,7 +174,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="车系" prop="autoSeries">
+            <el-form-item label="产品平台" prop="autoSeries">
               <el-select style="width:100%" clearable v-model="form.autoSeries" size="small">
                 <el-option
                   v-for="autoSerie in autoSeriesArray"
@@ -440,7 +440,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "J7",
@@ -478,7 +478,7 @@
             "autoSpecie": "新能源乘用车",
             "filters": [
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "IEV 6E",
@@ -527,7 +527,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "S1",
@@ -579,7 +579,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "R3",
@@ -688,7 +688,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "808",
@@ -719,7 +719,7 @@
             "autoSpecie": "多功能商务车",
             "filters": [
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "Sunray V4",
@@ -821,7 +821,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "T6",
@@ -878,7 +878,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "X100",
@@ -942,7 +942,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "I3"
@@ -1014,7 +1014,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "I5"
@@ -1068,7 +1068,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "I6"
@@ -1130,7 +1130,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "I6"
@@ -1215,7 +1215,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "Narrow Cargo",
@@ -1297,7 +1297,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "Mid-size Cargo",
@@ -1379,7 +1379,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "Wide Cargo",
@@ -1447,7 +1447,7 @@
                 ]
               },
               {
-                "selectKey": "车系",
+                "selectKey": "产品平台",
                 "options": [
                   "不限",
                   "Narrow Cargo",
@@ -1491,7 +1491,7 @@
         title: "",
         // 是否显示弹出层
         open: false,
-        //车系
+        //车系 //产品平台
         autoSeriesArray: [],
         //排放标准
         emissionStandardsArray: [],
@@ -1715,7 +1715,7 @@
 
 
         this.filters.forEach(item => {
-          if (item.selectKey === "车系") {
+          if (item.selectKey === "产品平台") {
             item.options.forEach(op => {
               if ("不限" != op) {
                 this.autoSeriesArray.push(op);
