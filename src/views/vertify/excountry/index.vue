@@ -1,34 +1,35 @@
 <template>
   <div>
-    <div>
-      <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-        <el-form-item label="车型" prop="autoType">
-          <el-select v-model="queryParams.autoType" clearable size="small">
-            <el-option
-              v-for="autoType in autoTypes"
-              :key="autoType"
-              :label="autoType"
-              :value="autoType"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-          >新增
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="echarts-box">
-      <div class="title-box">
-        <div class="title">出口国家分布</div>
+    <el-row>
+      <div>
+        <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+          <el-form-item label="车型" prop="autoType">
+            <el-select v-model="queryParams.autoType" clearable @clear="clearAutoType" size="small">
+              <el-option
+                v-for="autoType in autoTypes"
+                :key="autoType"
+                :label="autoType"
+                :value="autoType"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              icon="el-icon-plus"
+              size="mini"
+              @click="handleAdd"
+            >新增
+            </el-button>
+          </el-form-item>
+        </el-form>
       </div>
-      <e-charts class="echarts" :options="echartOptions" @dblclick="dblClick" @click="doClick"/>
-    </div>
+    </el-row>
+    <el-row>
+      <div class="echarts-box">
+        <e-charts class="echarts" :options="echartOptions" @dblclick="dblClick" @click="doClick"/>
+      </div>
+    </el-row>
 
     <div>
       <el-dialog :title="title" :visible.sync="open" width="60%" :show-close="false" append-to-body>
@@ -70,22 +71,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          <el-row>-->
-          <!--            <el-form-item>-->
-          <!--              <el-col :span="24">-->
-          <!--                <el-transfer-->
-          <!--                  class="transferC"-->
-          <!--                  v-model="selFiles"-->
-          <!--                  :data="allFiles"-->
-          <!--                  filterable-->
-          <!--                  :titles="['全部', '已选']"-->
-          <!--                  :render-content="renderFunc"-->
-          <!--                ></el-transfer>-->
-          <!--              </el-col>-->
-          <!--            </el-form-item>-->
-          <!--          </el-row>-->
-
-
           <el-row :gutter="20">
             <el-col :span="11">
               <el-table
@@ -160,6 +145,16 @@
         </div>
       </el-dialog>
     </div>
+
+    <div>
+      <el-dialog :visible.sync="loading" width="70%" append-to-body>
+        <el-table :data="countryFiles" max-height="500" style="width: 100%">
+          <el-table-column label="文件名" align="center" prop="fileName"/>
+          <el-table-column label="车型" align="center" prop="autoType"/>
+          <el-table-column label="类别" align="center" prop="category"/>
+        </el-table>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -202,6 +197,9 @@
         }],
         countries: [],
         countriesMap: undefined,
+
+        loading: false,
+        countryFiles:[],
       }
     },
     created() {
@@ -257,6 +255,7 @@
                         name: countryName,
                         show: this.createEchartsShow(item.categoryCount),
                         value: this.createEchartsValue(item.categoryCount),
+                        countryFiles : item.countryFileDTOS,
                       }
                       this.categoryMap.push(data);
                     }
@@ -281,22 +280,24 @@
             min: 0,
             max: 100,
             text: ['High', 'Low'],
+            x: 'left',
+            y: 'center',
             realtime: true,
             calculable: true,
-            color: ['#FF0000','#DAA520','#1C86EE']
+            color: ['#FF0000', '#DAA520', '#1C86EE']
           },
           tooltip: {
             trigger: 'item',
-            backgroundColor:"rgba(255,255,255,1)",
-            extraCssText:'width:100px;height:100px;',
-            borderWidth:'1',
-            borderColor:'gray',
-            textStyle:{
-              color:'black',
+            backgroundColor: "rgba(255,255,255,1)",
+            extraCssText: 'width:100px;height:100px;',
+            borderWidth: '1',
+            borderColor: 'gray',
+            textStyle: {
+              color: 'black',
             },
             formatter: function (params) {
               if (params.name && params.data && params.data.name) {
-                return  params.data.name + params.data.show;
+                return params.data.name + params.data.show;
               }
             }
           },
@@ -320,9 +321,10 @@
             }
           },
           series: [{
-            name: '出口国家',
+            name: '',
             type: 'map',
             mapType: 'world',
+            radius: '100%',
             itemStyle: {
               normal: {
                 borderWidth: 0.5,
@@ -458,8 +460,12 @@
             this.form.country = item.countryName;
           }
         })
-      }
-      ,
+      },
+
+      clearAutoType()
+      {
+        this.queryParams.autoType = undefined;
+      },
 
       submitForm() {
         let params = {};
@@ -609,13 +615,14 @@
 
       // 双击事件
       dblClick(v) {
-        console.log(v)
+        //console.log(v)
       }
       ,
       // 单击事件
       doClick(v) {
-        debugger
-        console.log(v)
+        this.countryFiles = [];
+        this.countryFiles = v.data.countryFiles;
+        this.loading = true;
       }
     }
   }
@@ -623,29 +630,28 @@
 
 <style lang="scss" scoped>
   .echarts-box {
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 5px;
+    margin: -25px 0;
+    border-radius: 10px;
     background-color: #fff;
+
+    .echarts {
+      width: 100%;
+      height: 500px;
+    }
 
     .title-box {
       display: flex;
 
       .label {
-        width: 25px;
-        height: 25px;
-        margin-right: 10px;
+        width: -25px;
+        height: -10px;
+        margin-right: 5px;
       }
 
       .title {
         color: #4C4C4C;
         font-size: 18px;
       }
-    }
-
-    .echarts {
-      width: 100%;
-      height: 600px;
     }
   }
 
