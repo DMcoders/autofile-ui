@@ -243,14 +243,34 @@
           </el-col>
         </el-row>
         <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
-          <el-col :span="4">
+          <el-col :span="6">
             {{item.sectionTitleZh}}
           </el-col>
-          <el-col :span="10">
-            {{item.sectionTitle}}
+          <el-col v-if="!isOnlyRead" :span="10">
+            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead" @input="v => inputContentChange(v,i)"></el-input>
           </el-col>
-          <el-col :span="10">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
+          <el-col v-if="!isOnlyRead" :span="3">
+            <el-select style="width:90%" v-model="item.selCertificationId" placeholder="历史填写认证" @change="v => selCertification(v,i)">
+              <el-option
+                v-for="item2 in writedCertifications"
+                :key="item2.id"
+                :label="item2.certificationName"
+                :value="item2.id">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col v-if="!isOnlyRead" :span="5">
+            <el-select style="width:90%" v-model="item.selInput" placeholder="历史填写内容" @change="v => selInput(v,i)">
+              <el-option
+                v-for="item1 in item.writedInputs"
+                :key="item1.inputContent"
+                :label="item1.inputContent"
+                :value="item1.inputContent">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col v-else :span="18">
+            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -347,13 +367,10 @@
               inactive-value="未通过">
             </el-switch>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="7">
             {{item.sectionTitleZh}}
           </el-col>
-          <el-col :span="8">
-            {{item.sectionTitle}}
-          </el-col>
-          <el-col :span="9">
+          <el-col :span="14">
             <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
           </el-col>
         </el-row>
@@ -455,7 +472,7 @@ import PanelGroup from './dashboard/PanelGroup';
 import { getUserProfile } from "@/api/system/user";
 import {homePageWrite,homePageReview,homePageModify,homePageFinish,
   getReviewDetail,getModifyDetail,getWriteDetail,getFinishDetail,
-  sumbitWriteTextDetail,sumbitWriteAnnexDetail,submitReviewDetail} from "@/api/vertify/certification";
+  sumbitWriteTextDetail,sumbitWriteAnnexDetail,submitReviewDetail,getWritedCertifications,getWritedInputs} from "@/api/vertify/certification";
 
 
 export default {
@@ -473,7 +490,7 @@ export default {
       loading: [],
       openWin:false,
       openReviewWin:false,
-      roles:[103],
+      roles:[],
       winTitle:'',
       type:"write",
       writeData: [],
@@ -486,7 +503,8 @@ export default {
       passData: [],
       dialogImageUrl: '',
       dialogVisible: false,
-      isOnlyRead:false
+      isOnlyRead:false,
+      writedCertifications:[]
     }
   },
   methods: {
@@ -503,10 +521,10 @@ export default {
     getUser() {
       getUserProfile().then(response => {
         this.user = response.data;
-        let roles = [103];
-        // response.data.roles.forEach(item => {
-        //   roles.push(item.roleId)
-        // })
+        let roles = [];
+        response.data.roles.forEach(item => {
+          roles.push(item.roleId)
+        })
         this.roles = roles;
       }).then(response => {
           this.homePageWrite();
@@ -583,7 +601,18 @@ export default {
             } else {
               this.$message.error(response.msg);
             }
-          })
+          });
+        var params2 = {};
+        params2.roles = this.roles;
+        params2.certificationAutoSeries = item.certificationAutoSeries;
+        getWritedCertifications(params2).then(response => {
+          if (200 == response.code) {
+            this.writedCertifications = response.data.writedCertifications;
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
+
       }else if(this.type === 'audit') {
         this.winTitle = '待审核';
         getReviewDetail(params).then(response => {
@@ -603,6 +632,16 @@ export default {
             this.writeMainDetail = response.data.certificationFileInfos;
             this.writeAnnexDetail = response.data.certificationAnnexInputs;
             this.openWin = true;
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
+        var params2 = {};
+        params2.roles = this.roles;
+        params2.certificationAutoSeries = item.certificationAutoSeries;
+        getWritedCertifications(params2).then(response => {
+          if (200 == response.code) {
+            this.writedCertifications = response.data.writedCertifications;
           } else {
             this.$message.error(response.msg);
           }
@@ -807,13 +846,41 @@ export default {
       })
     },
     handleRemovePicture(file, fileList ,id) {
-      debugger
       this.writeAnnexDetail.forEach(item => {
         if((item.annexOrder+item.annexPage) === id) {
           item.fileList = fileList;
         }
       })
     },
+    selCertification(value,index) {
+      var params = {};
+      debugger
+      params.roles = this.roles;
+      params.certificationId = value;
+      getWritedInputs(params).then(response => {
+        if (200 == response.code) {
+          // this.writeMainDetail[index].writedInputs = response.data.writedInputs;
+          let object = this.writeMainDetail[index];
+          object.writedInputs = response.data.writedInputs;
+          object.selInput = '';
+          this.$set(this.writeMainDetail,index,object);
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
+    },
+    selInput(value,index) {
+      // this.writeMainDetail[index].inputContent = value;
+      let object = this.writeMainDetail[index];
+      object.inputContent = value;
+      this.$set(this.writeMainDetail,index,object);
+      // this.writeMainDetail.splice(index,1,object);
+    },
+    inputContentChange(value,index) {
+      let object = this.writeMainDetail[index];
+      object.inputContent = value;
+      this.$set(this.writeMainDetail,index,object);
+    }
   }
 }
 </script>

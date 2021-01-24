@@ -129,5 +129,21 @@ export function getFinishDetail(data) {
   })
 }
 
+export function getWritedCertifications(data) {
+  return request({
+    url: '/vertify/certFileInput/getWritedCertifications',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getWritedInputs(data) {
+  return request({
+    url: '/vertify/certFileInput/getWritedInputs',
+    method: 'post',
+    data: data
+  })
+}
+
 
 
