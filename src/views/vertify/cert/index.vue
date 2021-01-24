@@ -328,7 +328,7 @@
       this.productMenu = [
         {
           "menuType": "category",
-          "label": "乘用车",
+          "label": "M1",
           "children": [
             {
               "menuType": "menu",
@@ -350,7 +350,17 @@
         },
         {
           "menuType": "category",
-          "label": "轻型商务车",
+          "label": "M2",
+          "children": []
+        },
+        {
+          "menuType": "category",
+          "label": "M3",
+          "children": []
+        },
+        {
+          "menuType": "category",
+          "label": "N1",
           "children": [
             {
               "menuType": "menu",
@@ -388,7 +398,7 @@
         },
         {
           "menuType": "category",
-          "label": "中型商务车",
+          "label": "N2",
           "children": [
             {
               "menuType": "menu",
@@ -407,7 +417,12 @@
               "label": "新能源中重卡"
             }
           ]
-        }
+        },
+        {
+          "menuType": "category",
+          "label": "N3",
+          "children": []
+        },
       ]
 
     },
