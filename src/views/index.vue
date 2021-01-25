@@ -232,7 +232,20 @@
     </el-row>
 
 
-    <el-dialog :title="winTitle" :visible.sync="openWin" width="80%" fullscreen>
+    <el-dialog :title="winTitle" :visible.sync="openWin" width="80%" fullscreen @close="cancel">
+      <el-row>
+        <el-col :span="4" :offset="20">
+          <el-select style="width:90%" v-model="selCertificationId" placeholder="历史认证" filterable @change="selCertification">
+            <el-option
+              v-for="item in writedCertifications"
+              :key="item.id"
+              :label="item.certificationName"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
+      <el-divider></el-divider>
       <div v-for="(item, i) in writeMainDetail">
         <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
           <el-col :span="4">
@@ -247,27 +260,12 @@
             {{item.sectionTitleZh}}
           </el-col>
           <el-col v-if="!isOnlyRead" :span="10">
-            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead" @input="v => inputContentChange(v,i)"></el-input>
+            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead" clearable @input="v => inputContentChange(v,i)"></el-input>
           </el-col>
-          <el-col v-if="!isOnlyRead" :span="3">
-            <el-select style="width:90%" v-model="item.selCertificationId" placeholder="历史填写认证" @change="v => selCertification(v,i)">
-              <el-option
-                v-for="item2 in writedCertifications"
-                :key="item2.id"
-                :label="item2.certificationName"
-                :value="item2.id">
-              </el-option>
-            </el-select>
-          </el-col>
-          <el-col v-if="!isOnlyRead" :span="5">
-            <el-select style="width:90%" v-model="item.selInput" placeholder="历史填写内容" @change="v => selInput(v,i)">
-              <el-option
-                v-for="item1 in item.writedInputs"
-                :key="item1.inputContent"
-                :label="item1.inputContent"
-                :value="item1.inputContent">
-              </el-option>
-            </el-select>
+          <el-col v-if="!isOnlyRead" :span="8">
+            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>&nbsp;&nbsp;
+            <el-input style="width:90%" v-model="item.historyInput" placeholder="历史填写" :disabled="true">
+            </el-input>
           </el-col>
           <el-col v-else :span="18">
             <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
@@ -325,6 +323,7 @@
         <el-divider></el-divider>
       </div>
       <div v-if="!isOnlyRead" slot="footer" class="dialog-footer">
+        <el-button type="success" @click="allFill">全部填充</el-button>
         <el-button type="primary" @click="submit">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -504,7 +503,8 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       isOnlyRead:false,
-      writedCertifications:[]
+      writedCertifications:[],
+      selCertificationId:""
     }
   },
   methods: {
@@ -604,7 +604,8 @@ export default {
           });
         var params2 = {};
         params2.roles = this.roles;
-        params2.certificationAutoSeries = item.certificationAutoSeries;
+        params2.certificationAutoType = item.certificationAutoType;
+        params2.exportCountry = item.exportCountry;
         getWritedCertifications(params2).then(response => {
           if (200 == response.code) {
             this.writedCertifications = response.data.writedCertifications;
@@ -638,7 +639,8 @@ export default {
         })
         var params2 = {};
         params2.roles = this.roles;
-        params2.certificationAutoSeries = item.certificationAutoSeries;
+        params2.certificationAutoType = item.certificationAutoType;
+        params2.exportCountry = item.exportCountry;
         getWritedCertifications(params2).then(response => {
           if (200 == response.code) {
             this.writedCertifications = response.data.writedCertifications;
@@ -667,6 +669,7 @@ export default {
       this.writeAnnexDetail= [];
       this.dialogImageUrl= '';
       this.dialogVisible= false;
+      this.selCertificationId= '';
     },
     reviewCancel() {
       this.openReviewWin = false;
@@ -705,7 +708,6 @@ export default {
               item.isLink = 0;
             }
           }else if(item.inputType==='image') {
-            debugger
             if(item.fileList==undefined || item.fileList.length==0) {
               flag = true;
             }else {
@@ -738,7 +740,6 @@ export default {
 
         sumbitWriteTextDetail(data1).then(response => {
           if (200 == response.code) {
-            debugger
             for(var i=0;i<this.writeAnnexDetail.length;i++) {
               let tmp = new FormData();
               if(this.writeAnnexDetail[i].inputType==='image' && this.writeAnnexDetail[i].files!=undefined) {
@@ -799,7 +800,6 @@ export default {
     },
     beforeAvatarUpload(file,fileList,id) {
       const isLt2M = file.size < 1024 * 1024 * 2;
-      debugger
       if (!isLt2M) {
         this.$message.error('上传图片大小不能超过 2MB!');
         this.writeAnnexDetail.forEach(item => {
@@ -852,34 +852,39 @@ export default {
         }
       })
     },
-    selCertification(value,index) {
+    selCertification(value) {
       var params = {};
-      debugger
       params.roles = this.roles;
       params.certificationId = value;
       getWritedInputs(params).then(response => {
         if (200 == response.code) {
-          // this.writeMainDetail[index].writedInputs = response.data.writedInputs;
-          let object = this.writeMainDetail[index];
-          object.writedInputs = response.data.writedInputs;
-          object.selInput = '';
-          this.$set(this.writeMainDetail,index,object);
+          let writedInputs = response.data.writedInputs;
+
+          this.writeMainDetail.forEach(item => {
+            item.historyInput = '';
+            writedInputs.forEach(writedInput => {
+              if(writedInput.domId === item.domId) {
+                item.historyInput = writedInput.inputContent;
+              }
+            })
+          })
         } else {
           this.$message.error(response.msg);
         }
       })
     },
-    selInput(value,index) {
-      // this.writeMainDetail[index].inputContent = value;
-      let object = this.writeMainDetail[index];
-      object.inputContent = value;
-      this.$set(this.writeMainDetail,index,object);
-      // this.writeMainDetail.splice(index,1,object);
-    },
     inputContentChange(value,index) {
       let object = this.writeMainDetail[index];
       object.inputContent = value;
       this.$set(this.writeMainDetail,index,object);
+    },
+    allFill() {
+      this.writeMainDetail.forEach(item => {
+        item.inputContent = item.historyInput;
+      })
+    },
+    fill(value,index) {
+      this.writeMainDetail[index].inputContent = this.writeMainDetail[index].historyInput;
     }
   }
 }
@@ -942,6 +947,10 @@ export default {
 }
 .el-switch.is-checked .el-switch__core::after{
   margin-left:-23px;
+}
+
+.link:hover {
+  cursor: pointer;
 }
 
 @media (max-width:1024px) {
