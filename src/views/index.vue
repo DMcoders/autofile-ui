@@ -235,7 +235,7 @@
     <el-dialog :title="winTitle" :visible.sync="openWin" width="80%" fullscreen @close="cancel">
       <el-row>
         <el-col :span="4" :offset="20">
-          <el-select style="width:90%" v-model="selCertificationId" placeholder="历史认证" filterable @change="selCertification">
+          <el-select v-if="!isOnlyRead" style="width:90%" v-model="selCertificationId" placeholder="历史认证" filterable @change="selCertification">
             <el-option
               v-for="item in writedCertifications"
               :key="item.id"
@@ -255,20 +255,21 @@
             {{item.sectionTitle}}
           </el-col>
         </el-row>
-        <el-row v-else-if="item.inputType==='input'" type="flex" align="middle">
-          <el-col :span="6">
+        <el-row v-else type="flex" align="middle">
+          <el-col :span="5">
             {{item.sectionTitleZh}}
           </el-col>
-          <el-col v-if="!isOnlyRead" :span="10">
-            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead" clearable @input="v => inputContentChange(v,i)"></el-input>
+          <el-col v-if="!isOnlyRead" :span="9">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead" @input="(res)=> item.inputContent = res" ></editor-vue>
           </el-col>
-          <el-col v-if="!isOnlyRead" :span="8">
-            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>&nbsp;&nbsp;
-            <el-input style="width:90%" v-model="item.historyInput" placeholder="历史填写" :disabled="true">
-            </el-input>
+          <el-col v-if="!isOnlyRead" :span="1" style="text-align: center">
+            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>
           </el-col>
-          <el-col v-else :span="18">
-            <el-input  size="small" style="width:90%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
+          <el-col v-if="!isOnlyRead" :span="9">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.historyInput" :disabled="true"></editor-vue>
+          </el-col>
+          <el-col v-else :span="19">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead"></editor-vue>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -297,27 +298,18 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-row style="margin-top:10px">
-          <el-col :span="24" v-if="item.inputType==='image'">
-              <el-upload
-                :disabled="isOnlyRead"
-                action=""
-                list-type="picture-card"
-                :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.annexOrder+item.annexPage)}"
-                multiple
-                :auto-upload="false"
-                :file-list="item.fileList"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.annexOrder+item.annexPage)}"
-              >
-                <i class="el-icon-plus"></i>
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisible" append-to-body>
-                <img width="100%" :src="dialogImageUrl" alt="">
-              </el-dialog>
+        <el-row style="margin-top:10px" type="flex" align="middle">
+          <el-col v-if="!isOnlyRead" :span="11">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead" @input="(res)=> item.inputContent = res" ></editor-vue>
           </el-col>
-          <el-col :span="24" v-else-if="item.inputType==='input'">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="isOnlyRead"></el-input>
+          <el-col v-if="!isOnlyRead" :span="2" style="text-align: center;">
+            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>
+          </el-col>
+          <el-col v-if="!isOnlyRead" :span="11">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.historyInput" :disabled="true"></editor-vue>
+          </el-col>
+          <el-col v-else :span="24">
+            <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead"></editor-vue>
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -370,7 +362,7 @@
             {{item.sectionTitleZh}}
           </el-col>
           <el-col :span="14">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
+            <editor-vue v-if="openReviewWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="true" ></editor-vue>
           </el-col>
         </el-row>
         <el-row style="margin-top:10px;">
@@ -423,26 +415,8 @@
           </el-col>
         </el-row>
         <el-row style="margin-top:10px">
-          <el-col :span="24" v-if="item.inputType==='image'">
-            <el-upload
-              action=""
-              :disabled="true"
-              list-type="picture-card"
-              :on-change="(file,fileList) => {return beforeAvatarUpload(file,fileList,item.annexOrder+item.annexPage)}"
-              multiple
-              :auto-upload="false"
-              :file-list="item.fileList"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="(file,fileList) => {return handleRemovePicture(file,fileList,item.annexOrder+item.annexPage)}"
-            >
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible" append-to-body>
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
-          </el-col>
-          <el-col :span="24" v-else-if="item.inputType==='input'">
-            <el-input  size="small" style="width:80%" v-model="item.inputContent" :disabled="true"></el-input>
+          <el-col :span="24">
+            <editor-vue v-if="openReviewWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="true" ></editor-vue>
           </el-col>
         </el-row>
         <el-row style="margin-top:10px;">
@@ -473,11 +447,13 @@ import {homePageWrite,homePageReview,homePageModify,homePageFinish,
   getReviewDetail,getModifyDetail,getWriteDetail,getFinishDetail,
   sumbitWriteTextDetail,sumbitWriteAnnexDetail,submitReviewDetail,getWritedCertifications,getWritedInputs} from "@/api/vertify/certification";
 
+import editorVue from "@/components/Tinymce";
+
 
 export default {
   name: 'Index',
   components: {
-    PanelGroup,
+    PanelGroup,editorVue
   },
   created() {
     this.getUser();
@@ -680,7 +656,7 @@ export default {
     },
     submit() {
       if(this.type == "write" || this.type == "noPass") {
-        let data1 = new FormData();
+        let data = new FormData();
         let flag = false;
         this.writeMainDetail.forEach(item => {
           if(item.inputContent==undefined || item.inputContent=="") {
@@ -695,10 +671,10 @@ export default {
           this.$message.error("请填写完全部内容再提交！");
           return false;
         }
-        data1.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
+        data.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
 
         this.writeAnnexDetail.forEach(item => {
-          if(item.inputType==='input') {
+          if(item.inputType!='title') {
             if(item.inputContent==undefined || item.inputContent=="") {
               flag = true;
             }else {
@@ -707,52 +683,15 @@ export default {
               item.reviewState = '提交';
               item.isLink = 0;
             }
-          }else if(item.inputType==='image') {
-            if(item.fileList==undefined || item.fileList.length==0) {
-              flag = true;
-            }else {
-              let data3 = new FormData();
-              let fileList = new Array();
-              item.fileList.forEach(file => {
-                if(file.raw) {
-                  data3.append("files", file.raw);
-                }else {
-                  fileList.push({
-                    name:file.name,
-                    url:file.url
-                  });
-                }
-              })
-              item.files = data3;
-              item.employeeName = this.user.userName;
-              item.employeeNumber = this.user.userId;
-              item.reviewState = '提交';
-              item.isLink = 0;
-              item.fileList = fileList;
-            }
-
           }
         })
         if(flag) {
-          this.$message.error("请上传全部图片再提交！");
+          this.$message.error("请填写完全部内容再提交！");
           return false;
         }
-
-        sumbitWriteTextDetail(data1).then(response => {
+        data.append("certificationAnnexInputListJson",JSON.stringify(this.writeAnnexDetail));
+        sumbitWriteTextDetail(data).then(response => {
           if (200 == response.code) {
-            for(var i=0;i<this.writeAnnexDetail.length;i++) {
-              let tmp = new FormData();
-              if(this.writeAnnexDetail[i].inputType==='image' && this.writeAnnexDetail[i].files!=undefined) {
-                tmp = this.writeAnnexDetail[i].files;
-              }
-              tmp.append("certificationAnnexInputJson",JSON.stringify(this.writeAnnexDetail[i]));
-              sumbitWriteAnnexDetail(tmp).then(response => {
-                if (200 == response.code) {
-                } else {
-                  this.$message.error(response.msg);
-                }
-              })
-            }
             this.cancel();
             this.msgSuccess("提交成功");
             this.homePageWrite();
@@ -794,64 +733,6 @@ export default {
       })
 
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    beforeAvatarUpload(file,fileList,id) {
-      const isLt2M = file.size < 1024 * 1024 * 2;
-      if (!isLt2M) {
-        this.$message.error('上传图片大小不能超过 2MB!');
-        this.writeAnnexDetail.forEach(item => {
-          if((item.annexOrder+item.annexPage)==id) {
-            if(item.fileList) {
-              item.fileList.forEach((fileItem, index) => {
-                if (fileItem.uid == file.uid) {
-                  item.fileList.splice(index, 1)
-                }
-              })
-            }else {
-              item.fileList = fileList;
-              item.fileList.splice(0,1)
-            }
-          }
-        })
-        return false;
-      }
-      let ff = file.raw;
-      const isImage = ff.type == 'image/png' || ff.type == 'image/jpg' || ff.type == 'image/jpeg' || ff.type == 'image/bmp' || ff.type == 'image/gif' || ff.type == 'image/webp';
-      if (!isImage) {
-        this.$message.error('上传只能是png,jpg,jpeg,bmp,gif,webp格式!');
-        this.writeAnnexDetail.forEach(item => {
-          if((item.annexOrder+item.annexPage)==id) {
-            if(item.fileList) {
-              item.fileList.forEach((fileItem, index) => {
-                if (fileItem.uid == file.uid) {
-                  item.fileList.splice(index, 1)
-                }
-              })
-            }else {
-              item.fileList = fileList;
-              item.fileList.splice(0,1)
-            }
-          }
-        })
-        return false;
-      }
-
-      this.writeAnnexDetail.forEach(item => {
-        if((item.annexOrder+item.annexPage) === id) {
-          item.fileList = fileList;
-        }
-      })
-    },
-    handleRemovePicture(file, fileList ,id) {
-      this.writeAnnexDetail.forEach(item => {
-        if((item.annexOrder+item.annexPage) === id) {
-          item.fileList = fileList;
-        }
-      })
-    },
     selCertification(value) {
       var params = {};
       params.roles = this.roles;
@@ -872,11 +753,6 @@ export default {
           this.$message.error(response.msg);
         }
       })
-    },
-    inputContentChange(value,index) {
-      let object = this.writeMainDetail[index];
-      object.inputContent = value;
-      this.$set(this.writeMainDetail,index,object);
     },
     allFill() {
       this.writeMainDetail.forEach(item => {
