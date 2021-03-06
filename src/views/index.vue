@@ -263,7 +263,7 @@
             <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead" @input="(res)=> item.inputContent = res" ></editor-vue>
           </el-col>
           <el-col v-if="!isOnlyRead" :span="1" style="text-align: center">
-            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>
+            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fileInputFill(v,i)"></i>
           </el-col>
           <el-col v-if="!isOnlyRead" :span="9">
             <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.historyInput" :disabled="true"></editor-vue>
@@ -303,7 +303,7 @@
             <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead" @input="(res)=> item.inputContent = res" ></editor-vue>
           </el-col>
           <el-col v-if="!isOnlyRead" :span="2" style="text-align: center;">
-            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => fill(v,i)"></i>
+            <i class="el-icon-back link" v-model="item.historyInput" style="font-size: 18px;" @click="v => annexInputFill(v,i)"></i>
           </el-col>
           <el-col v-if="!isOnlyRead" :span="11">
             <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.historyInput" :disabled="true"></editor-vue>
@@ -739,9 +739,18 @@ export default {
       params.certificationId = value;
       getWritedInputs(params).then(response => {
         if (200 == response.code) {
-          let writedInputs = response.data.writedInputs;
-
+          let writedInputs = response.data.writedFileInputs;
           this.writeMainDetail.forEach(item => {
+            item.historyInput = '';
+            writedInputs.forEach(writedInput => {
+              if(writedInput.domId === item.domId) {
+                item.historyInput = writedInput.inputContent;
+              }
+            })
+          })
+
+          writedInputs = response.data.writedAnnexInputs;
+          this.writeAnnexDetail.forEach(item => {
             item.historyInput = '';
             writedInputs.forEach(writedInput => {
               if(writedInput.domId === item.domId) {
@@ -758,9 +767,15 @@ export default {
       this.writeMainDetail.forEach(item => {
         item.inputContent = item.historyInput;
       })
+      this.writeAnnexDetail.forEach(item => {
+        item.inputContent = item.historyInput;
+      })
     },
-    fill(value,index) {
+    fileInputFill(value,index) {
       this.writeMainDetail[index].inputContent = this.writeMainDetail[index].historyInput;
+    },
+    annexInputFill(value,index) {
+      this.writeAnnexDetail[index].inputContent = this.writeAnnexDetail[index].historyInput;
     }
   }
 }
