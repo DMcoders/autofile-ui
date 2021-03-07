@@ -316,7 +316,8 @@
       </div>
       <div v-if="!isOnlyRead" slot="footer" class="dialog-footer">
         <el-button type="success" @click="allFill">全部填充</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button type="warning" @click="save">暂 存</el-button>
+        <el-button type="primary" @click="submit">提 交</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -653,6 +654,34 @@ export default {
       this.reviewAnnexDetail= [];
       this.dialogImageUrl= '';
       this.dialogVisible= false;
+    },
+    save() {
+      debugger
+      let data = new FormData();
+      this.writeMainDetail.forEach(item => {
+          item.employeeName = this.user.userName;
+          item.employeeNumber = this.user.userId;
+          item.isLink = 0;
+      })
+      data.append("certificationFileInputListJson",JSON.stringify(this.writeMainDetail));
+      this.writeAnnexDetail.forEach(item => {
+          item.employeeName = this.user.userName;
+          item.employeeNumber = this.user.userId;
+          item.isLink = 0;
+      })
+      data.append("certificationAnnexInputListJson",JSON.stringify(this.writeAnnexDetail));
+      sumbitWriteTextDetail(data).then(response => {
+        if (200 == response.code) {
+          this.cancel();
+          this.msgSuccess("保存成功");
+          this.homePageWrite();
+          this.homePageReview();
+          this.homePageModify();
+          this.homePageReview();
+        }else {
+          this.$message.error(response.msg);
+        }
+      })
     },
     submit() {
       if(this.type == "write" || this.type == "noPass") {
