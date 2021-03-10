@@ -15,6 +15,7 @@
   import "tinymce/themes/silver";
   import "tinymce/plugins/image";
   import "tinymce/plugins/autoresize";
+  import "tinymce/plugins/table";
   import "tinymce/icons/default/icons.min.js";
 
   import { getToken } from '@/utils/auth'
@@ -35,12 +36,12 @@
       plugins: {
         type: [String, Array],
         default:
-          "image autoresize"
+          "image autoresize table"
       },
       toolbar: {
         type: [String, Array],
         default:
-          "image"
+          "undo redo | bold | alignleft aligncenter alignright alignjustify | image table"
       }
     },
     data() {
