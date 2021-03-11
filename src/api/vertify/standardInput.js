@@ -25,6 +25,13 @@ export function getOne(id) {
   })
 }
 
+export function getMaxUniqueKey() {
+  return request({
+    url: '/vertify/input/getMaxUniqueKey',
+    method: 'get',
+  })
+}
+
 
 export function list(params) {
   return request({

@@ -221,6 +221,19 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+            <el-form-item label="显示序号" prop="showOrder">
+              <el-switch on-value="1" off-value="0" inactive-value = "0" active-value = "1" v-model="form.showOrder"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="唯一编码" prop="uniqueKey">
+              <el-input style="width:80%" v-model="form.uniqueKey" clearable placeholder="请输入唯一编码" @input ="getMaxUniqueKey"/>
+              <br/><span  style="color:#ADADAD;" v-if="maxUniqueKey != undefined && maxUniqueKey != null">当前最大的唯一编码是{{this.maxUniqueKey}}</span>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="附录名称" prop="relateAnnex">
               <el-select style="width:80%"  v-model="form.relateAnnex" size="small" clearable placeholder="请选择附录名称" @change="changeAnnexPage">
                 <el-option
@@ -251,7 +264,7 @@
 <script>
   import {selectAllRoles} from "@/api/system/role";
 
-  import {add, list, deleteBatch, getOne, update} from "@/api/vertify/standardInput";
+  import {add, list, deleteBatch, getOne, update,getMaxUniqueKey} from "@/api/vertify/standardInput";
 
 
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
@@ -953,6 +966,7 @@
         // 是否显示弹出层
         open: false,
         //
+        maxUniqueKey:undefined,
         moduleNames: [
           "制动", "安全带", "操纵件", "侧防护", "车身总布置", "挡泥板", "导流罩", "电磁兼容", "风窗", "后防护", "后牌照板", "后视镜", "空调(乘员舱加热系统)", "铭牌VIN", "前防护", "座椅", "车轮", "悬架", "转向", "发动机", "供油", "进气", "排气", "传动系", "车桥", "底盘", "总布置"
         ],
@@ -1397,6 +1411,10 @@
           ],
           role: [
             {required: true, message: "角色不能为空", trigger: "blur"}
+          ],
+          uniqueKey: [
+            {required: true, message: "唯一编码不能为空", trigger: "blur"},
+            {validator: this.checkUniqueKey, trigger: ['blur', 'keyup']}
           ]
         }
       };
@@ -1410,6 +1428,18 @@
       this.getList();
     },
     methods: {
+      getMaxUniqueKey() {
+        getMaxUniqueKey().then(response => {
+            if (200 == response.code) {
+              this.maxUniqueKey = response.data;
+            } else {
+              this.$message.error(response.msg);
+            }
+          }
+        );
+      },
+
+
       changeAnnex() {
         if (false === this.form.isRelateAnnex || 'false' === this.form.isRelateAnnex) {
           this.form.relateAnnex = undefined;
@@ -1451,6 +1481,15 @@
 
       closeDialog() {
         this.whichCatalogue = undefined;
+      },
+
+      checkUniqueKey(rule, value, callback) {
+        const re = /^\d+$/;
+        const rsCheck = re.test(value);
+        if (!rsCheck) {
+          callback(new Error('唯一编码是数字类型'));
+        }
+        callback();
       },
 
       checkSectionOrderName(rule, value, callback) {
@@ -1574,6 +1613,8 @@
           relateAnnexPage: undefined,
           relateAnnex:undefined,
           domId:undefined,
+          showOrder:"1",
+          uniqueKey:undefined,
         };
         this.resetForm("form");
       },
@@ -1591,6 +1632,7 @@
       /** 新增按钮操作 */
       handleAdd() {
         this.reset();
+        this.form.showOrder="1";
         this.open = true;
         this.title = "添加";
       },
@@ -1643,6 +1685,8 @@
         this.form.relateAnnexPage = data.relateAnnexPage;
         this.form.relateAnnex = data.relateAnnex;
         this.$set(this.form, "relateAnnexPages", null != this.form.relateAnnexPage ? this.form.relateAnnexPage.split(",") : []);
+        this.form.showOrder = data.showOrder + "";
+        this.form.uniqueKey = data.uniqueKey;
         debugger
       },
       subPreview: function () {
@@ -1711,7 +1755,9 @@
           obj.role = this.form.role,
           obj.isRelateAnnex = this.form.isRelateAnnex,
           obj.relateAnnexPage = 0 === this.form.relateAnnexPages.length ? undefined : this.form.relateAnnexPages.join(","),
-            obj.relateAnnex = this.form.relateAnnex
+            obj.relateAnnex = this.form.relateAnnex,
+            obj.showOrder = this.form.showOrder,
+            obj.uniqueKey = this.form.uniqueKey
       },
 
       /** 提交按钮 */
@@ -1741,12 +1787,20 @@
               })
               this.assignOrderValue(this.form.sectionOrderName);
               let requestParam = [];
+              let tmpUniqueKey;
               for (let i = 0;i < num;i++) {
                 let obj = new Object();
                 this.deepCopy(obj);
                 obj.domId = this.form.sectionOrderName + "_" + i;
+                if (i == 0) {
+                  tmpUniqueKey = obj.uniqueKey;
+                } else {
+                  tmpUniqueKey = Number(tmpUniqueKey) + 1 + "";
+                }
+                obj.uniqueKey = tmpUniqueKey;
                 requestParam.push(obj);
               }
+              debugger
               let standardInputListJson = JSON.stringify(requestParam);
               add(standardInputListJson).then(response => {
                 if (response.code === 200) {
