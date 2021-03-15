@@ -1805,6 +1805,7 @@
       handleAdd() {
         this.reset();
         this.form.showOrder="1";
+        this.getMaxUniqueKey();
         this.open = true;
         this.title = "添加";
       },
@@ -1818,6 +1819,7 @@
       handleUpdate(row) {
         this.reset();
         let id = row.id;
+        this.getMaxUniqueKey();
         getOne(id).then(response => {
           if (200 == response.code) {
             this.assignFormValue(response.data);
