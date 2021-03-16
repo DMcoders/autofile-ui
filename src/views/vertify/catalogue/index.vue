@@ -121,7 +121,7 @@
           <el-col :span="12">
             <el-form-item label="目录序号" prop="sectionOrderName">
               <el-input style="width:80%" v-model="form.sectionOrderName" clearable placeholder="请输入目录序号"
-                        @input = "changeFirstOrder"/>
+                        @input = "changeFirstOrder" @blur="showPreview"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -249,11 +249,11 @@
         <el-form-item label="div预览" prop="divPreview">
         </el-form-item>
         <el-form-item  prop="divPreview">
-          <component v-bind:is="whichCatalogue"></component>
+          <component v-bind:is="whichCatalogue" ref='cate'></component>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="subPreview">预览</el-button>
+        <el-button type="primary" @click="subPreview">获取标题</el-button>
         <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -1158,7 +1158,62 @@
           "key": "image",
           "value": "图片"
         }],
-        multiInput: [{"key": "catalogue_0.2", "value": 3},{"key": "catalogue_101.2", "value": 3},{"key": "catalogue_101.5", "value": 2},{"key": "catalogue_101.72", "value": 3}],
+        specialCategoryTitle:[
+          {
+            "key":"catalogue_0.2",
+            "showTitle":"Type and general commercial description(s) Type|Variant|Version",
+            "title":[
+              "Type and general commercial description(s) Type",
+              "Type and general commercial description(s) Variant",
+              "Type and general commercial description(s) Version"
+            ]
+          },
+
+          {
+            "key":"catalogue_2.3.(R51)",
+            "showTitle":"Technically Permissible Maximum Laden Mass|Technically permissible maximum mass on each axle",
+            "title":[
+              "Technically Permissible Maximum Laden Mass",
+              "Technically permissible maximum mass on each axle"
+            ]
+          },
+
+          {
+            "key":"catalogue_9.20.1",
+            "showTitle":"Brief description of the vehicle with regard to its spray-suppressio system and the constituent components|Detailed drawings of the spray-suppression system and its position on the vehicle showing the dimensions specified in figures in Annex III to Directive 91/226/EEC and taking account of the extremes of tyre/wheel combinations",
+            "title":[
+              "Brief description of the vehicle with regard to its spray-suppressio system and the constituent components",
+              "Detailed drawings of the spray-suppression system and its position on the vehicle showing the dimensions specified in figures in Annex III to Directive 91/226/EEC and taking account of the extremes of tyre/wheel combinations"
+            ]
+          },
+          {
+            "key":"catalogue_101.2",
+            "showTitle":"Type and general commercial description(s) Type|Variant|Version",
+            "title":[
+              "Type and general commercial description(s) Type",
+              "Type and general commercial description(s) Variant",
+              "Type and general commercial description(s) Version"
+            ]
+          },
+          {
+            "key":"catalogue_101.5",
+            "showTitle":"Name(s) and address(es) of assembly plant(s)|Position of ECE approval mark on the vehicle",
+            "title":[
+              "Type and general commercial description(s) Type",
+              "Position of ECE approval mark on the vehicle"
+            ]
+          },
+          {
+            "key":"catalogue_101.72",
+            "showTitle":"If charging cable delivered with the vehicle|Length|Cross sectional area",
+            "title":[
+              "If charging cable delivered with the vehicle",
+              "Length (m)",
+              "Cross sectional area (mm2)"
+            ]
+          }
+        ],
+
         whichCatalogue: undefined,
         tempSectionOrder:undefined,
         relateAnnexs:[],
@@ -1717,6 +1772,7 @@
             return;
           }
         })
+        this.showPreview();
       },
 
       /** 查询参数列表 */
@@ -1863,14 +1919,46 @@
         this.form.uniqueKey = data.uniqueKey;
         debugger
       },
-      subPreview: function () {
+
+      changeTitle() {
+        this.form.sectionTitle = undefined;
+        if (undefined == this.form.sectionOrderName || "" == this.form.sectionOrderName) {
+          return;
+        }
+        let sectionOrderName = "catalogue_" + this.form.sectionOrderName;
+        this.specialCategoryTitle.some(item => {
+          if (item.key == sectionOrderName) {
+            this.form.sectionTitle = item.showTitle;
+          }
+        })
+        if (undefined != this.form.sectionTitle) {
+          return;
+        }
+
+        if (undefined != this.$refs.cate && undefined != this.$refs.cate.$vnode) {
+          let str = this.$refs.cate.$vnode.elm.innerText;
+          let pos = -1 != str.indexOf("：") ? str.indexOf("：") : str.indexOf(":");
+          if (pos > 0) {
+            this.form.sectionTitle = str.substring(0, pos);
+          } else {
+            this.form.sectionTitle = str;
+          }
+        }
+      },
+
+
+      showPreview() {
         let sectionOrderName = this.form.sectionOrderName;
         if (undefined == sectionOrderName || "" == sectionOrderName) {
           return;
         }
-        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g,"_").
-        replace(/\//g,"").replace(/\(/g,"S").replace(/\)/g,"S");
-        debugger
+        this.whichCatalogue = "catalogue_" + sectionOrderName.replace(/\./g, "_").replace(/\//g, "").replace(/\(/g, "S").replace(/\)/g, "S");
+        this.changeTitle();
+      },
+
+
+      subPreview: function () {
+        this.changeTitle();
       },
 
       assignOrderValue(sectionOrderName) {
@@ -1928,7 +2016,7 @@
           obj.moduleName = this.form.moduleName,
           obj.role = this.form.role,
           obj.isRelateAnnex = this.form.isRelateAnnex,
-          obj.relateAnnexPage = 0 === this.form.relateAnnexPages.length ? undefined : this.form.relateAnnexPages.join(","),
+          obj.relateAnnexPage = undefined === this.form.relateAnnexPages || 0 === this.form.relateAnnexPages.length ? undefined : this.form.relateAnnexPages.join(","),
             obj.relateAnnex = this.form.relateAnnex,
             obj.showOrder = this.form.showOrder,
             obj.uniqueKey = this.form.uniqueKey
@@ -1953,9 +2041,11 @@
             } else {
               let sectionOrderName = "catalogue_" + this.form.sectionOrderName;
               let num = 1;
-              this.multiInput.forEach(item => {
+              let title = [];
+              this.specialCategoryTitle.forEach(item => {
                 if (item.key == sectionOrderName) {
-                  num = item.value;
+                  title = item.title;
+                  num = title.length;
                   return;
                 }
               })
@@ -1972,6 +2062,9 @@
                   tmpUniqueKey = Number(tmpUniqueKey) + 1 + "";
                 }
                 obj.uniqueKey = tmpUniqueKey;
+                if(title.length > 1) {
+                  obj.sectionTitle = title[i];
+                }
                 requestParam.push(obj);
               }
               debugger

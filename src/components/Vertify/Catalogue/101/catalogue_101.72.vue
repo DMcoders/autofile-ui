@@ -10,7 +10,7 @@
       </label>
       <br/>
       <label for='input-two'>
-        Variant：
+        Length (m) ：
         <input id='input-two'
                v-bind:value='value'
                v-on:input="$emit('input', {length101_72: $event.target.value,ic101_72:value.ic101_72
@@ -20,7 +20,7 @@
 
       <br/>
       <label for='input-three'>
-        Version：
+        Cross sectional area (mm2)：
         <input id='input-three'
                v-bind:value='value'
                v-on:input="$emit('input', {csa101_72: $event.target.value,ic101_72:value.ic101_72

@@ -21,7 +21,6 @@
                v-on:input="$emit('input', {tagcdVariant: $event.target.value,
                tagcdType:value.tagcdType,tagcdVersion:value.tagcdVersion
                })">
-        See annex A
       </label>
 
       <br/>
@@ -32,7 +31,6 @@
                v-on:input="$emit('input', {tagcdVersion: $event.target.value,
                 tagcdType:value.tagcdType, tagcdVariant:value.tagcdVariant
                })">
-        See annex A
       </label>
     </div>
   </div>
