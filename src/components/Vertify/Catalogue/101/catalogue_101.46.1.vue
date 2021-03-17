@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      Appendix 2
+      BODYWORK
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.11"
+    name: "catalogue_101.46.1"
   }
 </script>

@@ -1,32 +1,11 @@
 <template>
   <div>
-    <div>
       <label for='input-one'>
         If charging cable delivered with the vehicle:
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {ic101_72: $event.target.value,length101_72:value.length101_72
-               ,csa101_72:value.csa101_72})">
+               v-on:input="$emit('input', {ic101_72: $event.target.value})">
       </label>
-      <br/>
-      <label for='input-two'>
-        Length (m) ：
-        <input id='input-two'
-               v-bind:value='value'
-               v-on:input="$emit('input', {length101_72: $event.target.value,ic101_72:value.ic101_72
-               ,csa101_72:value.csa101_72
-               })">
-      </label>
-
-      <br/>
-      <label for='input-three'>
-        Cross sectional area (mm2)：
-        <input id='input-three'
-               v-bind:value='value'
-               v-on:input="$emit('input', {csa101_72: $event.target.value,ic101_72:value.ic101_72
-               ,length101_72:value.length101_72})">
-      </label>
-    </div>
   </div>
 </template>
 

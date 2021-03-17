@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      Appendix 3
+      SUSPENSION
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.12"
+    name: "catalogue_101.42.1"
   }
 </script>

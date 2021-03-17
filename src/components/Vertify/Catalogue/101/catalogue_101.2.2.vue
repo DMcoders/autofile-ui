@@ -1,7 +1,10 @@
 <template>
   <div>
-      <label>
-        Type and general commercial description(s)
+      <label for='input-one'>
+        Variant：
+        <input id='input-one'
+               v-bind:value='value'
+               v-on:input="$emit('input', {tagcdVariant101_2: $event.target.value})">
       </label>
   </div>
 </template>
@@ -19,7 +22,7 @@
 
 <script>
   export default {
-    name: "catalogue_101.2",
+    name: "catalogue_101.2.2",
     props: ['value']
   }
 </script>

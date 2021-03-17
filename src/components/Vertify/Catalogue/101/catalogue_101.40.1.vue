@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      LIGHTING AND LIGHT SIGNALLING DEVICES
+      TRANSMISSION
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.8"
+    name: "catalogue_101.40.1"
   }
 </script>

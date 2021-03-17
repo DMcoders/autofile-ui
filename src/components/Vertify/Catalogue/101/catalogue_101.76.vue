@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      TRANSMISSION
+      Appendix 4
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.3"
+    name: "catalogue_101.76"
   }
 </script>

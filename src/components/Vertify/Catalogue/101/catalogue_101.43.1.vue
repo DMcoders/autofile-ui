@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      Brakes
+      STEERING
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.6"
+    name: "catalogue_101.43.1"
   }
 </script>

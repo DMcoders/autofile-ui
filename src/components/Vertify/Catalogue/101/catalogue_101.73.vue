@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      GENERAL
+      Appendix 1
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.0"
+    name: "catalogue_101.73"
   }
 </script>

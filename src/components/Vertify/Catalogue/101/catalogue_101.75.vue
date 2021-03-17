@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      POWER PLANT
+      Appendix 3
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.2"
+    name: "catalogue_101.75"
   }
 </script>

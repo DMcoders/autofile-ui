@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      MISCELLANEOUS
+      Appendix 2
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.9"
+    name: "catalogue_101.74"
   }
 </script>

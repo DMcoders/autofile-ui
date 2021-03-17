@@ -227,7 +227,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="唯一编码" prop="uniqueKey">
-              <el-input style="width:80%" v-model="form.uniqueKey" clearable placeholder="请输入唯一编码" @input ="getMaxUniqueKey"/>
+              <el-input style="width:80%" v-model="form.uniqueKey" clearable placeholder="请输入唯一编码"/>
               <br/><span  style="color:#ADADAD;" v-if="maxUniqueKey != undefined && maxUniqueKey != null">当前最大的唯一编码是{{this.maxUniqueKey}}</span>
             </el-form-item>
           </el-col>
@@ -270,6 +270,9 @@
   import catalogue_0 from '../../../components/Vertify/Catalogue/0/catalogue_0'
   import catalogue_0_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.1'
   import catalogue_0_2 from '../../../components/Vertify/Catalogue/0/catalogue_0.2'
+  import catalogue_0_2_0_1 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.0.1'
+  import catalogue_0_2_0_2 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.0.2'
+  import catalogue_0_2_0_3 from '../../../components/Vertify/Catalogue/0/catalogue_0.2.0.3'
   import catalogue_0_3 from '../../../components/Vertify/Catalogue/0/catalogue_0.3'
   import catalogue_0_4 from '../../../components/Vertify/Catalogue/0/catalogue_0.4'
   import catalogue_0_5 from '../../../components/Vertify/Catalogue/0/catalogue_0.5'
@@ -311,6 +314,7 @@
   import catalogue_2_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3";
   //S占位
   import catalogue_2_3_SR51S from "../../../components/Vertify/Catalogue/2/catalogue_2.3.(R51)";
+  import catalogue_2_3_SR51S_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.(R51).1";
   import catalogue_2_3_1 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.1";
   import catalogue_2_3_2 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.2";
   import catalogue_2_3_3 from "../../../components/Vertify/Catalogue/2/catalogue_2.3.3";
@@ -558,6 +562,7 @@
   import catalogue_9_19_0 from "../../../components/Vertify/Catalogue/9/catalogue_9.19.0";
   import catalogue_9_20 from "../../../components/Vertify/Catalogue/9/catalogue_9.20";
   import catalogue_9_20_1 from "../../../components/Vertify/Catalogue/9/catalogue_9.20.1";
+  import catalogue_9_20_1_1 from "../../../components/Vertify/Catalogue/9/catalogue_9.20.1.1";
   import catalogue_9_20_2 from "../../../components/Vertify/Catalogue/9/catalogue_9.20.2";
   import catalogue_9_20_0 from "../../../components/Vertify/Catalogue/9/catalogue_9.20.0";
   import catalogue_9_22 from "../../../components/Vertify/Catalogue/9/catalogue_9.22";
@@ -606,23 +611,27 @@
   import catalogue_12_7_1 from "../../../components/Vertify/Catalogue/12/catalogue_12.7.1";
 
 
-  import catalogue_100_0 from "../../../components/Vertify/Catalogue/100/catalogue_100.0";
-  import catalogue_100_1 from "../../../components/Vertify/Catalogue/100/catalogue_100.1";
-  import catalogue_100_2 from "../../../components/Vertify/Catalogue/100/catalogue_100.2";
-  import catalogue_100_3 from "../../../components/Vertify/Catalogue/100/catalogue_100.3";
-  import catalogue_100_4 from "../../../components/Vertify/Catalogue/100/catalogue_100.4";
-  import catalogue_100_5 from "../../../components/Vertify/Catalogue/100/catalogue_100.5";
-  import catalogue_100_6 from "../../../components/Vertify/Catalogue/100/catalogue_100.6";
-  import catalogue_100_7 from "../../../components/Vertify/Catalogue/100/catalogue_100.7";
-  import catalogue_100_8 from "../../../components/Vertify/Catalogue/100/catalogue_100.8";
-  import catalogue_100_9 from "../../../components/Vertify/Catalogue/100/catalogue_100.9";
+  import catalogue_101_0 from "../../../components/Vertify/Catalogue/101/catalogue_101.0";
+  import catalogue_101_5_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.5.1";
+  import catalogue_101_8_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.8.1";
+  import catalogue_101_40_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.40.1";
+  import catalogue_101_42_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.42.1";
+  import catalogue_101_43_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.43.1";
+  import catalogue_101_44_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.44.1";
+  import catalogue_101_46_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.46.1";
+  import catalogue_101_60_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.60.1";
+  import catalogue_101_59_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.59.1";
 
 
   import catalogue_101_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.1";
   import catalogue_101_2 from "../../../components/Vertify/Catalogue/101/catalogue_101.2";
+  import catalogue_101_2_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.2.1";
+  import catalogue_101_2_2 from "../../../components/Vertify/Catalogue/101/catalogue_101.2.2";
+  import catalogue_101_2_3 from "../../../components/Vertify/Catalogue/101/catalogue_101.2.3";
   import catalogue_101_3 from "../../../components/Vertify/Catalogue/101/catalogue_101.3";
   import catalogue_101_4 from "../../../components/Vertify/Catalogue/101/catalogue_101.4";
   import catalogue_101_5 from "../../../components/Vertify/Catalogue/101/catalogue_101.5";
+  import catalogue_101_5_0_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.5.0.1";
   import catalogue_101_6 from "../../../components/Vertify/Catalogue/101/catalogue_101.6";
   import catalogue_101_7 from "../../../components/Vertify/Catalogue/101/catalogue_101.7";
   import catalogue_101_8 from "../../../components/Vertify/Catalogue/101/catalogue_101.8";
@@ -690,6 +699,25 @@
   import catalogue_101_70 from "../../../components/Vertify/Catalogue/101/catalogue_101.70";
   import catalogue_101_71 from "../../../components/Vertify/Catalogue/101/catalogue_101.71";
   import catalogue_101_72 from "../../../components/Vertify/Catalogue/101/catalogue_101.72";
+  import catalogue_101_72_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.72.1";
+  import catalogue_101_72_2 from "../../../components/Vertify/Catalogue/101/catalogue_101.72.2";
+  import catalogue_101_73   from "../../../components/Vertify/Catalogue/101/catalogue_101.73";
+  import catalogue_101_73_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.73.1";
+  import catalogue_101_74   from "../../../components/Vertify/Catalogue/101/catalogue_101.74";
+  import catalogue_101_74_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.74.1";
+  import catalogue_101_75   from "../../../components/Vertify/Catalogue/101/catalogue_101.75";
+  import catalogue_101_75_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.1";
+  import catalogue_101_75_2 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.2";
+  import catalogue_101_75_3 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.3";
+  import catalogue_101_75_4 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.4";
+  import catalogue_101_75_5 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.5";
+  import catalogue_101_75_6 from "../../../components/Vertify/Catalogue/101/catalogue_101.75.6";
+  import catalogue_101_76   from "../../../components/Vertify/Catalogue/101/catalogue_101.76";
+  import catalogue_101_76_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.76.1";
+  import catalogue_101_76_2 from "../../../components/Vertify/Catalogue/101/catalogue_101.76.2";
+  import catalogue_101_76_3 from "../../../components/Vertify/Catalogue/101/catalogue_101.76.3";
+  import catalogue_101_76_4 from "../../../components/Vertify/Catalogue/101/catalogue_101.76.4";
+  import catalogue_101_76_5 from "../../../components/Vertify/Catalogue/101/catalogue_101.76.5";
 
 
   export default {
@@ -714,7 +742,6 @@
       catalogue_0_14,
       catalogue_0_2_1,
       catalogue_0_3_1,
-      catalogue_0_6_1,
       catalogue_0_3_1_1,
       catalogue_0_3_1_2,
 
@@ -1033,16 +1060,16 @@
       catalogue_12_7,
       catalogue_12_7_1,
 
-      catalogue_100_0,
-      catalogue_100_1,
-      catalogue_100_2,
-      catalogue_100_3,
-      catalogue_100_4,
-      catalogue_100_5,
-      catalogue_100_6,
-      catalogue_100_7,
-      catalogue_100_8,
-      catalogue_100_9,
+      catalogue_101_0,
+      catalogue_101_5_1,
+      catalogue_101_8_1,
+      catalogue_101_40_1,
+      catalogue_101_42_1,
+      catalogue_101_43_1,
+      catalogue_101_44_1,
+      catalogue_101_46_1,
+      catalogue_101_59_1,
+      catalogue_101_60_1,
 
       catalogue_101_1,
       catalogue_101_2,
@@ -1116,6 +1143,36 @@
       catalogue_101_70,
       catalogue_101_71,
       catalogue_101_72,
+
+      catalogue_0_2_0_1,
+      catalogue_0_2_0_2,
+      catalogue_0_2_0_3,
+      catalogue_2_3_SR51S_1,
+      catalogue_9_20_1_1,
+      catalogue_101_2_1,
+      catalogue_101_2_2,
+      catalogue_101_2_3,
+      catalogue_101_5_0_1,
+      catalogue_101_72_1,
+      catalogue_101_72_2,
+
+      catalogue_101_73,
+      catalogue_101_73_1,
+      catalogue_101_74,
+      catalogue_101_74_1,
+      catalogue_101_75,
+      catalogue_101_75_1,
+      catalogue_101_75_2,
+      catalogue_101_75_3,
+      catalogue_101_75_4,
+      catalogue_101_75_5,
+      catalogue_101_75_6,
+      catalogue_101_76,
+      catalogue_101_76_1,
+      catalogue_101_76_2,
+      catalogue_101_76_3,
+      catalogue_101_76_4,
+      catalogue_101_76_5,
     },
 
     data() {
@@ -1158,62 +1215,6 @@
           "key": "image",
           "value": "图片"
         }],
-        specialCategoryTitle:[
-          {
-            "key":"catalogue_0.2",
-            "showTitle":"Type and general commercial description(s) Type|Variant|Version",
-            "title":[
-              "Type and general commercial description(s) Type",
-              "Type and general commercial description(s) Variant",
-              "Type and general commercial description(s) Version"
-            ]
-          },
-
-          {
-            "key":"catalogue_2.3.(R51)",
-            "showTitle":"Technically Permissible Maximum Laden Mass|Technically permissible maximum mass on each axle",
-            "title":[
-              "Technically Permissible Maximum Laden Mass",
-              "Technically permissible maximum mass on each axle"
-            ]
-          },
-
-          {
-            "key":"catalogue_9.20.1",
-            "showTitle":"Brief description of the vehicle with regard to its spray-suppressio system and the constituent components|Detailed drawings of the spray-suppression system and its position on the vehicle showing the dimensions specified in figures in Annex III to Directive 91/226/EEC and taking account of the extremes of tyre/wheel combinations",
-            "title":[
-              "Brief description of the vehicle with regard to its spray-suppressio system and the constituent components",
-              "Detailed drawings of the spray-suppression system and its position on the vehicle showing the dimensions specified in figures in Annex III to Directive 91/226/EEC and taking account of the extremes of tyre/wheel combinations"
-            ]
-          },
-          {
-            "key":"catalogue_101.2",
-            "showTitle":"Type and general commercial description(s) Type|Variant|Version",
-            "title":[
-              "Type and general commercial description(s) Type",
-              "Type and general commercial description(s) Variant",
-              "Type and general commercial description(s) Version"
-            ]
-          },
-          {
-            "key":"catalogue_101.5",
-            "showTitle":"Name(s) and address(es) of assembly plant(s)|Position of ECE approval mark on the vehicle",
-            "title":[
-              "Type and general commercial description(s) Type",
-              "Position of ECE approval mark on the vehicle"
-            ]
-          },
-          {
-            "key":"catalogue_101.72",
-            "showTitle":"If charging cable delivered with the vehicle|Length|Cross sectional area",
-            "title":[
-              "If charging cable delivered with the vehicle",
-              "Length (m)",
-              "Cross sectional area (mm2)"
-            ]
-          }
-        ],
-
         whichCatalogue: undefined,
         tempSectionOrder:undefined,
         relateAnnexs:[],
@@ -1653,10 +1654,11 @@
         } else this.$message.error(response.data.msg);
       });
       this.getList();
+      this.getMaxUniqueKey();
     },
     methods: {
       getMaxUniqueKey() {
-        getMaxUniqueKey().then(response => {
+         getMaxUniqueKey().then(response => {
             if (200 == response.code) {
               this.maxUniqueKey = response.data;
             } else {
@@ -1860,8 +1862,13 @@
       /** 新增按钮操作 */
       handleAdd() {
         this.reset();
+        this.form.inputType = "input";
         this.form.showOrder="1";
         this.getMaxUniqueKey();
+        debugger
+        if (null != this.maxUniqueKey && undefined != this.maxUniqueKey) {
+          this.form.uniqueKey = Number(this.maxUniqueKey) + 1;
+        }
         this.open = true;
         this.title = "添加";
       },
@@ -1889,6 +1896,7 @@
       assignFormValue(data) {
         this.form.id = data.id;
         this.form.sectionOrderName = data.sectionOrderName;
+        this.whichCatalogue = "catalogue_" + this.form.sectionOrderName.replace(/\./g, "_").replace(/\//g, "").replace(/\(/g, "S").replace(/\)/g, "S");
         this.catalogues.forEach(it => {
           if (data.firstOrder == it.key) {
             this.form.firstOrderName = it.value;
@@ -1917,24 +1925,10 @@
         this.$set(this.form, "relateAnnexPages", null != this.form.relateAnnexPage ? this.form.relateAnnexPage.split(",") : []);
         this.form.showOrder = data.showOrder + "";
         this.form.uniqueKey = data.uniqueKey;
-        debugger
       },
 
       changeTitle() {
         this.form.sectionTitle = undefined;
-        if (undefined == this.form.sectionOrderName || "" == this.form.sectionOrderName) {
-          return;
-        }
-        let sectionOrderName = "catalogue_" + this.form.sectionOrderName;
-        this.specialCategoryTitle.some(item => {
-          if (item.key == sectionOrderName) {
-            this.form.sectionTitle = item.showTitle;
-          }
-        })
-        if (undefined != this.form.sectionTitle) {
-          return;
-        }
-
         if (undefined != this.$refs.cate && undefined != this.$refs.cate.$vnode) {
           let str = this.$refs.cate.$vnode.elm.innerText;
           let pos = -1 != str.indexOf("：") ? str.indexOf("：") : str.indexOf(":");
@@ -2033,22 +2027,14 @@
                   this.msgSuccess("修改成功");
                   this.open = false;
                   this.getList();
+                  this.getMaxUniqueKey();
                 } else {
                   debugger
                   this.msgError(response.msg);
                 }
               });
             } else {
-              let sectionOrderName = "catalogue_" + this.form.sectionOrderName;
               let num = 1;
-              let title = [];
-              this.specialCategoryTitle.forEach(item => {
-                if (item.key == sectionOrderName) {
-                  title = item.title;
-                  num = title.length;
-                  return;
-                }
-              })
               this.assignOrderValue(this.form.sectionOrderName);
               let requestParam = [];
               let tmpUniqueKey;
@@ -2062,9 +2048,6 @@
                   tmpUniqueKey = Number(tmpUniqueKey) + 1 + "";
                 }
                 obj.uniqueKey = tmpUniqueKey;
-                if(title.length > 1) {
-                  obj.sectionTitle = title[i];
-                }
                 requestParam.push(obj);
               }
               debugger
@@ -2074,6 +2057,7 @@
                   this.msgSuccess("新增成功");
                   this.open = false;
                   this.getList();
+                  this.getMaxUniqueKey();
                 } else {
                   this.msgError(response.msg);
                 }

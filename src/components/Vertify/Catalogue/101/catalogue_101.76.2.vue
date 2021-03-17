@@ -1,10 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Technically Permissible Maximum Laden Mass：
+      1, LDWS and AEBS:
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {tpmlm: $event.target.value})">
+             v-on:input="$emit('input', {v101_76_2: $event.target.value})">
     </label>
   </div>
 </template>
@@ -12,6 +12,6 @@
 
 <script>
   export default {
-    name: "catalogue_2.3.(R51)"
+    name: "catalogue_101.76.2"
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item>
-      STEERING
+      LIGHTING AND LIGHT SIGNALLING DEVICES
     </el-form-item>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: "catalogue_100.5"
+    name: "catalogue_101.59.1"
   }
 </script>
