@@ -613,7 +613,7 @@
 
   import catalogue_101_0 from "../../../components/Vertify/Catalogue/101/catalogue_101.0";
   import catalogue_101_5_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.5.1";
-  import catalogue_101_8_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.8.1";
+  import catalogue_101_7_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.7.1";
   import catalogue_101_40_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.40.1";
   import catalogue_101_42_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.42.1";
   import catalogue_101_43_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.43.1";
@@ -691,6 +691,7 @@
   import catalogue_101_62 from "../../../components/Vertify/Catalogue/101/catalogue_101.62";
   import catalogue_101_63 from "../../../components/Vertify/Catalogue/101/catalogue_101.63";
   import catalogue_101_64 from "../../../components/Vertify/Catalogue/101/catalogue_101.64";
+  import catalogue_101_64_1 from "../../../components/Vertify/Catalogue/101/catalogue_101.64.1";
   import catalogue_101_65 from "../../../components/Vertify/Catalogue/101/catalogue_101.65";
   import catalogue_101_66 from "../../../components/Vertify/Catalogue/101/catalogue_101.66";
   import catalogue_101_67 from "../../../components/Vertify/Catalogue/101/catalogue_101.67";
@@ -1062,7 +1063,7 @@
 
       catalogue_101_0,
       catalogue_101_5_1,
-      catalogue_101_8_1,
+      catalogue_101_7_1,
       catalogue_101_40_1,
       catalogue_101_42_1,
       catalogue_101_43_1,
@@ -1070,6 +1071,7 @@
       catalogue_101_46_1,
       catalogue_101_59_1,
       catalogue_101_60_1,
+      catalogue_101_64_1,
 
       catalogue_101_1,
       catalogue_101_2,
