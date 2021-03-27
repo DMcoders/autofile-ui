@@ -20,6 +20,7 @@ import { getDicts } from "@/api/system/dict/data";
 import { getConfigKey } from "@/api/system/config";
 import { parseTime, resetForm, addDateRange, selectDictLabel, download, handleTree } from "@/utils/xx";
 import Pagination from "@/components/Pagination";
+import  VueResource  from 'vue-resource'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
@@ -47,6 +48,7 @@ Vue.prototype.msgInfo = function (msg) {
 Vue.component('Pagination', Pagination)
 
 Vue.use(permission)
+Vue.use(VueResource)
 
 /**
  * If you don't want to use mock-server

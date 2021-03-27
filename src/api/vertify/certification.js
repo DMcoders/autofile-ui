@@ -145,5 +145,7 @@ export function getWritedInputs(data) {
   })
 }
 
+export const nodeServiceUrl = "http://localhost:3000"
+
 
 

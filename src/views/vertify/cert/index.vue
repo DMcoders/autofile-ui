@@ -307,6 +307,7 @@
   import {getAutoCascader} from "@/api/vertify/autoManage";
   import {list as getAllFileList} from "@/api/vertify/standardFiles";
   import {addOrUpdate,getCertificationList,getOne,deleteCertification,certificationDispatch} from "@/api/vertify/certification";
+  import {nodeServiceUrl} from "../../../api/vertify/certification";
 
 
   export default {
@@ -847,6 +848,37 @@
           background: "rgba(0, 0, 0, 0.7)"
         });
       },
+
+      handleExport(row) {
+        if (undefined == this.user
+          || null == this.user
+          || (true != this.user.admin && 'true' != this.user.admin)) {
+          this.$message({
+            message: '非管理员不能使用！',
+            type: 'error'
+          });
+          return;
+        }
+        let certificationId = row.certificationId;
+        let standardFileId = row.standardFileId;
+        let url = nodeServiceUrl + "/export?certificationId=" + certificationId + "&standardFileId=" + standardFileId;
+        this.$http.get(url, {
+          responseType: 'blob'
+        }).then(function (response) {
+          debugger
+          var blob = new Blob([response.data], {type: 'Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.wordprocessingml.document这里表示doc类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = '1.docx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }, function (response) {
+
+        });
+      }
     }
   }
 </script>
