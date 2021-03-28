@@ -483,6 +483,7 @@ import {homePageWrite,homePageReview,homePageModify,homePageFinish,
 
 import editorVue from "@/components/Tinymce";
 import ElButton from "element-ui/packages/button/src/button";
+import {nodeServiceUrl} from "../api/vertify/certification";
 
 
 export default {
@@ -855,6 +856,44 @@ export default {
     },
     closeFileExportDialog() {
       this.certificationFiles=[];
+    },
+    exportFile(row) {
+      if (undefined == this.user
+        || null == this.user
+        || (true != this.user.admin && 'true' != this.user.admin)) {
+        this.$message({
+          message: '非管理员不能使用！',
+          type: 'error'
+        });
+        return;
+      }
+      let certificationId = row.certificationId;
+      let standardFileId = row.standardFileId;
+      if ((undefined == certificationId || null == certificationId || "" == certificationId)
+        && (undefined == standardFileId || null == standardFileId || "" == standardFileId)) {
+        this.$message({
+          message: '未获取到认证id或文件id',
+          type: 'error'
+        });
+        return;
+      }
+      let url = nodeServiceUrl + "/export?certificationId=" + certificationId + "&standardFileId=" + standardFileId;
+      this.$http.get(url, {
+        responseType: 'blob'
+      }).then(function (response) {
+        debugger
+        var blob = new Blob([response.data], {type: 'Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.wordprocessingml.document这里表示doc类型
+        var downloadElement = document.createElement('a');
+        var href = window.URL.createObjectURL(blob); //创建下载的链接
+        downloadElement.href = href;
+        downloadElement.download = row.fileName + '.docx'; //下载后文件名
+        document.body.appendChild(downloadElement);
+        downloadElement.click(); //点击下载
+        document.body.removeChild(downloadElement); //下载完成移除元素
+        window.URL.revokeObjectURL(href); //释放掉blob对象
+      }, function (response) {
+
+      });
     }
   }
 }
