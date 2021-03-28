@@ -145,6 +145,14 @@ export function getWritedInputs(data) {
   })
 }
 
+export function getCertificationFilesByCertificationId(data) {
+  return request({
+    url: '/vertify/certFileInput/getCertificationFilesByCertificationId',
+    method: 'get',
+    params:{certificationId:data}
+  })
+}
+
 export const nodeServiceUrl = "http://localhost:3000"
 
 

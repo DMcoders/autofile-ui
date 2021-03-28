@@ -224,9 +224,14 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              type="success"
+              type="primary"
               @click="handleWin(scope.row)">详情</el-button>
+            <el-button
+              size="mini"
+              type="success"
+              @click="openFileExportList(scope.row)">文件导出</el-button>
           </template>
+
         </el-table-column>
       </el-table>
     </el-row>
@@ -438,6 +443,32 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="文件导出列表" :visible.sync="openFileExportWin" width="80%" fullscreen @close='closeFileExportDialog'>
+      <el-table
+        :data="certificationFiles"
+        style="width: 100%">
+        <el-table-column
+          label="文件名"
+          align="center"
+          prop="certificationName"
+          min-width="20%">
+          <template slot-scope="scope">
+            <span style="color:#ffba00">{{ scope.row.fileName }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column
+          min-width="15%" label="操作" align="center">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="success"
+              @click="exportFile(scope.row)">导出</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -445,15 +476,17 @@
 import PanelGroup from './dashboard/PanelGroup';
 import { getUserProfile } from "@/api/system/user";
 import {homePageWrite,homePageReview,homePageModify,homePageFinish,
-  getReviewDetail,getModifyDetail,getWriteDetail,getFinishDetail,
+  getReviewDetail,getModifyDetail,getWriteDetail,getFinishDetail,getCertificationFilesByCertificationId,
   sumbitWriteTextDetail,sumbitWriteAnnexDetail,submitReviewDetail,getWritedCertifications,getWritedInputs} from "@/api/vertify/certification";
 
 import editorVue from "@/components/Tinymce";
+import ElButton from "element-ui/packages/button/src/button";
 
 
 export default {
   name: 'Index',
   components: {
+    ElButton,
     PanelGroup,editorVue
   },
   created() {
@@ -466,6 +499,7 @@ export default {
       loading: [],
       openWin:false,
       openReviewWin:false,
+      openFileExportWin:false,
       roles:[],
       winTitle:'',
       type:"write",
@@ -481,7 +515,8 @@ export default {
       dialogVisible: false,
       isOnlyRead:false,
       writedCertifications:[],
-      selCertificationId:""
+      selCertificationId:"",
+      certificationFiles:[]
     }
   },
   methods: {
@@ -805,6 +840,19 @@ export default {
     },
     annexInputFill(value,index) {
       this.writeAnnexDetail[index].inputContent = this.writeAnnexDetail[index].historyInput;
+    },
+    openFileExportList(item) {
+      this.openFileExportWin = true;
+      getCertificationFilesByCertificationId(item.certificationId).then(response => {
+        if (200 == response.code) {
+          this.certificationFiles = response.data.certificationFiles;
+        } else {
+          this.$message.error(response.msg);
+        }
+      })
+    },
+    closeFileExportDialog() {
+      this.certificationFiles=[];
     }
   }
 }
