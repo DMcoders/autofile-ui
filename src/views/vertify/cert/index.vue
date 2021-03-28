@@ -34,7 +34,8 @@
 
         <el-row>
           <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="未分发" name="noHand">
+            <el-tab-pane name="noHand">
+              <span slot="label">未分发<el-badge :value="filterNoDispatchList.length"></el-badge></span>
               <el-col :span="18" class="card-box" v-for="(item,index) in filterNoDispatchList">
                 <el-card>
                   <el-container>
@@ -105,13 +106,14 @@
                 </el-card>
               </el-col>
             </el-tab-pane>
-            <el-tab-pane label="填写中" name="write">
+            <el-tab-pane name="write">
+              <span slot="label">填写中<el-badge :value="filterWriteList.length"></el-badge></span>
               <el-col :span="18" class="card-box" v-for="(item,index) in filterWriteList">
                 <el-card>
                   <el-container>
                     <el-aside width="40%" style="padding:0;margin-bottom: 0;background-color: #FFFFFF">
                       <el-row>
-                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%">
+                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" style="cursor: pointer;" height="150" width="100%" @click="showWritedWin(item.id)">
                       </el-row>
                       <el-row style="font-size: 16px;">
                         <el-col :span="12">
@@ -169,17 +171,23 @@
                 </el-card>
               </el-col>
             </el-tab-pane>
-            <el-tab-pane label="已完成" name="finish">
+            <el-tab-pane name="finish">
+              <span slot="label">已完成<el-badge :value="filterFinishList.length"></el-badge></span>
               <el-col :span="18" class="card-box" v-for="(item,index) in filterFinishList">
                 <el-card>
                   <el-container>
                     <el-aside width="40%" style="padding:0;margin-bottom: 0;background-color: #FFFFFF">
                       <el-row>
-                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%">
+                        <img :src="item.certificationImage" :onerror="defaultImg" class="image" height="150" width="100%" style="cursor: hand;" @click="showWritedWin(item.id)">
                       </el-row>
                       <el-row style="font-size: 16px;">
                         <el-col :span="12">
                           {{item.certificationName}}
+                        </el-col>
+                        <el-col :span="12">
+                          <el-button style="float: right;" type="text">
+                            <i class="el-icon-download" style="color:#1890ff;font-size:16px" @click="openFileExportList(item.id)"></i>&nbsp
+                          </el-button>
                         </el-col>
                       </el-row>
                     </el-aside>
@@ -298,6 +306,48 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog title="填写内容" :visible.sync="openWritedWin" width="80%" fullscreen @close="closeWritedWin">
+      <div v-for="(item, i) in writedDetail">
+        <el-row v-if="item.inputType!='title'" type="flex" align="middle">
+          <el-col :span="5">
+            {{item.sectionOrderName}}<br><br><br>
+            {{item.sectionTitleZh}}<br><br><br>
+            {{item.sectionTitle}}
+          </el-col>
+          <el-col :span="19">
+            <editor-vue v-if="openWritedWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="true"></editor-vue>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="文件导出列表" :visible.sync="openFileExportWin" width="80%" fullscreen @close='closeFileExportDialog'>
+      <el-table
+        :data="certificationFiles"
+        style="width: 100%">
+        <el-table-column
+          label="文件名"
+          align="center"
+          prop="certificationName"
+          min-width="20%">
+          <template slot-scope="scope">
+            <span style="color:#ffba00">{{ scope.row.fileName }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column
+          min-width="15%" label="操作" align="center">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="success"
+              @click="exportFile(scope.row)">导出</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -306,13 +356,17 @@
   import { getUserProfile } from "@/api/system/user";
   import {getAutoCascader} from "@/api/vertify/autoManage";
   import {list as getAllFileList} from "@/api/vertify/standardFiles";
-  import {addOrUpdate,getCertificationList,getOne,deleteCertification,certificationDispatch} from "@/api/vertify/certification";
+  import {addOrUpdate,getCertificationList,getOne,deleteCertification,certificationDispatch,getAllWritedInputs,getCertificationFilesByCertificationId} from "@/api/vertify/certification";
   import {nodeServiceUrl} from "../../../api/vertify/certification";
+
+  import editorVue from "@/components/Tinymce";
 
 
   export default {
     name: "cert",
-
+    components: {
+      editorVue
+    },
     computed: {
       defaultImg() {
         return 'this.src="' + require('../../../assets/image/profile.jpg') + '"';
@@ -521,6 +575,8 @@
         title: "",
         // 是否显示弹出层
         open: false,
+        writedDetail:[],
+        openWritedWin:false,
         form: {
           certificationCategory: '',
           autoTypeValue:[],
@@ -541,6 +597,8 @@
             {required: true, message: "认证类别不能为空", trigger: "blur"}
           ]
         },
+        openFileExportWin:false,
+        certificationFiles:[]
       };
     },
     watch: {
@@ -848,7 +906,30 @@
           background: "rgba(0, 0, 0, 0.7)"
         });
       },
+      showWritedWin(certificationId) {
+        this.openWritedWin = true;
+        getAllWritedInputs(certificationId).then(response => {
+          this.writedDetail = response.data.writedFileInputs;
+        });
+      },
+      closeWritedWin() {
+        this.openWritedWin = false;
+        this.writedDetail = [];
 
+      },
+      openFileExportList(certificationId) {
+        this.openFileExportWin = true;
+        getCertificationFilesByCertificationId(certificationId).then(response => {
+          if (200 == response.code) {
+            this.certificationFiles = response.data.certificationFiles;
+          } else {
+            this.$message.error(response.msg);
+          }
+        })
+      },
+      closeFileExportDialog() {
+        this.certificationFiles=[];
+      },
       handleExport(row) {
         if (undefined == this.user
           || null == this.user
