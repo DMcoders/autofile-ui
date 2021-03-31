@@ -262,7 +262,9 @@
         </el-row>
         <el-row v-else type="flex" align="middle">
           <el-col :span="5">
-            {{item.sectionTitleZh}}
+            {{item.sectionOrderName}}<br><br><br>
+            {{item.sectionTitleZh}}<br><br><br>
+            {{item.sectionTitle}}
           </el-col>
           <el-col v-if="!isOnlyRead" :span="9">
             <editor-vue v-if="openWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="isOnlyRead" @input="(res)=> item.inputContent = res" ></editor-vue>

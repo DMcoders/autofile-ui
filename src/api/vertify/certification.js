@@ -145,6 +145,14 @@ export function getWritedInputs(data) {
   })
 }
 
+export function getAllWritedInputs(data) {
+  return request({
+    url: '/vertify/certFileInput/getAllWritedInputs',
+    method: 'get',
+    params:{certificationId:data}
+  })
+}
+
 export function getCertificationFilesByCertificationId(data) {
   return request({
     url: '/vertify/certFileInput/getCertificationFilesByCertificationId',
