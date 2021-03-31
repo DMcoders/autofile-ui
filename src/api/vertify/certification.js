@@ -153,7 +153,7 @@ export function getCertificationFilesByCertificationId(data) {
   })
 }
 
-export const nodeServiceUrl = "http://localhost:3000"
+export const nodeServiceUrl = "http://47.96.124.139:3000"
 
 
 
