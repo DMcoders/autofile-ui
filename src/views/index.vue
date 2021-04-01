@@ -367,7 +367,9 @@
             </el-switch>
           </el-col>
           <el-col :span="7">
-            {{item.sectionTitleZh}}
+            {{item.sectionOrderName}}<br><br><br>
+            {{item.sectionTitleZh}}<br><br><br>
+            {{item.sectionTitle}}
           </el-col>
           <el-col :span="14">
             <editor-vue v-if="openReviewWin" class="editor" style="width:100%" :value="item.inputContent" :disabled="true" ></editor-vue>
