@@ -46,7 +46,7 @@ export function submitUpload(data) {
     method: 'post',
     data: data,
     headers: {'Content-Type': 'multipart/form-data'},
-    timeout: 20000
+    timeout: 2000000
   })
 }
 
