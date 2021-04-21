@@ -50,4 +50,13 @@ export function submitUpload(data) {
   })
 }
 
+export function getFile(url) {
+  return request({
+    url: url,
+    method: 'get',
+    responseType: 'arraybuffer',
+    timeout: 20000
+  })
+}
+
 
