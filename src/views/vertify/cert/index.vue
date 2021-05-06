@@ -930,7 +930,7 @@
       closeFileExportDialog() {
         this.certificationFiles=[];
       },
-      handleExport(row) {
+      exportFile(row) {
         if (undefined == this.user
           || null == this.user
           || (true != this.user.admin && 'true' != this.user.admin)) {
