@@ -15,6 +15,7 @@
   import "tinymce/themes/silver";
   import "tinymce/plugins/image";
   import "tinymce/plugins/autoresize";
+  import "tinymce/plugins/fullscreen";
   import "tinymce/plugins/table";
   import "tinymce/icons/default/icons.min.js";
 
@@ -36,12 +37,12 @@
       plugins: {
         type: [String, Array],
         default:
-          "image autoresize table"
+          "image autoresize table fullscreen"
       },
       toolbar: {
         type: [String, Array],
         default:
-          "undo redo | bold | alignleft aligncenter alignright alignjustify | image table"
+          "undo redo | bold | alignleft aligncenter alignright alignjustify | image table | fullscreen"
       }
     },
     data() {
