@@ -86,7 +86,8 @@ export function getReviewDetail(data) {
   return request({
     url: '/vertify/certFileInput/getReviewDetail',
     method: 'post',
-    data:data
+    data:data,
+    timeout: 20000
   })
 }
 
@@ -110,7 +111,8 @@ export function getModifyDetail(data) {
   return request({
     url: '/vertify/certFileInput/getModifyDetail',
     method: 'post',
-    data: data
+    data: data,
+    timeout: 20000
   })
 }
 
@@ -125,7 +127,8 @@ export function getFinishDetail(data) {
   return request({
     url: '/vertify/certFileInput/getFinishDetail',
     method: 'post',
-    data: data
+    data: data,
+    timeout: 20000
   })
 }
 
@@ -133,7 +136,8 @@ export function getWritedCertifications(data) {
   return request({
     url: '/vertify/certFileInput/getWritedCertifications',
     method: 'post',
-    data: data
+    data: data,
+    timeout: 20000
   })
 }
 

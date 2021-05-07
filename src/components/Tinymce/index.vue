@@ -14,7 +14,6 @@
   import Editor from "@tinymce/tinymce-vue";
   import "tinymce/themes/silver";
   import "tinymce/plugins/image";
-  import "tinymce/plugins/autoresize";
   import "tinymce/plugins/fullscreen";
   import "tinymce/plugins/table";
   import "tinymce/icons/default/icons.min.js";
@@ -37,7 +36,7 @@
       plugins: {
         type: [String, Array],
         default:
-          "image autoresize table fullscreen"
+          "image table fullscreen"
       },
       toolbar: {
         type: [String, Array],
@@ -52,7 +51,7 @@
           language: "zh_CN", //语言
           skin_url: "/tinymce/skins/ui/oxide", //如果主题不存在，指定一个主题路径
           content_css: "/tinymce/skins/content/default/content.css",
-          height: "120px",
+          height: "400px",
           width: "100%",
           plugins: this.plugins, //插件
           toolbar: this.toolbar, //工具栏

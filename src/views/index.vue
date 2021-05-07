@@ -253,11 +253,12 @@
       <el-divider></el-divider>
       <div v-for="(item, i) in writeMainDetail">
         <el-row v-if="item.inputType==='title'" style="font-weight: bold" type="flex" align="middle">
-          <el-col :span="4">
-            {{item.sectionTitleZh}}
-          </el-col>
-          <el-col :span="20">
+          <el-col :span="5">
+            {{item.sectionOrderName}}<br><br>
+            {{item.sectionTitleZh}}<br><br>
             {{item.sectionTitle}}
+          </el-col>
+          <el-col :span="19">
           </el-col>
         </el-row>
         <el-row v-else type="flex" align="middle">
@@ -603,6 +604,7 @@ export default {
     },
 
     handleWin(item) {
+      this.openLoading();
       var params = {};
       params.roles = this.roles;
       params.certificationId =item.certificationId;
@@ -618,6 +620,8 @@ export default {
             } else {
               this.$message.error(response.msg);
             }
+          }).then(response => {
+            this.loading.close();
           });
         var params2 = {};
         params2.roles = this.roles;
@@ -641,6 +645,8 @@ export default {
           } else {
             this.$message.error(response.msg);
           }
+        }).then(response => {
+          this.loading.close();
         })
 
       }else if(this.type === 'noPass') {
@@ -653,6 +659,8 @@ export default {
           } else {
             this.$message.error(response.msg);
           }
+        }).then(response => {
+          this.loading.close();
         })
         var params2 = {};
         params2.roles = this.roles;
@@ -676,6 +684,8 @@ export default {
           } else {
             this.$message.error(response.msg);
           }
+        }).then(response => {
+          this.loading.close();
         })
       }
 
