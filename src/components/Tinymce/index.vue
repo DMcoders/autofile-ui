@@ -16,6 +16,7 @@
   import "tinymce/plugins/image";
   import "tinymce/plugins/fullscreen";
   import "tinymce/plugins/table";
+  import "../../../public/tinymce/powerpaste";
   import "tinymce/icons/default/icons.min.js";
 
   import { getToken } from '@/utils/auth'
@@ -36,7 +37,7 @@
       plugins: {
         type: [String, Array],
         default:
-          "image table fullscreen"
+          "image table fullscreen powerpaste"
       },
       toolbar: {
         type: [String, Array],
@@ -58,7 +59,10 @@
           branding: false, //技术支持(Powered by Tiny || 由Tiny驱动)
           menubar: false, //菜单栏
           theme: "silver", //主题
-          // images_upload_base_path: '/demo',
+          powerpaste_word_import: 'propmt',// 参数可以是propmt, merge, clear，效果自行切换对比
+          powerpaste_html_import: 'propmt',// propmt, merge, clear
+          powerpaste_allow_local_images: true,
+          paste_data_images: true,
           images_upload_handler: (blobInfo, success, failure) => {
             this.handleImgUpload(blobInfo, success, failure)
           }
