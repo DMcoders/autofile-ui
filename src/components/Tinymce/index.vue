@@ -59,8 +59,11 @@
           branding: false, //技术支持(Powered by Tiny || 由Tiny驱动)
           menubar: false, //菜单栏
           theme: "silver", //主题
-          powerpaste_word_import: 'propmt',// 参数可以是propmt, merge, clear，效果自行切换对比
-          powerpaste_html_import: 'propmt',// propmt, merge, clear
+          external_plugins: {
+            'powerpaste': `/tinymce/powerpaste/plugin.min.js`//${this.baseUrl}
+          },
+          powerpaste_word_import: 'merge',// 参数可以是propmt, merge, clear，效果自行切换对比
+          powerpaste_html_import: 'merge',// propmt, merge, clear
           powerpaste_allow_local_images: true,
           paste_data_images: true,
           images_upload_handler: (blobInfo, success, failure) => {

@@ -37,15 +37,15 @@
           <el-tab-pane name="valid" label="有效">
             <el-row>
               <el-button type="primary" size="mini"  @click="updateTagsStatus" style="float: right;margin-bottom: 10px;margin-left:10px;">{{tagsLabel}}</el-button>
-              <!--<el-button type="primary" size="mini"  @click="batchDownLoad" style="float: right;margin-bottom: 10px;">批量下载</el-button>-->
+              <el-button type="primary" size="mini"  @click="batchDownLoad" style="float: right;margin-bottom: 10px;">批量下载</el-button>
             </el-row>
             <el-row>
-              <!--<el-checkbox-group v-model="checkList">-->
+              <el-checkbox-group v-model="checkList">
               <el-col :span="8" class="card-box" v-for="(item,index) in filterValidList">
 
                 <el-card>
                   <div slot="header" class="clearfix">
-                    <!--<el-checkbox :label="item.fileUrl" :key="item.fileUrl"><span style="font-weight: bold;white-space: normal;word-break: break-all;">{{item.fileName}}</span></el-checkbox>-->
+                    <el-checkbox :label="item.fileUrl" :key="item.fileUrl"><span style="font-weight: bold;white-space: normal;word-break: break-all;">{{item.fileName}}</span></el-checkbox>
                     <span style="font-weight: bold;white-space: normal;word-break: break-all;">{{item.fileName}}</span>
                     <el-button style="float: right; padding: 3px 0" type="text">
                       <a :href="item.fileUrl" target="_blank"><i style="color:green">下载</i></a>&nbsp
@@ -68,7 +68,7 @@
                   </div>
                 </el-card>
               </el-col>
-              <!--</el-checkbox-group>-->
+              </el-checkbox-group>
             </el-row>
           </el-tab-pane>
           <el-tab-pane name="expire" label="过期">
@@ -645,6 +645,7 @@
         let params = {};
         params.status = status;
         params.vehicleTitle = vehicleTitle;
+        this.checkList=[];
         getVehicleFiles(params).then(response => {
           if (200 == response.code) {
             if(status === 1) {
@@ -963,15 +964,18 @@
         if(this.checkList.length==0) {
           this.$message.warning("请选择下载文件！");
         }else {
+          this.loading = this.$loading({
+            lock: true,
+            text: "正在下载中，请稍等片刻",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)"
+          });
           debugger
           for(let i =0;i<this.checkList.length;i++){
-            // this.downloadFile(this.checkList[i]);
-          // }
-            // const promise = this.getFile(this.checkList[i])
-            const promise = getFile("/profile/upload/2021/04/18/7e2289eeb5ea40945f5a83723b13f261.pdf")
+            const promise = this.getFile(this.checkList[i])
               .then(data => {
                 debugger
-                const arr_name = "/profile/upload/2021/04/18/7e2289eeb5ea40945f5a83723b13f261.pdf".split("/");
+                const arr_name = this.checkList[i].split("/");
                 var file_name = arr_name[arr_name.length - 1] // 获取文件名
                 file_name = file_name.substring(file_name.indexOf("&")+1);
                 zip.file(file_name, data, { binary: true })
@@ -984,52 +988,28 @@
               saveAs(content, "压缩文件.zip") // 利用file-saver保存文件
             })
           })
+          this.loading.close();
         }
       }
       ,
       getFile(url) {
-        // return new Promise((resolve, reject) => {
-        //   // 利用ajax，此处写法根据各自配置可能略有不同
-        //   // $.ajax({method:'get', url, responseType: 'arraybuffer'})
-        //   //   .then(data => {
-        //   //     resolve(data.data)
-        //   //   }).catch(error => {
-        //   //   reject(error.toString())
-        //   // })
-        //   var xhr = new XMLHttpRequest();
-        //   xhr.open('GET', url, true);//get请求，请求地址，是否异步
-        //   xhr.responseType = "blob"; // 返回类型blob
-        //   xhr.onload = function (data, textStatus, request) {// 请求完成处理函数
-        //     if (this.status === 200) {
-        //       debugger
-        //       var blob = this.response;// 获取返回值
-        //       resolve(blob)
-        //     }
-        //   };
-        //   // 发送ajax请求
-        //   xhr.send();
-        // })
+        return new Promise((resolve, reject) => {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);//get请求，请求地址，是否异步
+          xhr.responseType = "blob"; // 返回类型blob
+          xhr.onload = function (data, textStatus, request) {// 请求完成处理函数
+            if (this.status === 200) {
+              debugger
+              var blob = this.response;// 获取返回值
+              resolve(blob)
+            }
+          };
+          // 发送ajax请求
+          xhr.send();
+        })
 
-        // return new Promise(function(resolve, reject) {
-        //   let data = {
-        //     method: "GET",
-        //     url:url,
-        //     responseType: 'arraybuffer'
-        //   }
-        //   resolve(axios(data));
-        // })
       },
-      downloadFile(url){
-        const iframe = document.createElement("iframe");
-        iframe.style.display = "none";  // 防止影响页面
-        iframe.style.height = 0;  // 防止影响页面
-        iframe.src = "http://localhost:8088/profile/upload/2021/04/18/7e2289eeb5ea40945f5a83723b13f261.pdf";
-        document.body.appendChild(iframe);  // 这一行必须，iframe挂在到dom树上才会发请求
-        // 5分钟之后删除（onload方法对于下载链接不起作用，就先抠脚一下吧）
-        setTimeout(()=>{
-          iframe.remove();
-        }, 5 * 60 * 1000);
-      }
+
 
     }
   }
