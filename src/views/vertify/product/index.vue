@@ -166,7 +166,7 @@
     />
 
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
-      <el-form ref="form" :model="form" label-width="90px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="90px">
         <el-row>
           <el-col :span="8">
             <el-form-item label="名称" prop="autoName">
@@ -1550,6 +1550,10 @@
           file: undefined,
         },
         list: [],
+        rules:{
+          autoSeries: [{required: true, message: "产品平台必选", trigger: "change"}],
+          structuralDistinctionNumber: [{required: true, message: "结构区别号必填", trigger: "blur"}]
+        },
       };
     },
 
@@ -1583,9 +1587,9 @@
         this.$set(this.form, "targetMarkets", null != data.targetMarket && '' != data.targetMarket ? data.targetMarket.split(",") : []);
         this.$set(this.form, "soldMarkets", null != data.soldMarket && '' != data.soldMarket ? data.soldMarket.split(",") : []);
         this.$set(this.form, "availableMarkets", null != data.availableMarket && '' != data.availableMarket ? data.availableMarket.split(",") : []);
+        this.form.structuralDistinctionNumber = data.structuralDistinctionNumber;
 
         let obj = {};
-        debugger
         obj.url = data.autoImage;
         this.form.fileList = [];
         if (obj.url != undefined && obj.url != "" && obj.url != null) {
@@ -1610,7 +1614,6 @@
 
 
       getList() {
-        debugger
         list(this.queryParams).then(response => {
             debugger
             this.loading = false;
@@ -1653,8 +1656,15 @@
         this.$refs["form"].validate((valid) => {
           if (valid) {
             let data = new FormData();
-            debugger
             let imageFile;
+            if(this.form.fileList.length <= 0)
+            {
+              this.$message({
+                type: 'error',
+                message: '图片必传'
+              })
+              return;
+            }
             if (this.form.fileList.length > 0) {
               imageFile = this.form.fileList[0].raw;
               // 文件对象
@@ -1729,6 +1739,7 @@
         }
 
 
+        this.autoSeriesArray = [];
         this.filters.forEach(item => {
           if (item.selectKey === "产品平台") {
             item.options.forEach(op => {
@@ -1739,6 +1750,7 @@
           }
           ;
 
+          this.emissionStandardsArray = [];
           if (item.selectKey === "排放标准") {
             item.options.forEach(op => {
               if ("不限" != op) {
@@ -1748,6 +1760,7 @@
           }
           ;
 
+          this.gearboxArray = [];
           if (item.selectKey === "变速器型式") {
             item.options.forEach(op => {
               if ("不限" != op) {
@@ -1777,6 +1790,7 @@
       },
       // 取消按钮
       cancel() {
+        this.$refs['form'].clearValidate();
         this.open = false;
         this.reset();
       },
