@@ -65,3 +65,12 @@ code {
   margin-right: 1.5rem;
   padding-right: 1rem;
 }
+.mce-pagebreak {
+  border: 1px dashed #aaa;
+  cursor: default;
+  display: block;
+  height: 5px;
+  margin-top: 15px;
+  page-break-before: always;
+  width: 100%;
+}

@@ -16,6 +16,7 @@
   import "tinymce/plugins/image";
   import "tinymce/plugins/fullscreen";
   import "tinymce/plugins/table";
+  import "tinymce/plugins/pagebreak";
   import "../../../public/tinymce/powerpaste";
   import "tinymce/icons/default/icons.min.js";
 
@@ -37,12 +38,13 @@
       plugins: {
         type: [String, Array],
         default:
-          "image table fullscreen powerpaste"
-      },
+          "image table fullscreen powerpaste pagebreak"
+
+  },
       toolbar: {
         type: [String, Array],
         default:
-          "undo redo | bold | alignleft aligncenter alignright alignjustify | image table | fullscreen"
+          "undo redo | bold | fontselect fontsizeselect| alignleft aligncenter alignright alignjustify | image table | fullscreen | pagebreak"
       }
     },
     data() {
@@ -59,6 +61,7 @@
           branding: false, //技术支持(Powered by Tiny || 由Tiny驱动)
           menubar: false, //菜单栏
           theme: "silver", //主题
+          pagebreak_split_block: true,
           external_plugins: {
             'powerpaste': `/tinymce/powerpaste/plugin.min.js`//${this.baseUrl}
           },
