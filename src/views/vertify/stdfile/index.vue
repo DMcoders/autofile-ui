@@ -35,11 +35,17 @@
       <el-col :span="6" class="card-box" v-for="(item,index) in filterFiles">
         <el-card>
           <div slot="header" class="clearfix">
-            <span style="font-weight: bold;">{{item.fileName}}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">
-              <i class="el-icon-edit" style="color:green" @click="handleUpdate(item)"></i>&nbsp
-              <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
-            </el-button>
+            <el-col :span="20" show-overflow-tooltip>
+              <el-tooltip class="item" effect="dark" :content=item.fileName placement="top-start">
+              <span style="font-weight: bold;word-break:keep-all;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 100%;display: inline-block;">{{item.fileName}}</span>
+              </el-tooltip>
+            </el-col>
+            <el-col :span="4">
+              <el-button style="float: right; padding: 3px 0" type="text">
+                <i class="el-icon-edit" style="color:green" @click="handleUpdate(item)"></i>&nbsp
+                <i class="el-icon-delete" style="color:red" @click="handleDelete(item)"></i>
+              </el-button>
+            </el-col>
           </div>
           <div @click="detail(item)" id="fileDetailLabel">
             <div class="text item">

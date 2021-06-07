@@ -940,6 +940,12 @@
           });
           return;
         }
+        this.loading = this.$loading({
+          lock: true,
+          text: "正在导出中，请耐心等待",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         let certificationId = row.certificationId;
         let standardFileId = row.standardFileId;
         let url = nodeServiceUrl + "/export?certificationId=" + certificationId + "&standardFileId=" + standardFileId;
@@ -956,8 +962,13 @@
           downloadElement.click(); //点击下载
           document.body.removeChild(downloadElement); //下载完成移除元素
           window.URL.revokeObjectURL(href); //释放掉blob对象
+          this.loading.close();
         }, function (response) {
-
+          this.loading.close();
+          this.$message({
+            message: '导出失败，请稍后再试！',
+            type: 'error'
+          });
         });
       }
     }
