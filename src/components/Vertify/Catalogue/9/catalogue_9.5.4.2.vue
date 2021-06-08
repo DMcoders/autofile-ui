@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {typeapprovalnumber9542: $event.target.value})">
 
     </label>
-    Refer to Annex E
   </div>
 </template>
 

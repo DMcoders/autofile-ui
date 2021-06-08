@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {numberofseatingpositions: $event.target.value})">
 
     </label>
-    3 seats
   </div>
 </template>
 

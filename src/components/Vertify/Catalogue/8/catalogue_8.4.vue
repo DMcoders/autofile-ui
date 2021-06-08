@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {catotbs: $event.target.value})">
-      Yes/No
     </label>
   </div>
 </template>

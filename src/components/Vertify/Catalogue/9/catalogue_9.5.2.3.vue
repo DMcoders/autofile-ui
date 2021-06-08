@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {abdotecotwlm: $event.target.value})">
 
     </label>
-    Electric mechanism for lifting side windows using an electric motor actuated by a switch.
   </div>
 </template>
 

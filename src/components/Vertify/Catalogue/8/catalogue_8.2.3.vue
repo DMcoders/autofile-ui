@@ -5,8 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {pbs: $event.target.value})">
-      Spring chamber type
-      Hand operated
     </label>
   </div>
 </template>

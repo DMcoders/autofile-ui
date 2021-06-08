@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {abdotecotas: $event.target.value})">
 
     </label>
-    Not applicable
   </div>
 </template>
 

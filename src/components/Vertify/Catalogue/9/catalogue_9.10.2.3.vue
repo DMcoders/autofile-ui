@@ -8,7 +8,6 @@
              v-on:input="$emit('input', {summarytable: $event.target.value})">
 
     </label>
-    See annex J
   </div>
 </template>
 

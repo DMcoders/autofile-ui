@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {itcocas: $event.target.value})">
-      800KPa
     </label>
   </div>
 </template>

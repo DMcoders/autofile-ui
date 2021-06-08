@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {itcovbs: $event.target.value})">
-      Not applicable
     </label>
   </div>
 </template>

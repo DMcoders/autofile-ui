@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {adbs: $event.target.value})">
-      Exhaust brake
     </label>
   </div>
 </template>

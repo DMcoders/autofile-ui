@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {bdotbs: $event.target.value})">
-      See item no. 8.2.1, 8.2.2, 8.2.3.
     </label>
   </div>
 </template>

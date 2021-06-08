@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {materialsused9531: $event.target.value})">
 
     </label>
-    Not applicable
   </div>
 </template>
 

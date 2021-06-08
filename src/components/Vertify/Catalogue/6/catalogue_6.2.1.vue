@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {ladjustment: $event.target.value})">
-      yes / no / optional (1)
     </label>
   </div>
 </template>

@@ -5,8 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {muamoc: $event.target.value})">
-      Integral unitized body, made by steel
-      Panels assembled by spotwelds
     </label>
   </div>
 </template>
