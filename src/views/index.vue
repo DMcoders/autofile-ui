@@ -911,7 +911,11 @@ export default {
         window.URL.revokeObjectURL(href); //释放掉blob对象
         this.loading.close();
       }, function (response) {
-
+        this.loading.close();
+        this.$message({
+          message: '导出失败，请稍后再试！',
+          type: 'error'
+        });
       });
     }
   }
