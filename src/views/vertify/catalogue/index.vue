@@ -202,25 +202,6 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="关联附录" prop="isRelateAnnex">
-              <el-switch on-value="1" off-value="0" inactive-value=false v-model="form.isRelateAnnex" @change="changeAnnex"></el-switch>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="附录页数" prop="relateAnnexPages">
-              <el-select style="width:80%"  v-model="form.relateAnnexPages" size="small"  multiple placeholder="请选择附录页数">
-                <el-option
-                  v-for="annexPage in relateAnnexPages"
-                  :key="annexPage"
-                  :label="annexPage"
-                  :value="annexPage"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
             <el-form-item label="显示序号" prop="showOrder">
               <el-switch on-value="1" off-value="0" inactive-value = "0" active-value = "1" v-model="form.showOrder"></el-switch>
             </el-form-item>
@@ -229,20 +210,6 @@
             <el-form-item label="唯一编码" prop="uniqueKey">
               <el-input style="width:80%" v-model="form.uniqueKey" clearable placeholder="请输入唯一编码"/>
               <br/><span  style="color:#ADADAD;" v-if="maxUniqueKey != undefined && maxUniqueKey != null">当前最大的唯一编码是{{this.maxUniqueKey}}</span>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="附录名称" prop="relateAnnex">
-              <el-select style="width:80%"  v-model="form.relateAnnex" size="small" clearable placeholder="请选择附录名称" @change="changeAnnexPage">
-                <el-option
-                  v-for="annex in relateAnnexs"
-                  :key="annex"
-                  :label="annex"
-                  :value="annex"
-                />
-              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -436,6 +403,7 @@
   import catalogue_4_3 from "../../../components/Vertify/Catalogue/4/catalogue_4.3";
   import catalogue_4_5 from "../../../components/Vertify/Catalogue/4/catalogue_4.5";
   import catalogue_4_5_1 from "../../../components/Vertify/Catalogue/4/catalogue_4.5.1";
+  import catalogue_4_5_3 from "../../../components/Vertify/Catalogue/4/catalogue_4.5.3";
   import catalogue_4_6 from "../../../components/Vertify/Catalogue/4/catalogue_4.6";
   import catalogue_4_7 from "../../../components/Vertify/Catalogue/4/catalogue_4.7";
   import catalogue_4_8 from "../../../components/Vertify/Catalogue/4/catalogue_4.8";
@@ -830,6 +798,59 @@
   import catalogue_103_5_2 from "../../../components/Vertify/Catalogue/103/catalogue_103.5.2";
   import catalogue_103_9 from "../../../components/Vertify/Catalogue/103/catalogue_103.9";
 
+  import catalogue_104_3_2_2 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.2";
+  import catalogue_104_3_2_3 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3";
+  import catalogue_104_3_2_3_1 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.1";
+  import catalogue_104_3_2_3_1_1 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.1.1";
+  import catalogue_104_3_2_3_1_2 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.1.2";
+  import catalogue_104_3_2_3_1_3 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.1.3";
+  import catalogue_104_3_2_3_2 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.2";
+  import catalogue_104_3_2_3_2_1 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.2.1";
+  import catalogue_104_3_2_3_2_2 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.2.2";
+  import catalogue_104_3_2_3_2_3 from "../../../components/Vertify/Catalogue/104/catalogue_104.3.2.3.2.3";
+
+  import catalogue_105_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.1";
+  import catalogue_105_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.2";
+  import catalogue_105_2_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.2.1";
+  import catalogue_105_2_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.2.2";
+  import catalogue_105_2_3 from "../../../components/Vertify/Catalogue/105/catalogue_105.2.3";
+  import catalogue_105_3 from "../../../components/Vertify/Catalogue/105/catalogue_105.3";
+  import catalogue_105_4 from "../../../components/Vertify/Catalogue/105/catalogue_105.4";
+  import catalogue_105_5 from "../../../components/Vertify/Catalogue/105/catalogue_105.5";
+  import catalogue_105_6 from "../../../components/Vertify/Catalogue/105/catalogue_105.6";
+  import catalogue_105_7 from "../../../components/Vertify/Catalogue/105/catalogue_105.7";
+  import catalogue_105_8 from "../../../components/Vertify/Catalogue/105/catalogue_105.8";
+  import catalogue_105_9 from "../../../components/Vertify/Catalogue/105/catalogue_105.9";
+  import catalogue_105_10 from "../../../components/Vertify/Catalogue/105/catalogue_105.10";
+  import catalogue_105_10_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.10.1";
+  import catalogue_105_11 from "../../../components/Vertify/Catalogue/105/catalogue_105.11";
+  import catalogue_105_11_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.1";
+  import catalogue_105_11_1_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.1.1";
+  import catalogue_105_11_1_1_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.1.1.1";
+  import catalogue_105_11_1_1_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.1.1.2";
+  import catalogue_105_11_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.2";
+  import catalogue_105_11_2_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.11.2.1";
+  import catalogue_105_12 from "../../../components/Vertify/Catalogue/105/catalogue_105.12";
+  import catalogue_105_12_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1";
+  import catalogue_105_12_1_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.1";
+  import catalogue_105_12_1_1_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.1.1";
+  import catalogue_105_12_1_1_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.1.2";
+  import catalogue_105_12_1_1_3 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.1.3";
+  import catalogue_105_12_1_1_4 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.1.4";
+  import catalogue_105_12_1_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2";
+  import catalogue_105_12_1_2_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.1";
+  import catalogue_105_12_1_2_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2";
+  import catalogue_105_12_1_2_2_1 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.1";
+  import catalogue_105_12_1_2_2_2 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.2";
+  import catalogue_105_12_1_2_2_3 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.3";
+  import catalogue_105_12_1_2_2_4 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.4";
+  import catalogue_105_12_1_2_2_5 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.5";
+  import catalogue_105_12_1_2_2_6 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.6";
+  import catalogue_105_12_1_2_2_7 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.7";
+  import catalogue_105_12_1_2_2_8 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.8";
+  import catalogue_105_12_1_2_2_9 from "../../../components/Vertify/Catalogue/105/catalogue_105.12.1.2.2.9";
+
+
 
   export default {
     name: "catalogue",
@@ -998,6 +1019,7 @@
       catalogue_4_3,
       catalogue_4_5,
       catalogue_4_5_1,
+      catalogue_4_5_3,
       catalogue_4_6,
       catalogue_4_7,
       catalogue_4_8,
@@ -1396,6 +1418,59 @@
       catalogue_103_5_1,
       catalogue_103_5_2,
       catalogue_103_9,
+
+      catalogue_104_3_2_2,
+      catalogue_104_3_2_3,
+      catalogue_104_3_2_3_1,
+      catalogue_104_3_2_3_1_1,
+      catalogue_104_3_2_3_1_2,
+      catalogue_104_3_2_3_1_3,
+      catalogue_104_3_2_3_2,
+      catalogue_104_3_2_3_2_1,
+      catalogue_104_3_2_3_2_2,
+      catalogue_104_3_2_3_2_3,
+
+
+      catalogue_105_1,
+      catalogue_105_2,
+      catalogue_105_2_1,
+      catalogue_105_2_2,
+      catalogue_105_2_3,
+      catalogue_105_3,
+      catalogue_105_4,
+      catalogue_105_5,
+      catalogue_105_6,
+      catalogue_105_7,
+      catalogue_105_8,
+      catalogue_105_9,
+      catalogue_105_10,
+      catalogue_105_10_1,
+      catalogue_105_11,
+      catalogue_105_11_1,
+      catalogue_105_11_1_1,
+      catalogue_105_11_1_1_1,
+      catalogue_105_11_1_1_2,
+      catalogue_105_11_2,
+      catalogue_105_11_2_1,
+      catalogue_105_12,
+      catalogue_105_12_1,
+      catalogue_105_12_1_1,
+      catalogue_105_12_1_1_1,
+      catalogue_105_12_1_1_2,
+      catalogue_105_12_1_1_3,
+      catalogue_105_12_1_1_4,
+      catalogue_105_12_1_2,
+      catalogue_105_12_1_2_1,
+      catalogue_105_12_1_2_2,
+      catalogue_105_12_1_2_2_1,
+      catalogue_105_12_1_2_2_2,
+      catalogue_105_12_1_2_2_3,
+      catalogue_105_12_1_2_2_4,
+      catalogue_105_12_1_2_2_5,
+      catalogue_105_12_1_2_2_6,
+      catalogue_105_12_1_2_2_7,
+      catalogue_105_12_1_2_2_8,
+      catalogue_105_12_1_2_2_9,
     },
 
     data() {
@@ -1431,9 +1506,9 @@
           "key": "10",
           "value": "第十章节"
         }, {"key": "11", "value": "第十一章节"}, {"key": "12", "value": "第十二章节"}, {"key": "13", "value": "第十三章节"},
-          {"key": "100", "value": "第一百章节"},{"key": "101", "value": "第一百零一章节"},{"key": "102", "value": "第一百零二章节"},{"key": "103", "value": "第一百零三章节"}]
+          {"key": "100", "value": "第一百章节"},{"key": "101", "value": "第一百零一章节"},{"key": "102", "value": "第一百零二章节"},{"key": "103", "value": "第一百零三章节"},{"key": "104", "value": "第一百零四章节"},{"key": "105", "value": "第一百零五章节"}]
         ,
-        specialCatalogueKeys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","100","101","102","103"],
+        specialCatalogueKeys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","100","101","102","103","104"],
         inputTypes: [{"key": "title", "value": "标题"}, {"key": "input", "value": "输入框"}, {
           "key": "image",
           "value": "图片"

@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {maxpl: $event.target.value})">
-      See annex B
     </label>
   </div>
 </template>

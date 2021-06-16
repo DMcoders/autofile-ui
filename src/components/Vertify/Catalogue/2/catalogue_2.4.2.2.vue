@@ -1,11 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Width：
+      Width:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {width2422: $event.target.value})">
-      See annex B
     </label>
   </div>
 </template>

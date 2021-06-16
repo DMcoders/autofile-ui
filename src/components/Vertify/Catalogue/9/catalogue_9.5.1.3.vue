@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {angleofinclination: $event.target.value})">
 
     </label>
-    15 degree
   </div>
 </template>
 

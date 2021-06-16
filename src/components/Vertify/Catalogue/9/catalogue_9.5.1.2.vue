@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {methodofmounting: $event.target.value})">
 
     </label>
-    Bonded to the body with special adhesive
   </div>
 </template>
 

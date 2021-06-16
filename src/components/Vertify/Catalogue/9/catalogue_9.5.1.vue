@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {windscreen: $event.target.value})">
-
     </label>
   </div>
 </template>

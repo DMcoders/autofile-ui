@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {approvalnumber: $event.target.value})">
 
     </label>
-    II E4 43R-011187
   </div>
 </template>
 

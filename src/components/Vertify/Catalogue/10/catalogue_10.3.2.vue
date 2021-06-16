@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {muftdotas: $event.target.value})">
     </label>
-    The light-emitting surface
   </div>
 </template>
 

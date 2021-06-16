@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {waatp: $event.target.value})">
 
     </label>
-    Not applicable
   </div>
 </template>
 

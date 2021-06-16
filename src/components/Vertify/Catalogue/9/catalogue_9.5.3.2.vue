@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {typeapprovalnumber9532: $event.target.value})">
-
     </label>
   </div>
 </template>

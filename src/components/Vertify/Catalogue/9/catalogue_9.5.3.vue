@@ -5,9 +5,7 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {openingroofglazing: $event.target.value})">
-
     </label>
-    Not applicable
   </div>
 </template>
 

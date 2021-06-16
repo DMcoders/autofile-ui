@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {abdotecotas: $event.target.value})">
-
     </label>
   </div>
 </template>

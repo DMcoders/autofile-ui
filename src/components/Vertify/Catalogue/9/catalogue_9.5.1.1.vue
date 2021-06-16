@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {materialsused9511: $event.target.value})">
 
     </label>
-    Ordinary laminated glass
   </div>
 </template>
 

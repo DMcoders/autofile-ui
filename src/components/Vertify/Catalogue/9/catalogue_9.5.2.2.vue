@@ -1,13 +1,11 @@
 <template>
   <div>
     <label for='input-one'>
-      Approval number:
+      Number(s) of the type-approval certificate(s):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {approvalnumber9522: $event.target.value})">
-
     </label>
-    Refer to Annex E
   </div>
 </template>
 

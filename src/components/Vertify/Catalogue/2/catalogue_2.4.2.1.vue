@@ -1,11 +1,11 @@
 <template>
   <div>
     <label for='input-one'>
-      Length：
+      Length:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {lengthg2421: $event.target.value})">
-      See annex B
+    
     </label>
   </div>
 </template>

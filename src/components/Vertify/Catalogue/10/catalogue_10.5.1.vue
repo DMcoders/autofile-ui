@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {voia: $event.target.value})">
     </label>
-    -1.5 %
   </div>
 </template>
 

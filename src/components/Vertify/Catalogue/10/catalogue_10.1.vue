@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {toad: $event.target.value})">
     </label>
-    See annex C
   </div>
 </template>
 

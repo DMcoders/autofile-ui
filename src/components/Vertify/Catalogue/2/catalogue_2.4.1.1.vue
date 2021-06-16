@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Length(g5)：
+      Length：
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {lengthg2411: $event.target.value})">

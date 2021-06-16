@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {instrumentconstant: $event.target.value})">
-      14592 plus/km
     </label>
   </div>
 </template>
