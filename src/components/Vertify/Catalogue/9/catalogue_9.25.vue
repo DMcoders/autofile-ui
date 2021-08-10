@@ -1,10 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Devices designed to reduce aerodynamic drag:
+      Aerodynamic device or equipment:
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {ddtrad: $event.target.value})">
+             v-on:input="$emit('input', {type_9_25: $event.target.value})">
 
     </label>
     Not applicable

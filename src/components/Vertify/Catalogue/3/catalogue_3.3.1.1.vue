@@ -1,10 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Maximum hourly output: …. kW：
+      Maximum hourly output(KW):
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {mho: $event.target.value})">
+             v-on:input="$emit('input', {type_3_3_1_1: $event.target.value})">
       Not applicable
     </label>
   </div>

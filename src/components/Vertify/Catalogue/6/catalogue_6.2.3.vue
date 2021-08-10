@@ -1,11 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Air-suspension for driving axle(s)：
+      Air-suspension for driving axle(s):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {asfda: $event.target.value})">
-      yes/no
     </label>
   </div>
 </template>

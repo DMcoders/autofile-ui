@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {manufacturer1261: $event.target.value})">
     </label>
-    CONTINENTAL
   </div>
 </template>
 

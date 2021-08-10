@@ -1,11 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Hybrid electric vehicle: yes/no 9/：
+      Hybrid electric vehicle (yes/no):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {hev: $event.target.value})">
-      Not applicable
     </label>
   </div>
 </template>

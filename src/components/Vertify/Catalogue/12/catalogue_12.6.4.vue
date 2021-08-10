@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {sorosawtslmbs: $event.target.value})">
     </label>
-    110 km/h
   </div>
 </template>
 

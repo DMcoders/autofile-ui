@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Interior fittings:
+      Interior arrangement:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {interiorfittings: $event.target.value})">

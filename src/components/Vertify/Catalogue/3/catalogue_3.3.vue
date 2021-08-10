@@ -4,8 +4,7 @@
       Electric motor：
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {electricmotor: $event.target.value})">
-      Not applicable
+             v-on:input="$emit('input', {type_3_3: $event.target.value})">
     </label>
   </div>
 </template>

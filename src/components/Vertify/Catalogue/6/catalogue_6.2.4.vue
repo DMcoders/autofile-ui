@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Air-suspension for non-driving axle(s)：
+      Air-suspension for non-driving axle(s):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {asfnda: $event.target.value})">

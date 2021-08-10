@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Ground clearance (as defined in points 3.1.1 and 3.2.1 of Appendix 1 to Annex II to Directive 2007/46/EC)
+      Ground clearance:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {gclearance2426: $event.target.value})">

@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {escfm: $event.target.value})">
-      See annex C page 3
     </label>
   </div>
 </template>

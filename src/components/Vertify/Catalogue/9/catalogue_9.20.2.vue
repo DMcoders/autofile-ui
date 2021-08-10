@@ -1,14 +1,12 @@
 <template>
   <div>
     <label for='input-one'>
-      EC type-approval number(s) of spray-suppression device(s), if available:
+      Detailed drawings of the spray-suppression system and its position on the vehicle showing the dimensions specified in the figures in Annex VI to Commission Regulation (EU) No 109/2011 and taking account of the extremes of tyre/wheel combinations:
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {etnosd: $event.target.value})">
+             v-on:input="$emit('input', {type_9_20_2: $event.target.value})">
 
     </label>
-    Fornt: e13*109/2011*2015/166*0020*00
-    Rear: e11*109/2011*2015/166*1157*00
   </div>
 </template>
 

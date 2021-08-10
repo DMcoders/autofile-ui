@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Photographs and/or drawings of the VIN (completed example with dimensions):
+      Photographs and/or drawings of the vehicle identification number (completed example with dimensions):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {padotv: $event.target.value})">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Between the axles
+      Between the axles:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {bta24261: $event.target.value})">

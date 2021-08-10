@@ -1,8 +1,11 @@
 <template>
   <div>
-    <el-form-item>
-      Electrical system
-    </el-form-item>
+    <label for='input-one'>
+      Electrical system: 
+      <input id='input-one'
+             v-bind:value='value'
+             v-on:input="$emit('input', {type_3_2_5: $event.target.value})">
+    </label>
   </div>
 </template>
 

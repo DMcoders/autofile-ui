@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Under the rear axle(s)
+      Under the rear axle(s):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {utra24163: $event.target.value})">

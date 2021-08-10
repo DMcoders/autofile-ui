@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Rear overhang
+      Rear overhang:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {roverhang2425: $event.target.value})">

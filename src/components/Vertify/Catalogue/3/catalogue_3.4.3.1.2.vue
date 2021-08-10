@@ -1,11 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Pure fuel consuming: yes/no 9/：
+      Pure fuel consuming (yes/no):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {purefuelconsuming: $event.target.value})">
-      Not applicable
     </label>
   </div>
 </template>

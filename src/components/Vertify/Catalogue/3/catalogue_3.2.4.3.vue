@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {loteo: $event.target.value})">
-      Rear right side
     </label>
   </div>
 </template>

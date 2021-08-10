@@ -1,9 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      General arrangement (drawing or photographs)
-      indicating the position of the attached sections
-      and views:
+      General arrangement (drawing or photographs) indicating the position of the attached sections and views:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {gaitpotasav: $event.target.value})">

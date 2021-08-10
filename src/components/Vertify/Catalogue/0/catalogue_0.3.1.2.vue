@@ -5,7 +5,7 @@
         Bodywork/complete  vehicle：
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {bcv: $event.target.value})">
+               v-on:input="$emit('input', {type_0_3_1_2: $event.target.value})">
       </label>
     </div>
   </div>
@@ -14,7 +14,6 @@
 
 <script>
   export default {
-    name: "catalogue_0.3.1.2",
-    props: ['value']
+    name: "catalogue_0.3.1.2"
   }
 </script>

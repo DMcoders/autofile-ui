@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Specific engine information：
+      Manufacturer of the engine:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {sei: $event.target.value})">

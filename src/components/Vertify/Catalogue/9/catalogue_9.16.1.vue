@@ -7,8 +7,6 @@
              v-on:input="$emit('input', {bdotvwrtiwg: $event.target.value})">
 
     </label>
-    The wheel guards are integrated in the vehicle body outside delimited by the front and rear wings. The inside is integrated in the vehicle structure for rear and front;
-    There are plastic parts in the inside
   </div>
 </template>
 

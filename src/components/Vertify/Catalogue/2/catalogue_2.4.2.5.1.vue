@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Departure angle
+      Departure angle:
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {dangle24251: $event.target.value})">

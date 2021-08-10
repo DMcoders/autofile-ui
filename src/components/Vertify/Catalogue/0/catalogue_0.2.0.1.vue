@@ -1,28 +1,19 @@
 <template>
   <div>
+    <div>
       <label for='input-one'>
-        Type:
+        Chassis:
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {tagcdType: $event.target.value})">
+               v-on:input="$emit('input', {type_0_2_0_1: $event.target.value})">
       </label>
+    </div>
   </div>
 </template>
-<style>
 
-  input{
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  label{
-    vertical-align: middle;
-  }
-</style>
 
 <script>
   export default {
-    name: "catalogue_0.2.0.1",
-    props: ['value']
+    name: "catalogue_0.2.0.1"
   }
 </script>

@@ -1,11 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Mass In Running Order (a) minimum and maximum for each variant：
+      Mass in Running Order (a) minimum and maximum for each variant：
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {miro: $event.target.value})">
-      See annex C
     </label>
   </div>
 </template>

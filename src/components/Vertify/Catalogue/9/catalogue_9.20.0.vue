@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {pyni: $event.target.value})">
 
     </label>
-    yes
   </div>
 </template>
 

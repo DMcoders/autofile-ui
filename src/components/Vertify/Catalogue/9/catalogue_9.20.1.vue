@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {bdotvwrtiss: $event.target.value})">
 
     </label>
-    See annex B
   </div>
 </template>
 

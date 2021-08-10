@@ -5,7 +5,7 @@
         Chassis：
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {chassis: $event.target.value})">
+               v-on:input="$emit('input', {typr_0_3_1_1: $event.target.value})">
       </label>
     </div>
   </div>
@@ -14,7 +14,6 @@
 
 <script>
   export default {
-    name: "catalogue_0.3.1.1",
-    props: ['value']
+    name: "catalogue_0.3.1.1"
   }
 </script>

@@ -1,28 +1,19 @@
 <template>
   <div>
+    <div>
       <label for='input-one'>
-        Variant：
+        Bodywork/complete vehicle:
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {tagcdVariant: $event.target.value})">
+               v-on:input="$emit('input', {type_0_2_0_2: $event.target.value})">
       </label>
+    </div>
   </div>
 </template>
-<style>
 
-  input{
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  label{
-    vertical-align: middle;
-  }
-</style>
 
 <script>
   export default {
-    name: "catalogue_0.2.0.2",
-    props: ['value']
+    name: "catalogue_0.2.0.2"
   }
 </script>
