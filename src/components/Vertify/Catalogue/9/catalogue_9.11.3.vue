@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {dopotesiaw: $event.target.value})">
     </label>
-    See annex G
   </div>
 </template>
 

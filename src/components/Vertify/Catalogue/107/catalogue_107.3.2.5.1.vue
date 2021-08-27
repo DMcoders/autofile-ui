@@ -1,19 +1,16 @@
 <template>
   <div>
-    <div>
       <label for='input-one'>
-        Name and address(es) of assembly plant(s):
+        Number of catalytic converters and elements:
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {type_0_7: $event.target.value})">
+               v-on:input="$emit('input', {type_107_3_2_5_1: $event.target.value})">
       </label>
-    </div>
   </div>
 </template>
 
-
 <script>
   export default {
-    name: "catalogue_0.7"
+    name: "catalogue_107.3.2.5.1"
   }
 </script>

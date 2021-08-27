@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {dotvprttip: $event.target.value})">
 
     </label>
-    See annex H
   </div>
 </template>
 

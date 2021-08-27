@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {itcosd: $event.target.value})">
 
     </label>
-    See annex I
   </div>
 </template>
 

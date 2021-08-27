@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {tost: $event.target.value})">
-      Recirculating ball Front axle
     </label>
   </div>
 </template>

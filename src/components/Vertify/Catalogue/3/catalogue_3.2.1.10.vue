@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {mnt: $event.target.value})">
-      2950 min-1
     </label>
   </div>
 </template>

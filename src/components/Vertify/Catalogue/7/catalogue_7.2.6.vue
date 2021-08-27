@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {ramoa: $event.target.value})">
-      Not applicable
     </label>
   </div>
 </template>

@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {type_3_4_3: $event.target.value})">
-      Not applicable
     </label>
   </div>
 </template>

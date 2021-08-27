@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {toiauortitv: $event.target.value})">
     </label>
-    Not applicable
   </div>
 </template>
 

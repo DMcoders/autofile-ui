@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {motcuitspa: $event.target.value})">
 
     </label>
-    See annex C
   </div>
 </template>
 

@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {vew2sre: $event.target.value})">
     </label>
-    Yes/no/optional
   </div>
 </template>
 

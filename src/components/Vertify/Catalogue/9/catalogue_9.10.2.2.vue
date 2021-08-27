@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {padot91021: $event.target.value})">
 
     </label>
-    See annex J
   </div>
 </template>
 

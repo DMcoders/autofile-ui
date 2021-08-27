@@ -2,10 +2,10 @@
   <div>
     <div>
       <label for='input-one'>
-        Name and address(es) of assembly plant(s):
+        Chassis: 
         <input id='input-one'
                v-bind:value='value'
-               v-on:input="$emit('input', {type_0_7: $event.target.value})">
+               v-on:input="$emit('input', {type_115_0_3_1_1: $event.target.value})">
       </label>
     </div>
   </div>
@@ -14,6 +14,6 @@
 
 <script>
   export default {
-    name: "catalogue_0.7"
+    name: "catalogue_115.0.3.1.1"
   }
 </script>

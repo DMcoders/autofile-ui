@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {iotpttv: $event.target.value})">
 
     </label>
-    See annex A
   </div>
 </template>
 

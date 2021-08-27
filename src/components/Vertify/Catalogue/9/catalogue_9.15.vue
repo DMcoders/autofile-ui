@@ -1,10 +1,10 @@
 <template>
   <div>
     <label for='input-one'>
-      Dimensions (length x width):
+      Rear under-run protection:
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {dimensionslw: $event.target.value})">
+             v-on:input="$emit('input', {type_9_15: $event.target.value})">
 
     </label>
   </div>
@@ -12,6 +12,6 @@
 
 <script>
   export default {
-    name: "catalogue_9.14.5"
+    name: "catalogue_9.15"
   }
 </script>

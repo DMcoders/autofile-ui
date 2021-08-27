@@ -6,7 +6,6 @@
              v-bind:value='value'
              v-on:input="$emit('input', {rheo: $event.target.value})">
     </label>
-    Hook
   </div>
 </template>
 

@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {icoasd: $event.target.value})">
 
     </label>
-    Not applicable
   </div>
 </template>
 

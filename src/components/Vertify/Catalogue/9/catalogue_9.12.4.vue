@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {abdotec9124: $event.target.value})">
 
     </label>
-    Front safety belts have reminder device.
   </div>
 </template>
 

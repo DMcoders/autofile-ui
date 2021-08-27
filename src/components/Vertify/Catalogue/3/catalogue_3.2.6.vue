@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {type_3_2_6: $event.target.value})">
-      Yes
     </label>
   </div>
 </template>

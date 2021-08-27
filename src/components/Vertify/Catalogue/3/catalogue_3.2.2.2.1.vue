@@ -1,7 +1,7 @@
 <template>
   <div>
       <label for='input-one'>
-        Working principle: Intake manifold (single-/multi-point2)/direct injection/other (specify):
+        Working principle (Intake manifold (single-/multi-point2)/direct injection/other (specify)):
         <input id='input-one'
                v-bind:value='value'
                v-on:input="$emit('input', {type_3_2_2_2_1: $event.target.value})">

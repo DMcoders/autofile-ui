@@ -5,7 +5,6 @@
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {moa: $event.target.value})">
-      HPS
     </label>
   </div>
 </template>

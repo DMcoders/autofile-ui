@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for='input-one'>
-      Presence: yes/no/incomplete:
+      Presence (yes/no/incomplete):
       <input id='input-one'
              v-bind:value='value'
              v-on:input="$emit('input', {pyni: $event.target.value})">

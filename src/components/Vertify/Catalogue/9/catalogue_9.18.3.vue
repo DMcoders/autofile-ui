@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {tadorice: $event.target.value})">
 
     </label>
-    See annex D
   </div>
 </template>
 

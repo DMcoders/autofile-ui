@@ -4,9 +4,8 @@
       Front hook/eye/other:
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {fheo: $event.target.value})">
+             v-on:input="$emit('input', {type_12_3_1: $event.target.value})">
     </label>
-    Hook
   </div>
 </template>
 

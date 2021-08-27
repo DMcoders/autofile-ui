@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {dopotpomchitec: $event.target.value})">
 
     </label>
-    See annex D
   </div>
 </template>
 

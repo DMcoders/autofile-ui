@@ -7,7 +7,6 @@
              v-on:input="$emit('input', {icauitsptcw: $event.target.value})">
 
     </label>
-    See annex C
   </div>
 </template>
 

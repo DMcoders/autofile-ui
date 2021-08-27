@@ -1,13 +1,12 @@
 <template>
   <div>
     <label for='input-one'>
-      Presence:
+      Presence (yes/no/incomplete):
       <input id='input-one'
              v-bind:value='value'
-             v-on:input="$emit('input', {presence9220: $event.target.value})">
+             v-on:input="$emit('input', {type_9_22_0: $event.target.value})">
 
     </label>
-    yes/no/incomplete
   </div>
 </template>
 
